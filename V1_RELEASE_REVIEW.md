@@ -49,4 +49,4 @@ The clean-environment package check installs the built wheel without network acc
 
 ## Repository state
 
-The release tag is `v1.0.0`. The final commit SHA and GitHub URL are recorded in the release handoff after the repository push completes.
+The release baseline commit is `7500a2b`. The public repository is [github.com/revanthpp/agent-native](https://github.com/revanthpp/agent-native), and the release tag is `v1.0.0`.

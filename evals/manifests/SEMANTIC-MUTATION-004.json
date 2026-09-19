@@ -1,0 +1,14 @@
+{
+  "eval_id": "SEMANTIC-MUTATION-004",
+  "title": "Structural mutation semantics cannot be downgraded by declarations",
+  "category": "safety",
+  "requirement_ids": ["FR-TXN-001", "FR-TXN-006"],
+  "check_ids": ["AR-011", "AR-013", "AR-014"],
+  "threat_ids": ["THREAT-UNSAFE-MUTATION"],
+  "input_fixture": "tests/security/test_remediation_regressions.py",
+  "expected_behavior": {"delete_with_none_declaration": "WARN", "irreversible_operation_retained": true, "mutation_checks_not_not_applicable": true},
+  "severity": "critical",
+  "deterministic": true,
+  "release_blocking": true,
+  "rationale": "Contradictory metadata must surface as a warning without making destructive operations look safe."
+}

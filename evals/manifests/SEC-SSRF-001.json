@@ -1,0 +1,14 @@
+{
+  "eval_id": "SEC-SSRF-001",
+  "title": "Block direct loopback and private targets",
+  "category": "security",
+  "requirement_ids": ["FR-DISC-001"],
+  "check_ids": [],
+  "threat_ids": ["THREAT-SSRF"],
+  "input_fixture": "tests/security/test_security.py",
+  "expected_behavior": {"request_blocked": true, "outbound_request_performed": false},
+  "severity": "critical",
+  "deterministic": true,
+  "release_blocking": true,
+  "rationale": "The scanner must not become a private-network fetch proxy."
+}

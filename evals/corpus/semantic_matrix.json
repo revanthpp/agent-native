@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "cases": [
+    {"fixture": "examples/traditional-business", "check_id": "AR-003", "expected_status": "NOT_OBSERVED"},
+    {"fixture": "examples/api-enabled-business", "check_id": "AR-003", "expected_status": "PASS"},
+    {"fixture": "examples/api-enabled-business", "check_id": "AR-004", "expected_status": "PASS"},
+    {"fixture": "examples/api-enabled-business", "check_id": "AR-005", "expected_status": "PASS"},
+    {"fixture": "examples/api-enabled-business", "check_id": "AR-011", "expected_status": "WARN"},
+    {"fixture": "examples/agent-native-business", "check_id": "AR-012", "expected_status": "PASS"},
+    {"fixture": "examples/agent-native-business", "check_id": "AR-014", "expected_status": "PASS"},
+    {"fixture": "examples/agent-native-business", "check_id": "AR-015", "expected_status": "PASS"},
+    {"fixture": "evals/adversarial/credentials/bearer.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/token.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/secret.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/session-id.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/sessionid.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/api-key.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/client-secret.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/password.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/cookie.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/encoded-body.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/double-encoded.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/encoded-bearer.html", "check_id": "AR-020", "expected_status": "FAIL"},
+    {"fixture": "evals/adversarial/credentials/safe-token-language.html", "check_id": "AR-020", "expected_status": "PASS"},
+    {"fixture": "evals/adversarial/credentials/safe-encoded-language.html", "check_id": "AR-020", "expected_status": "PASS"}
+  ]
+}

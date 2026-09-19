@@ -1,0 +1,23 @@
+{
+  "openapi": "3.0.3",
+  "info": {"title": "Juniper Home Services", "version": "2026.09"},
+  "components": {
+    "securitySchemes": {
+      "oauth": {"type": "oauth2", "flows": {"authorizationCode": {"authorizationUrl": "https://auth.example.invalid/authorize", "tokenUrl": "https://auth.example.invalid/token", "scopes": {"service:search": "Search availability", "service:quote": "Create a quote", "service:reserve": "Reserve a quoted slot"}}}}
+    }
+  },
+  "paths": {
+    "/services": {
+      "get": {"operationId": "searchServices", "summary": "Search available services", "parameters": [{"name": "date", "in": "query", "required": true, "schema": {"type": "string", "format": "date"}}, {"name": "postalCode", "in": "query", "required": true, "schema": {"type": "string"}}], "responses": {"200": {"description": "Available service slots", "content": {"application/json": {"schema": {"type": "array", "items": {"type": "object"}}}}}, "400": {"description": "Invalid date or postal code"}}}
+    },
+    "/quotes": {
+      "post": {"operationId": "createQuote", "summary": "Create a reservation quote", "description": "Returns price, fees, expiry, cancellation terms, and a quoteId. This operation is idempotent by request key.", "x-side-effect": "REVERSIBLE", "parameters": [{"name": "Idempotency-Key", "in": "header", "required": true, "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["serviceId", "date"], "properties": {"serviceId": {"type": "string"}, "date": {"type": "string", "format": "date"}}}}}}, "responses": {"201": {"description": "Quote created", "content": {"application/json": {"schema": {"type": "object"}}}}, "400": {"description": "Validation error"}, "409": {"description": "Quote conflict"}, "429": {"description": "Retry-After applies"}}}
+    },
+    "/reservations": {
+      "post": {"operationId": "reserveQuotedSlot", "summary": "Reserve a quoted slot after confirmation", "description": "Creates one reservation for the supplied quote. Explicit confirmation is required. Idempotency-Key deduplicates retries. Correlation ID is returned.", "x-side-effect": "REVERSIBLE", "x-confirmation-required": true, "parameters": [{"name": "Idempotency-Key", "in": "header", "required": true, "schema": {"type": "string"}}, {"name": "X-Request-ID", "in": "header", "required": false, "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["quoteId", "confirmed"], "properties": {"quoteId": {"type": "string"}, "confirmed": {"type": "boolean"}}}}}}, "responses": {"201": {"description": "Reservation created with receipt", "content": {"application/json": {"schema": {"type": "object"}}}}, "400": {"description": "Validation error"}, "409": {"description": "Terms changed; re-quote"}, "429": {"description": "Retry-After applies"}, "500": {"description": "Retryable provider failure"}}}
+    },
+    "/reservations/{reservationId}/cancel": {
+      "post": {"operationId": "cancelReservation", "summary": "Cancel a reservation", "description": "Cancels a reservation within its cancellation window and returns a receipt.", "x-side-effect": "REVERSIBLE", "parameters": [{"name": "reservationId", "in": "path", "required": true, "schema": {"type": "string"}}, {"name": "Idempotency-Key", "in": "header", "required": true, "schema": {"type": "string"}}], "responses": {"200": {"description": "Cancellation receipt", "content": {"application/json": {"schema": {"type": "object"}}}}, "404": {"description": "Reservation not found"}, "409": {"description": "Cancellation window closed"}}}
+    }
+  }
+}

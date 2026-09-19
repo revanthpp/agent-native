@@ -1,0 +1,14 @@
+{
+  "eval_id": "MEASURE-REFERENCE-001",
+  "title": "Reference business maturity progression",
+  "category": "functional",
+  "requirement_ids": ["FR-DISC-002", "FR-CAP-001", "FR-REP-002"],
+  "check_ids": ["AR-003", "AR-004", "AR-005", "AR-012", "AR-014"],
+  "threat_ids": [],
+  "input_fixture": "evals/corpus/reference_businesses.json",
+  "expected_behavior": {"traditional": "machine_interface_not_observed", "api_enabled": "interface_with_gaps", "agent_native": "strong_passive_evidence"},
+  "severity": "high",
+  "deterministic": true,
+  "release_blocking": true,
+  "rationale": "The controlled corpus is the first proof that evidence and status distinctions work end to end."
+}

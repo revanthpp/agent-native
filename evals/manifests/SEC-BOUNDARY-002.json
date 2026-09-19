@@ -1,0 +1,14 @@
+{
+  "eval_id": "SEC-BOUNDARY-002",
+  "title": "Redirect, rebinding, address-family, and resource-bound enforcement",
+  "category": "security",
+  "requirement_ids": ["FR-DISC-001", "FR-DISC-002"],
+  "check_ids": ["AR-001", "AR-002"],
+  "threat_ids": ["THREAT-SSRF", "THREAT-RESOURCE-EXHAUSTION"],
+  "input_fixture": "tests/security/test_network_boundaries.py",
+  "expected_behavior": {"private_redirect_blocked": true, "dns_rebinding_blocked": true, "mapped_ipv6_blocked": true, "response_and_redirect_budgets_enforced": true},
+  "severity": "critical",
+  "deterministic": true,
+  "release_blocking": true,
+  "rationale": "A passive scanner must not become a private-network proxy or an unbounded resource consumer."
+}

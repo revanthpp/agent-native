@@ -1,0 +1,14 @@
+{
+  "eval_id": "SEC-REPORT-BOUNDARY-003",
+  "title": "Public report excludes acquired payloads and preserves evidence provenance",
+  "category": "security",
+  "requirement_ids": ["FR-DISC-004", "FR-DISC-005", "FR-REP-001", "FR-REP-002"],
+  "check_ids": ["AR-020"],
+  "threat_ids": ["THREAT-DATA-EXFILTRATION", "THREAT-EVIDENCE-TAMPERING"],
+  "input_fixture": "tests/security/test_report_integrity.py",
+  "expected_behavior": {"raw_artifact_content_public": false, "response_headers_public": false, "tampered_evidence_rejected": true, "credentialed_target_echoed": false},
+  "severity": "critical",
+  "deterministic": true,
+  "release_blocking": true,
+  "rationale": "Evidence-backed output must be shareable without turning target content or credentials into report data."
+}

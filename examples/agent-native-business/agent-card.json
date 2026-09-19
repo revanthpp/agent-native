@@ -1,0 +1,7 @@
+{
+  "name": "Juniper Home Services",
+  "version": "2026.09",
+  "agentProtocol": "a2a",
+  "auth": {"type": "oauth2", "scopes": ["service:search", "service:quote", "service:reserve"]},
+  "capabilities": ["search", "quote", "reserve", "cancel"]
+}

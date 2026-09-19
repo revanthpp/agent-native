@@ -1,0 +1,14 @@
+{
+  "eval_id": "OBSERVABILITY-CLI-005",
+  "title": "Blocked and incomplete scans are observable to automation",
+  "category": "operational",
+  "requirement_ids": ["FR-REP-001", "FR-REP-002"],
+  "check_ids": [],
+  "threat_ids": ["THREAT-FAIL-OPEN"],
+  "input_fixture": "tests/security/test_remediation_regressions.py",
+  "expected_behavior": {"blocked_scan_exit_nonzero": true, "completed_scan_with_findings_exit_zero": true, "parse_error_visible": true},
+  "severity": "high",
+  "deterministic": true,
+  "release_blocking": true,
+  "rationale": "Schedulers and CI need to distinguish a completed assessment from a scan that never safely executed."
+}

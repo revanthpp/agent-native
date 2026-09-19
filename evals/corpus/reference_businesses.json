@@ -1,0 +1,5 @@
+{
+  "traditional-business": {"target": "examples/traditional-business", "expected": {"AR-003": "NOT_OBSERVED"}},
+  "api-enabled-business": {"target": "examples/api-enabled-business", "expected": {"AR-003": "PASS", "AR-004": "PASS", "AR-005": "PASS", "AR-011": "WARN"}},
+  "agent-native-business": {"target": "examples/agent-native-business", "expected": {"AR-003": "PASS", "AR-004": "PASS", "AR-005": "PASS", "AR-012": "PASS", "AR-014": "PASS", "AR-015": "PASS"}}
+}

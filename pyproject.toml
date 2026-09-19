@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentnative"
+version = "1.0.0"
+description = "Evidence-backed passive readiness checks for agent-business interoperability."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [{name = "Agent Native contributors"}]
+dependencies = []
+
+[project.scripts]
+agentnative = "agentnative.cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "entries": [
+    {"check_id": "AR-001", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/traditional-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "transport is not inferable from local fixture mode"},
+    {"check_id": "AR-002", "positive_fixture": "examples/agent-native-business", "negative_fixture": "evals/adversarial/prompt-injection.html", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "bounded acquisition policy is explicit"},
+    {"check_id": "AR-003", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/traditional-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "machine interface discovered vs not observed"},
+    {"check_id": "AR-004", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/traditional-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "explicit version vs absent version"},
+    {"check_id": "AR-005", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "stable operation identifiers"},
+    {"check_id": "AR-006", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "typed inputs and requiredness"},
+    {"check_id": "AR-007", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "structured outputs"},
+    {"check_id": "AR-008", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/traditional-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "authentication declaration"},
+    {"check_id": "AR-009", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "authorization scopes"},
+    {"check_id": "AR-010", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "wildcard authorization detection"},
+    {"check_id": "AR-011", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "structural mutation classification"},
+    {"check_id": "AR-012", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "quote or preview boundary"},
+    {"check_id": "AR-013", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "confirmation boundary"},
+    {"check_id": "AR-014", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "idempotency or dedupe"},
+    {"check_id": "AR-015", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "cancellation or compensation"},
+    {"check_id": "AR-016", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "retry and rate-limit guidance"},
+    {"check_id": "AR-017", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "structured errors"},
+    {"check_id": "AR-018", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/api-enabled-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "correlation identifiers"},
+    {"check_id": "AR-019", "positive_fixture": "examples/agent-native-business", "negative_fixture": "examples/traditional-business", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "human escalation path"},
+    {"check_id": "AR-020", "positive_fixture": "examples/agent-native-business", "negative_fixture": "evals/adversarial/secret-bearing.html", "missing_evidence_fixture": "examples/traditional-business", "expected_signal": "secret-bearing artifact fails and evidence is redacted"}
+  ]
+}

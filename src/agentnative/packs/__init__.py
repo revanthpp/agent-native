@@ -11,7 +11,7 @@ from agentnative.packs.activation import (
     ActivationRecommendation,
     ActivationStrategyEngine,
 )
-from agentnative.packs.core_gates import CoreGuarantee, CoreGuaranteeError, CoreGuaranteeRegistry
+from agentnative.packs.core_gates import AttestationSubject, AttestedGuarantee, CoreGuarantee, CoreGuaranteeAttestation, CoreGuaranteeError, CoreGuaranteeRegistry, CoreTrustStore, TrustedAttestationKey
 from agentnative.packs.evidence import EvidenceObservation, EvidenceState, EvidenceStore, TraceabilityError, TraceabilityRecord, validate_traceability
 from agentnative.packs.evals import EvalResult, PackEvalHarness
 from agentnative.packs.loader import PackCompatibilityError, PackLoader, PackRegistry, PackResourceLimitError, load_builtin_packs
@@ -25,7 +25,8 @@ from agentnative.packs.models import (
     PackManifest,
 )
 from agentnative.packs.protocols import DriftResult, ProtocolDriftReport, ProtocolProfile, ProtocolRegistry
-from agentnative.packs.retail import RetailActivationBlocked, RetailJourneyState, RetailOrder, RetailProduct, RetailQuote, RetailReferenceEnvironment, RetailResult, RetailVariant
+from agentnative.packs.retail import PaymentAuthorization, PaymentAuthorizationState, RetailActivationBlocked, RetailJourneyState, RetailOrder, RetailProduct, RetailQuote, RetailReferenceEnvironment, RetailRefund, RetailResult, RetailReturn, RetailVariant
+from agentnative.packs.signing import DependencyLock, PackSignatureEnvelope, PackSignatureError, PackSignatureVerifier, PackSigner, PackTrustPolicy, pack_signed_payload
 
 __all__ = [
     "ActivationInputs",
@@ -33,8 +34,13 @@ __all__ = [
     "ActivationRecommendation",
     "ActivationStrategyEngine",
     "CoreGuarantee",
+    "AttestationSubject",
+    "AttestedGuarantee",
+    "CoreGuaranteeAttestation",
     "CoreGuaranteeError",
     "CoreGuaranteeRegistry",
+    "CoreTrustStore",
+    "TrustedAttestationKey",
     "EvidenceObservation",
     "EvidenceState",
     "EvidenceStore",
@@ -55,13 +61,24 @@ __all__ = [
     "ProtocolProfile",
     "ProtocolRegistry",
     "RetailActivationBlocked",
+    "PaymentAuthorization",
+    "PaymentAuthorizationState",
     "RetailJourneyState",
     "RetailOrder",
     "RetailProduct",
     "RetailQuote",
     "RetailReferenceEnvironment",
     "RetailResult",
+    "RetailReturn",
+    "RetailRefund",
     "RetailVariant",
+    "DependencyLock",
+    "PackSignatureEnvelope",
+    "PackSignatureError",
+    "PackSignatureVerifier",
+    "PackSigner",
+    "PackTrustPolicy",
+    "pack_signed_payload",
     "PackEvalHarness",
     "PackRegistry",
     "PackResourceLimitError",

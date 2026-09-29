@@ -16,3 +16,16 @@
 
 The builder does not mark any independent-audit gate as passed.
 
+## RC1 builder snapshot
+
+| RC1 workstream | Implementation | Verification | Status |
+|---|---|---|---|
+| RC1-GATE-001..007 | `packs/core_gates.py`, `agentnative guarantees` CLI | signed subject/revocation tests; CLI inspection smoke | BUILDER IMPLEMENTED / INDEPENDENT ATTESTATION OPEN |
+| RC1-SIGN-001..008 | `packs/signing.py`, `PackRegistry` trust policy | Ed25519 payload and dependency-lock negative tests | PARTIAL |
+| RC1-STORE-001..008 | `persistence.py`, Retail opt-in storage | SQLite restart replay and receipt verification | PARTIAL |
+| RC1-CONN-001..010 | `connectors.py` | endpoint, scheme, environment, side-effect, and capability tests | PARTIAL |
+| RC1-RET-001..009 | `packs/retail.py` | payment authorization, return transitions, refund replay/ceiling tests | PARTIAL |
+| RC1-EVID-001..005 | `scripts/run_phase3_rc1_evidence.py`, builder report | evidence manifest generation | BUILDER EVIDENCE ONLY |
+| RC1 verification expansion | existing mutation suites plus focused RC1 tests | 5 RC1 focused tests; broader property/fuzz/concurrency corpus pending | PARTIAL |
+
+RC1 does not change the independent-audit status. Phase 3A and Phase 3B remain `NOT_READY` until Gate 0 and the required independent evidence are closed.

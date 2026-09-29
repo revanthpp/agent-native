@@ -116,7 +116,7 @@ agentnative packs list
 agentnative packs show sector.retail
 ```
 
-The original sector-pack BRD, the authoritative Phase 3 build-requirements BRD, builder report, architecture, threat model, and challenge review live under [`V3/`](V3/). The current builder status is explicitly `PHASE_3A_NOT_READY` / `PHASE_3B_NOT_READY` until the independent Phase 2C and Phase 3 gates close. Phase 3B–3D will only promote a pack after its sector release gates, connector boundaries, adversarial corpus, and evidence requirements are independently satisfied.
+The original sector-pack BRD, the authoritative Phase 3 build-requirements BRD, RC1 hardening BRD, builder reports, architecture, threat model, and challenge review live under [`V3/`](V3/). RC1 now includes subject-bound attestations, signed pack/dependency policy, SQLite restart-safe reference state, connector boundaries, and separated Retail payment/return/refund flows. The current builder status remains explicitly `PHASE_3A_NOT_READY` / `PHASE_3B_NOT_READY` until the independent Phase 2C and Phase 3 gates close.
 
 ## Quick start
 

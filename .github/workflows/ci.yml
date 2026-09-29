@@ -40,3 +40,12 @@ jobs:
         run: PYTHONPATH=src python scripts/run_phase2b_mutations.py
       - name: Run Phase 2C mutation controls
         run: PYTHONPATH=src python scripts/run_phase2c_mutations.py
+      - name: Run Phase 3 mutation controls
+        run: PYTHONPATH=src python scripts/run_phase3_mutations.py
+      - name: Generate RC1 builder evidence manifest
+        run: PYTHONPATH=src python scripts/run_phase3_rc1_evidence.py --output V3/evidence/phase3_rc1_builder_manifest.json
+      - name: Upload RC1 builder evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase3-rc1-builder-evidence
+          path: V3/evidence/phase3_rc1_builder_manifest.json

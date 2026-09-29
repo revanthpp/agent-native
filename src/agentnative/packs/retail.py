@@ -8,6 +8,7 @@ from typing import Any
 from agentnative.observability import TraceContext, TraceRecorder
 from agentnative.ownership import Environment
 from agentnative.packs.core_gates import CoreGuaranteeError, CoreGuaranteeRegistry
+from agentnative.persistence import SQLiteStateStore
 from agentnative.receipts import Receipt, ReceiptEngine
 from agentnative.transactions import Confirmation, Quote, TransactionSafetyEngine, TransactionSafetyError
 from agentnative.transactions.core import stable_hash
@@ -32,6 +33,31 @@ class RetailJourneyState(StrEnum):
     REFUNDED = "REFUNDED"
     RECONCILIATION_REQUIRED = "RECONCILIATION_REQUIRED"
     MANUAL_ESCALATION = "MANUAL_ESCALATION"
+    RETURN_NOT_REQUESTED = "RETURN_NOT_REQUESTED"
+    RETURN_REQUESTED = "RETURN_REQUESTED"
+    RETURN_AUTHORIZED = "RETURN_AUTHORIZED"
+    RETURN_REJECTED = "RETURN_REJECTED"
+    RETURN_IN_TRANSIT = "RETURN_IN_TRANSIT"
+    RETURN_RECEIVED = "RETURN_RECEIVED"
+    RETURN_INSPECTION_REQUIRED = "RETURN_INSPECTION_REQUIRED"
+    RETURN_COMPLETED = "RETURN_COMPLETED"
+    REFUND_NOT_REQUESTED = "REFUND_NOT_REQUESTED"
+    REFUND_AUTHORIZATION_PENDING = "REFUND_AUTHORIZATION_PENDING"
+    REFUND_AUTHORIZED = "REFUND_AUTHORIZED"
+    REFUND_REJECTED = "REFUND_REJECTED"
+    REFUND_SUBMITTED = "REFUND_SUBMITTED"
+    REFUND_FAILED = "REFUND_FAILED"
+    REFUND_UNKNOWN_OUTCOME = "REFUND_UNKNOWN_OUTCOME"
+    REFUND_RECONCILIATION_REQUIRED = "REFUND_RECONCILIATION_REQUIRED"
+
+
+class PaymentAuthorizationState(StrEnum):
+    AUTHORIZED = "AUTHORIZED"
+    DECLINED = "DECLINED"
+    EXPIRED = "EXPIRED"
+    REQUIRES_ACTION = "REQUIRES_ACTION"
+    TIMEOUT_UNKNOWN = "TIMEOUT_UNKNOWN"
+    REVERSED = "REVERSED"
 
 
 @dataclass
@@ -72,6 +98,44 @@ class RetailOrder:
     quantity: int = 1
     trace_id: str = ""
 
+    def to_dict(self) -> dict[str, Any]:
+        return {"order_id": self.order_id, "product_id": self.product_id, "variant_id": self.variant_id, "principal_id": self.principal_id, "amount": self.amount, "currency": self.currency, "state": self.state.value, "quantity": self.quantity, "trace_id": self.trace_id}
+
+    @classmethod
+    def from_dict(cls, raw: dict[str, Any]) -> "RetailOrder":
+        return cls(str(raw["order_id"]), str(raw["product_id"]), str(raw["variant_id"]), str(raw["principal_id"]), float(raw["amount"]), str(raw["currency"]), RetailJourneyState(str(raw["state"])), int(raw.get("quantity", 1)), str(raw.get("trace_id", "")))
+
+
+@dataclass(frozen=True)
+class PaymentAuthorization:
+    authorization_id: str
+    order_id: str
+    amount: float
+    currency: str
+    state: PaymentAuthorizationState
+    idempotency_key: str
+
+
+@dataclass(frozen=True)
+class RetailReturn:
+    return_id: str
+    order_id: str
+    state: RetailJourneyState
+    reason: str
+    idempotency_key: str
+
+
+@dataclass(frozen=True)
+class RetailRefund:
+    refund_id: str
+    order_id: str
+    amount: float
+    currency: str
+    state: RetailJourneyState
+    idempotency_key: str
+    payment_reference: str
+    receipt: Receipt | None = None
+
 
 @dataclass(frozen=True)
 class RetailResult:
@@ -93,10 +157,12 @@ class RetailActivationBlocked(RuntimeError):
 class RetailReferenceEnvironment:
     """Deterministic commerce environment using the v2 transaction safety engine."""
 
-    def __init__(self, *, business_id: str, environment: Environment = Environment.SANDBOX, core_guarantees: CoreGuaranteeRegistry | None = None) -> None:
+    def __init__(self, *, business_id: str, environment: Environment = Environment.SANDBOX, core_guarantees: CoreGuaranteeRegistry | None = None, storage: SQLiteStateStore | None = None) -> None:
         self.business_id = business_id
         self.environment = environment
         self.core_guarantees = core_guarantees or CoreGuaranteeRegistry()
+        if self.core_guarantees.is_test_fixture and environment in {Environment.STAGING, Environment.PRODUCTION_READ_ONLY, Environment.PRODUCTION_ACTIVE}:
+            raise RetailActivationBlocked("test-only core guarantee fixtures cannot activate outside SANDBOX")
         required = ("identity_binding_v1", "delegation_scope_v1", "transaction_identity_v1", "replay_safe_confirmation_v1", "idempotency_atomicity_v1", "receipt_integrity_v1")
         try:
             self.core_guarantees.require(required)
@@ -106,6 +172,12 @@ class RetailReferenceEnvironment:
         self.orders: dict[str, RetailOrder] = {}
         self.transactions = TransactionSafetyEngine()
         self.receipts = ReceiptEngine()
+        self.storage = storage
+        self.payments: dict[str, PaymentAuthorization] = {}
+        self.returns: dict[str, RetailReturn] = {}
+        self.refunds: dict[str, RetailRefund] = {}
+        if self.storage:
+            self.orders.update({item.order_id: item for item in (RetailOrder.from_dict(raw) for raw in self.storage.load_orders())})
 
     def add_product(self, product: RetailProduct) -> None:
         if not product.product_id or not product.variants:
@@ -148,10 +220,15 @@ class RetailReferenceEnvironment:
         payload = {"product_id": retail_quote.product_id, "variant_id": retail_quote.variant_id, "quantity": quote.terms.get("quantity", 1), "shipping": quote.terms.get("shipping"), "shipping_destination_ref": shipping_destination_ref}
         request_hash = self.transactions.request_hash(capability_id=capability_id, resource_reference=quote.resource_reference, value=quote.value, currency=quote.currency, input_data=payload, business_id=self.business_id, environment=self.environment, principal_id=principal_id, agent_id=agent_id, provider_id=provider_id, quote_id=quote.quote_id, confirmation_id=confirmation.confirmation_id if confirmation else None)
         try:
-            existing = self.transactions.claim_idempotency(idempotency_key, request_hash, scenario_id="retail.submit_order")
+            existing = self.storage.claim_idempotency(idempotency_key, request_hash, scenario_id="retail.submit_order") if self.storage else self.transactions.claim_idempotency(idempotency_key, request_hash, scenario_id="retail.submit_order")
             if existing is not None:
+                if existing.status != "SUCCEEDED":
+                    if self.storage:
+                        self.storage.add_reconciliation(reconciliation_id="reconcile-" + existing.logical_transaction_id, logical_transaction_id=existing.logical_transaction_id or "", payload={"reason": "pending or ambiguous order after restart", "verification_strategy": "verify_order_by_transaction_identity"})
+                    return self._result("UNKNOWN_OUTCOME", RetailJourneyState.RECONCILIATION_REQUIRED, "existing transaction requires reconciliation before retry", retail_quote, trace, findings + ["RECONCILIATION_REQUIRED"])
                 order = self.orders.get(existing.result_reference or "")
-                receipt = self.transactions.get_receipt(idempotency_key, request_hash)
+                stored_receipt = self.storage.get_receipt(idempotency_key, request_hash) if self.storage else self.transactions.get_receipt(idempotency_key, request_hash)
+                receipt = Receipt.from_dict(stored_receipt) if isinstance(stored_receipt, dict) else stored_receipt
                 trace.emit("result_replayed", {"receipt_reference": getattr(receipt, "receipt_id", None)})
                 return self._result("REPLAYED", order.state if order else RetailJourneyState.ORDER_ACCEPTED, "order result replayed", retail_quote, trace, findings, order=order, receipt=receipt, replayed=True)
             product = self.products[retail_quote.product_id]
@@ -170,9 +247,16 @@ class RetailReferenceEnvironment:
             order_id = "order-" + stable_hash({"transaction": request_hash, "logical": logical_id})[:24]
             order = RetailOrder(order_id, retail_quote.product_id, retail_quote.variant_id, principal_id, float(quote.value or 0), str(quote.currency), RetailJourneyState.ORDER_ACCEPTED, quantity, trace.context.trace_id)
             self.orders[order_id] = order
-            self.transactions.record_idempotency(idempotency_key, request_hash, "SUCCEEDED", order_id, logical_id=logical_id)
+            if self.storage:
+                self.storage.record_idempotency(idempotency_key, request_hash, "SUCCEEDED", order_id, logical_id=logical_id)
+            else:
+                self.transactions.record_idempotency(idempotency_key, request_hash, "SUCCEEDED", order_id, logical_id=logical_id)
             receipt = self.receipts.create(business_id=self.business_id, environment=self.environment.value, agent_id=agent_id, provider_id=provider_id, principal_reference=principal_id, capability_id=capability_id, policy_id="retail-reference-policy", policy_version="retail-0.1", decision="ALLOW", delegation_reference="retail-reference-delegation", confirmation_reference=confirmation.confirmation_id if confirmation else None, quote_reference=quote.quote_id, request_hash=request_hash, result="ORDER_ACCEPTED", side_effect="IRREVERSIBLE", resource_reference=quote.resource_reference, value=quote.value, currency=quote.currency, correlation_id=trace.context.correlation_id, trace_id=trace.context.trace_id, evidence_refs=(f"order:{order_id}", f"quote:{quote.quote_id}"))
-            self.transactions.attach_receipt(idempotency_key, request_hash, receipt)
+            if self.storage:
+                self.storage.attach_receipt(idempotency_key, request_hash, receipt)
+                self.storage.save_order(order, event_type="ORDER_ACCEPTED")
+            else:
+                self.transactions.attach_receipt(idempotency_key, request_hash, receipt)
             trace.emit("order_accepted", {"order_id": order_id})
             if failure_after_commit:
                 order.state = RetailJourneyState.UNKNOWN_OUTCOME
@@ -190,19 +274,30 @@ class RetailReferenceEnvironment:
             return RetailResult("DENIED", RetailJourneyState.ORDER_REJECTED, "principal does not own order", order=order, findings=("PRINCIPAL_MISMATCH",))
         capability_id = "sector.retail:cancel_order"
         request_hash = self.transactions.request_hash(capability_id=capability_id, resource_reference=order_id, value=0, currency="USD", input_data={"order_id": order_id, "operation": "cancel"}, business_id=self.business_id, environment=self.environment, principal_id=principal_id, agent_id=agent_id, provider_id=provider_id)
-        existing = self.transactions.claim_idempotency(idempotency_key, request_hash, scenario_id="retail.cancel_order")
+        existing = self.storage.claim_idempotency(idempotency_key, request_hash, scenario_id="retail.cancel_order") if self.storage else self.transactions.claim_idempotency(idempotency_key, request_hash, scenario_id="retail.cancel_order")
         if existing is not None:
-            receipt = self.transactions.get_receipt(idempotency_key, request_hash)
+            stored_receipt = self.storage.get_receipt(idempotency_key, request_hash) if self.storage else self.transactions.get_receipt(idempotency_key, request_hash)
+            receipt = Receipt.from_dict(stored_receipt) if isinstance(stored_receipt, dict) else stored_receipt
             return RetailResult("REPLAYED", order.state, "cancellation result replayed", order=order, receipt=receipt, replayed=True)
         if order.state not in {RetailJourneyState.ORDER_ACCEPTED, RetailJourneyState.PARTIALLY_FULFILLED}:
-            self.transactions.record_idempotency(idempotency_key, request_hash, "FAILED_TERMINAL", None, error_reference="CANCELLATION_NOT_ALLOWED")
+            if self.storage:
+                self.storage.record_idempotency(idempotency_key, request_hash, "FAILED_TERMINAL", None, error_reference="CANCELLATION_NOT_ALLOWED")
+            else:
+                self.transactions.record_idempotency(idempotency_key, request_hash, "FAILED_TERMINAL", None, error_reference="CANCELLATION_NOT_ALLOWED")
             return RetailResult("DENIED", order.state, "order is not cancellable", order=order, findings=("CANCELLATION_NOT_ALLOWED",))
         trace = TraceRecorder(TraceContext.new(f"retail:cancel:{idempotency_key}"))
         trace.emit("cancellation_requested", {"order_id": order_id})
         order.state = RetailJourneyState.CANCELLED
-        self.transactions.record_idempotency(idempotency_key, request_hash, "SUCCEEDED", order_id)
+        if self.storage:
+            self.storage.record_idempotency(idempotency_key, request_hash, "SUCCEEDED", order_id)
+        else:
+            self.transactions.record_idempotency(idempotency_key, request_hash, "SUCCEEDED", order_id)
         receipt = self.receipts.create(business_id=self.business_id, environment=self.environment.value, agent_id=agent_id, provider_id=provider_id, principal_reference=principal_id, capability_id=capability_id, policy_id="retail-reference-policy", policy_version="retail-0.1", decision="ALLOW", delegation_reference="retail-reference-delegation", confirmation_reference=None, quote_reference=None, request_hash=request_hash, result="CANCELLED", side_effect="REVERSIBLE", resource_reference=order_id, value=0, currency="USD", correlation_id=trace.context.correlation_id, trace_id=trace.context.trace_id, evidence_refs=(f"order:{order_id}",))
-        self.transactions.attach_receipt(idempotency_key, request_hash, receipt)
+        if self.storage:
+            self.storage.attach_receipt(idempotency_key, request_hash, receipt)
+            self.storage.save_order(order, event_type="CANCELLED")
+        else:
+            self.transactions.attach_receipt(idempotency_key, request_hash, receipt)
         trace.emit("cancellation_completed", {"order_id": order_id})
         return RetailResult("CANCELLED", RetailJourneyState.CANCELLED, "order cancelled", order=order, receipt=receipt, trace=trace.export())
 
@@ -222,6 +317,100 @@ class RetailReferenceEnvironment:
         variant.price = price
         variant.version = str(int(variant.version) + 1)
 
+    def authorize_payment(self, *, order_id: str, principal_id: str, idempotency_key: str, outcome: PaymentAuthorizationState = PaymentAuthorizationState.AUTHORIZED) -> PaymentAuthorization:
+        order = self.orders[order_id]
+        if order.principal_id != principal_id:
+            raise TransactionSafetyError("PRINCIPAL_MISMATCH", "principal does not own order")
+        fingerprint = self.transactions.request_hash(capability_id="sector.retail:authorize_payment", resource_reference=order_id, value=order.amount, currency=order.currency, input_data={"order_id": order_id, "amount": order.amount}, business_id=self.business_id, environment=self.environment, principal_id=principal_id, agent_id=None, provider_id=None)
+        existing = self.storage.claim_idempotency(idempotency_key, fingerprint, scenario_id="retail.authorize_payment") if self.storage else self.transactions.claim_idempotency(idempotency_key, fingerprint, scenario_id="retail.authorize_payment")
+        if existing:
+            return self.payments[existing.result_reference or ""]
+        authorization_id = "payauth-" + stable_hash({"fingerprint": fingerprint})[:24]
+        payment = PaymentAuthorization(authorization_id, order_id, order.amount, order.currency, outcome, idempotency_key)
+        self.payments[authorization_id] = payment
+        status = "SUCCEEDED" if outcome == PaymentAuthorizationState.AUTHORIZED else "UNKNOWN_OUTCOME" if outcome == PaymentAuthorizationState.TIMEOUT_UNKNOWN else "FAILED_TERMINAL"
+        if self.storage:
+            self.storage.record_idempotency(idempotency_key, fingerprint, status, authorization_id)
+        else:
+            self.transactions.record_idempotency(idempotency_key, fingerprint, status, authorization_id)
+        if outcome == PaymentAuthorizationState.TIMEOUT_UNKNOWN and self.storage:
+            self.storage.add_reconciliation(reconciliation_id="reconcile-" + authorization_id, logical_transaction_id=existing.logical_transaction_id if existing else "tx-" + fingerprint[:24], payload={"downstream_reference": authorization_id, "reason": "payment authorization timeout", "verification_strategy": "get_payment_status"})
+        return payment
+
+    def check_return_eligibility(self, *, order_id: str) -> RetailJourneyState:
+        return self.return_eligibility(order_id)
+
+    def create_return_request(self, *, order_id: str, principal_id: str, reason: str, idempotency_key: str) -> RetailReturn:
+        order = self.orders[order_id]
+        if order.principal_id != principal_id:
+            raise TransactionSafetyError("PRINCIPAL_MISMATCH", "principal does not own order")
+        if self.return_eligibility(order_id) != RetailJourneyState.RETURN_ELIGIBLE:
+            raise TransactionSafetyError("RETURN_INELIGIBLE", "order is not eligible for return")
+        return_id = "return-" + stable_hash({"order_id": order_id, "key": idempotency_key})[:24]
+        result = self.returns.get(return_id) or RetailReturn(return_id, order_id, RetailJourneyState.RETURN_REQUESTED, reason, idempotency_key)
+        self.returns[return_id] = result
+        return result
+
+    def approve_return(self, return_id: str) -> RetailReturn:
+        return self._transition_return(return_id, RetailJourneyState.RETURN_AUTHORIZED)
+
+    def receive_return(self, return_id: str, *, inspection_required: bool = False) -> RetailReturn:
+        return self._transition_return(return_id, RetailJourneyState.RETURN_INSPECTION_REQUIRED if inspection_required else RetailJourneyState.RETURN_RECEIVED)
+
+    def _transition_return(self, return_id: str, target: RetailJourneyState) -> RetailReturn:
+        current = self.returns[return_id]
+        allowed = {RetailJourneyState.RETURN_REQUESTED: RetailJourneyState.RETURN_AUTHORIZED, RetailJourneyState.RETURN_AUTHORIZED: RetailJourneyState.RETURN_RECEIVED, RetailJourneyState.RETURN_RECEIVED: RetailJourneyState.RETURN_INSPECTION_REQUIRED}
+        if allowed.get(current.state) != target:
+            raise TransactionSafetyError("INVALID_RETURN_TRANSITION", f"cannot transition return from {current.state} to {target}")
+        updated = RetailReturn(current.return_id, current.order_id, target, current.reason, current.idempotency_key)
+        self.returns[return_id] = updated
+        return updated
+
+    def request_refund(self, *, return_id: str, principal_id: str, idempotency_key: str) -> RetailRefund:
+        return_request = self.returns[return_id]
+        order = self.orders[return_request.order_id]
+        if order.principal_id != principal_id:
+            raise TransactionSafetyError("PRINCIPAL_MISMATCH", "principal does not own order")
+        if return_request.state not in {RetailJourneyState.RETURN_RECEIVED, RetailJourneyState.RETURN_INSPECTION_REQUIRED}:
+            raise TransactionSafetyError("REFUND_NOT_AUTHORIZED", "return must be received before refund authorization")
+        if not any(item.order_id == order.order_id and item.state == PaymentAuthorizationState.AUTHORIZED for item in self.payments.values()):
+            raise TransactionSafetyError("PAYMENT_AUTHORIZATION_REQUIRED", "refund authority requires a separate authorized payment")
+        refund_id = "refund-" + stable_hash({"order_id": order.order_id, "key": idempotency_key})[:24]
+        result = self.refunds.get(refund_id) or RetailRefund(refund_id, order.order_id, order.amount, order.currency, RetailJourneyState.REFUND_AUTHORIZED, idempotency_key, "payment:" + order.order_id)
+        self.refunds[refund_id] = result
+        return result
+
+    def execute_refund(self, *, refund_id: str, principal_id: str, idempotency_key: str, amount: float | None = None, failure_after_commit: bool = False) -> RetailRefund:
+        requested = self.refunds[refund_id]
+        order = self.orders[requested.order_id]
+        if order.principal_id != principal_id:
+            raise TransactionSafetyError("PRINCIPAL_MISMATCH", "principal does not own order")
+        amount = requested.amount if amount is None else round(float(amount), 2)
+        prior = sum(item.amount for item in self.refunds.values() if item.order_id == order.order_id and item.state == RetailJourneyState.REFUNDED and item.refund_id != refund_id)
+        if amount <= 0 or amount + prior > order.amount:
+            raise TransactionSafetyError("REFUND_EXCEEDS_ELIGIBLE_VALUE", "refund amount exceeds the captured value remaining")
+        fingerprint = self.transactions.request_hash(capability_id="sector.retail:execute_refund", resource_reference=order.order_id, value=amount, currency=order.currency, input_data={"refund_id": refund_id, "amount": amount, "payment_reference": requested.payment_reference}, business_id=self.business_id, environment=self.environment, principal_id=principal_id, agent_id=None, provider_id=None)
+        existing = self.storage.claim_idempotency(idempotency_key, fingerprint, scenario_id="retail.execute_refund") if self.storage else self.transactions.claim_idempotency(idempotency_key, fingerprint, scenario_id="retail.execute_refund")
+        if existing:
+            return self.refunds[existing.result_reference or refund_id]
+        receipt = self.receipts.create(business_id=self.business_id, environment=self.environment.value, agent_id="retail-reference", provider_id="retail-reference", principal_reference=principal_id, capability_id="sector.retail:execute_refund", policy_id="retail-refund-policy", policy_version="retail-0.1", decision="ALLOW", delegation_reference="retail-reference-delegation", confirmation_reference=None, quote_reference=None, request_hash=fingerprint, result="REFUNDED", side_effect="REVERSIBLE", resource_reference=order.order_id, value=amount, currency=order.currency, correlation_id="refund:" + refund_id, trace_id="refund:" + refund_id, evidence_refs=(f"order:{order.order_id}", f"return:{next((key for key, value in self.returns.items() if value.order_id == order.order_id), '')}"))
+        state = RetailJourneyState.REFUND_UNKNOWN_OUTCOME if failure_after_commit else RetailJourneyState.REFUNDED
+        result = RetailRefund(requested.refund_id, requested.order_id, amount, requested.currency, state, requested.idempotency_key, requested.payment_reference, receipt)
+        self.refunds[refund_id] = result
+        status = "UNKNOWN_OUTCOME" if failure_after_commit else "SUCCEEDED"
+        if self.storage:
+            self.storage.record_idempotency(idempotency_key, fingerprint, status, refund_id)
+            self.storage.attach_receipt(idempotency_key, fingerprint, receipt)
+            if failure_after_commit:
+                self.storage.add_reconciliation(reconciliation_id="reconcile-" + refund_id, logical_transaction_id="tx-" + fingerprint[:24], payload={"downstream_reference": refund_id, "reason": "refund response lost", "verification_strategy": "get_refund_status"})
+        else:
+            self.transactions.record_idempotency(idempotency_key, fingerprint, status, refund_id)
+            self.transactions.attach_receipt(idempotency_key, fingerprint, receipt)
+        return result
+
+    def get_refund_status(self, refund_id: str) -> RetailJourneyState:
+        return self.refunds[refund_id].state
+
     def _result(self, status: str, state: RetailJourneyState, message: str, quote: RetailQuote | None, trace: TraceRecorder, findings: list[str], *, order: RetailOrder | None = None, receipt: Receipt | None = None, replayed: bool = False) -> RetailResult:
         return RetailResult(status, state, message, order, quote, receipt, trace.export(), tuple(findings), replayed)
 
@@ -230,4 +419,4 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-__all__ = ["RetailActivationBlocked", "RetailJourneyState", "RetailOrder", "RetailProduct", "RetailReferenceEnvironment", "RetailResult", "RetailVariant", "RetailQuote"]
+__all__ = ["PaymentAuthorization", "PaymentAuthorizationState", "RetailActivationBlocked", "RetailJourneyState", "RetailOrder", "RetailProduct", "RetailReferenceEnvironment", "RetailResult", "RetailReturn", "RetailRefund", "RetailVariant", "RetailQuote"]

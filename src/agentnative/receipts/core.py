@@ -72,6 +72,12 @@ class Receipt:
     def to_dict(self) -> dict[str, Any]:
         return {**self.payload(), "integrity": self.integrity}
 
+    @classmethod
+    def from_dict(cls, raw: dict[str, Any]) -> "Receipt":
+        values = dict(raw)
+        values["evidence_refs"] = tuple(values.get("evidence_refs", ()))
+        return cls(**values)
+
 
 @dataclass(frozen=True)
 class ReceiptVerification:

@@ -8,6 +8,7 @@ import yaml
 
 from agentnative import __version__
 from agentnative.packs.models import CapabilityProfile, EvalScenario, EvalScenarioCategory, Pack, PackLifecycleState, PackManifest
+from agentnative.packs.signing import DependencyLock, PackSignatureError, PackSignatureVerifier, PackTrustPolicy, parse_signature
 from agentnative.protocols.models import ActionClass, SideEffect
 from agentnative.transactions.core import stable_hash
 
@@ -253,12 +254,15 @@ class PackLoader:
 
 
 class PackRegistry:
-    def __init__(self, packs: list[Pack] | None = None, *, require_signature: bool = False) -> None:
+    def __init__(self, packs: list[Pack] | None = None, *, require_signature: bool = False, trust_policy: PackTrustPolicy | None = None, public_keys: dict[str, Any] | None = None, dependency_lock: DependencyLock | None = None) -> None:
         self._packs = {pack.pack_id: pack for pack in packs or []}
         self._disabled: set[str] = set()
         self._states = {pack.pack_id: pack.lifecycle_state for pack in packs or []}
         self._historical_hashes: dict[str, list[str]] = {}
         self.require_signature = require_signature
+        self.trust_policy = trust_policy
+        self.public_keys = dict(public_keys or {})
+        self.dependency_lock = dependency_lock
 
     def register(self, pack: Pack) -> None:
         if pack.pack_id in self._packs:
@@ -285,8 +289,16 @@ class PackRegistry:
         pack = self.get(pack_id, include_disabled=True)
         if not pack.content_hash or pack.manifest.provenance.get("content_hash") != pack.content_hash:
             raise PackCompatibilityError("pack integrity hash is not verifiable")
-        if self.require_signature and not pack.manifest.provenance.get("signature"):
-            raise PackCompatibilityError("pack signature is required by registry policy")
+        if self.require_signature:
+            envelope = parse_signature(pack.manifest.provenance.get("signature"))
+            if envelope is None:
+                raise PackCompatibilityError("pack signature is required by registry policy")
+            if self.trust_policy is None:
+                raise PackCompatibilityError("signature policy is required for production-capable activation")
+            try:
+                PackSignatureVerifier().verify(pack, envelope, public_keys=self.public_keys, policy=self.trust_policy, dependency_lock=self.dependency_lock)
+            except PackSignatureError as exc:
+                raise PackCompatibilityError(str(exc)) from exc
         if pack.manifest.required_core_guarantees:
             if core_guarantees is None:
                 raise PackCompatibilityError("core guarantee registry is required for transactional pack activation")
@@ -324,6 +336,8 @@ class PackRegistry:
             "evaluation_scenarios": sorted(set(item.scenario_id for item in candidate.evaluation_scenarios) ^ set(item.scenario_id for item in old.evaluation_scenarios)),
             "protocol_profiles": sorted(set(str(item) for item in candidate.manifest.protocol_profiles) ^ set(str(item) for item in old.manifest.protocol_profiles)),
             "known_limitations": sorted(set(candidate.manifest.known_limitations) ^ set(old.manifest.known_limitations)),
+            "trust": sorted(set(str(candidate.manifest.provenance.get(key, "")) for key in ("signature", "signing_key_id", "publisher", "dependency_lock_hash")) ^ set(str(old.manifest.provenance.get(key, "")) for key in ("signature", "signing_key_id", "publisher", "dependency_lock_hash"))),
+            "required_core_guarantees": sorted(set(candidate.manifest.required_core_guarantees) ^ set(old.manifest.required_core_guarantees)),
         }
 
     def upgrade(self, pack: Pack) -> dict[str, list[str]]:

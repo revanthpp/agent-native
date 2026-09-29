@@ -12,6 +12,9 @@ Pack YAML
   → namespaced capability/evaluation compilation
   → typed EvidenceStore + ProtocolRegistry
   → ActivationStrategyEngine / MaturityFramework
+  → CoreTrustStore / signed attestation verification
+  → SQLiteStateStore (idempotency, orders, receipts, reconciliation, audit evidence)
+  → ConnectorEnvironmentPolicy / SyntheticMerchantConnector
   → v2 TransactionSafetyEngine + ReceiptEngine + TraceRecorder
 ```
 
@@ -25,7 +28,9 @@ Pack YAML
 | Core guarantee registry | v2 release evidence | transactional packs cannot activate without independent guarantees |
 | Evidence store | shared v3 service | tenant/pack scope, provenance, freshness, conflict, and integrity are explicit |
 | Protocol registry | shared v3 service | version/hash drift is visible; presence is not conformance |
-| Retail environment | retail pack | deterministic synthetic state machine delegates transaction identity and receipts to v2 |
+| Retail environment | retail pack | deterministic state machine delegates transaction identity and receipts to v2; payment, return, and refund use separate identities |
+| Durable reference state | RC1 reference backend | SQLite constraints and transactions preserve idempotency, order events, receipts, and reconciliation across restart |
+| Connector boundary | shared RC1 service | tenant, environment, endpoint, credential reference, capability, and side-effect mode are explicit |
 
 ## Transactional activation gate
 
@@ -44,5 +49,4 @@ The current repository evidence is builder-remediated/pending independent Phase 
 
 ## Retail reference journey
 
-The reference environment supports stable product/variant discovery, quote creation with expiry and observed inventory, confirmation-bound checkout, idempotent order submission, lost-response simulation, cancellation, and basic return eligibility. Payment processing is not implemented. Unknown outcome is represented explicitly and replay resolves the stored logical transaction without a second inventory decrement.
-
+The reference environment supports stable product/variant discovery, quote creation with expiry and observed inventory, confirmation-bound checkout, idempotent order submission, lost-response simulation, cancellation, return eligibility, payment authorization simulation, return transitions, and refund ceilings/idempotency. Durable storage is opt-in for the reference backend; production adapters and real payment credentials remain out of scope. Unknown outcomes are represented explicitly and routed to reconciliation rather than blind retry.

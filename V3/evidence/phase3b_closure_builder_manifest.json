@@ -1,0 +1,199 @@
+{
+  "artifacts": [
+    {
+      "path": "V3/PHASE_3_RC1_BUILD_REPORT.md",
+      "sha256": "a70f3505d6e20a38600e73ae97753d87b09c080bade3a1f586303967a97870f4"
+    },
+    {
+      "path": "V3/PHASE_3B_PRODUCTIZATION_BUILD_REPORT.md",
+      "sha256": "abb05a19d8575ffdc8b3ccdeecec0df4baf6224036f346266d167eadc7ca05a3"
+    },
+    {
+      "path": "V3/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "5d2c938a0bef525e9556599c1d7c7c27981ae5f5ac4a58651b12350932c06fd1"
+    }
+  ],
+  "ci": {
+    "event": null,
+    "repository": "local",
+    "run_attempt": null,
+    "run_id": null,
+    "runner_image": "local",
+    "workflow": "local-builder"
+  },
+  "commands": [
+    {
+      "command": [
+        "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/packs",
+        "--import-mode=importlib"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": ".....................                                                    [100%]\n21 passed in 0.41s\n"
+    },
+    {
+      "command": [
+        "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--import-mode=importlib",
+        "--ignore=audit_v2"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": ".................................. [ 22%]\n................................................. [ 56%]\n................................................... [ 90%]\n..............                                                       [100%]\n148 passed, 158 subtests passed in 4.23s\n"
+    },
+    {
+      "command": [
+        "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/retail/test_closure_remediation.py",
+        "--import-mode=importlib"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "......                                                                   [100%]\n6 passed in 1.09s\n"
+    },
+    {
+      "command": [
+        "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests"
+      ],
+      "returncode": 0,
+      "stderr_tail": ".........................................................................................................\n----------------------------------------------------------------------\nRan 105 tests in 0.934s\n\nOK\n",
+      "stdout_tail": "{\n  \"rule_count\": 1,\n  \"findings\": [\n    \"POL-LINT-001:missing_default\",\n    \"POL-LINT-005:wildcard_privilege:allow\"\n  ]\n}\n"
+    },
+    {
+      "command": [
+        "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+        "scripts/run_phase2b_mutations.py"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "[\n  {\n    \"mutation_id\": \"M-OWNERSHIP\",\n    \"production_control\": \"owner verification\",\n    \"mutation\": \"bypass owner gate\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-SIGNATURE\",\n    \"production_control\": \"signature verification\",\n    \"mutation\": \"accept invalid signature\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-REPLAY\",\n    \"production_control\": \"replay protection\",\n    \"mutation\": \"accept duplicate nonce\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-GRANT-EXPIRY\",\n    \"production_control\": \"delegation expiry\",\n    \"mutation\": \"accept expired grant\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-REVOCATION\",\n    \"production_control\": \"delegation revocation\",\n    \"mutation\": \"ignore revoked flag\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-PRINCIPAL\",\n    \"production_control\": \"principal binding\",\n    \"mutation\": \"ignore principal\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-AGENT\",\n    \"production_control\": \"agent binding\",\n    \"mutation\": \"ignore agent\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-PROVIDER\",\n    \"production_control\": \"provider binding\",\n    \"mutation\": \"ignore provider\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-AUDIENCE\",\n    \"production_control\": \"audience binding\",\n    \"mutation\": \"ignore audience\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-CAPABILITY\",\n    \"production_control\": \"capability binding\",\n    \"mutation\": \"ignore capability\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-RESOURCE\",\n    \"production_control\": \"resource binding\",\n    \"mutation\": \"ignore resource\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-VALUE\",\n    \"production_control\": \"value ceiling\",\n    \"mutation\": \"ignore value limit\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-DENY\",\n    \"production_control\": \"explicit deny precedence\",\n    \"mutation\": \"allow explicitly denied capability\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-DEFAULT\",\n    \"production_control\": \"state-changing default deny\",\n    \"mutation\": \"default allow\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-VERSION\",\n    \"production_control\": \"policy version\",\n    \"mutation\": \"use stale policy version\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-REDACTION\",\n    \"production_control\": \"secret redaction\",\n    \"mutation\": \"emit raw secret\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-REF-NETWORK\",\n    \"production_control\": \"remote $ref network policy\",\n    \"mutation\": \"fetch unsafe private target\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-ADAPTER-YAML-ERROR\",\n    \"production_control\": \"adapter parser-error normalization\",\n    \"mutation\": \"bypass direct OpenAPI YAML error conversion\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  }\n]\n"
+    },
+    {
+      "command": [
+        "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+        "scripts/run_phase2c_mutations.py"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "nfirmation\",\n    \"mutation\": \"consume confirmation before idempotency replay\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-CONFIRMATION-CROSS-TX-REUSE\",\n    \"production_control\": \"confirmation single-use across transactions\",\n    \"mutation\": \"allow one confirmation for two transactions\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-IDEM-OMIT-PRINCIPAL\",\n    \"production_control\": \"principal is bound to fingerprint\",\n    \"mutation\": \"omit principal from fingerprint\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-IDEM-OMIT-AGENT\",\n    \"production_control\": \"agent is bound to fingerprint\",\n    \"mutation\": \"omit agent from fingerprint\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-IDEM-OMIT-ENVIRONMENT\",\n    \"production_control\": \"environment is bound to fingerprint\",\n    \"mutation\": \"omit environment from fingerprint\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-QUOTE-EXPIRY\",\n    \"production_control\": \"quote and confirmation expiry\",\n    \"mutation\": \"accept expired quote\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-TOCTOU\",\n    \"production_control\": \"quote resource version\",\n    \"mutation\": \"ignore state change after preview\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-IDEMPOTENCY\",\n    \"production_control\": \"duplicate side-effect suppression\",\n    \"mutation\": \"disable idempotency\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-IDEMPOTENCY-ATOMIC-CLAIM\",\n    \"production_control\": \"atomic idempotency reservation\",\n    \"mutation\": \"claim after execution\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-IDEMPOTENCY-HASH-CONFLICT\",\n    \"production_control\": \"idempotency request-hash binding\",\n    \"mutation\": \"ignore same-key hash conflict\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-DRYRUN-ACTIVE-PREVIEW\",\n    \"production_control\": \"dry-run plan isolation\",\n    \"mutation\": \"route dry-run to active preview\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-RETRY-BOUND\",\n    \"production_control\": \"bounded retries\",\n    \"mutation\": \"permit excessive retry attempts\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-PARTIAL\",\n    \"production_control\": \"partial outcome representation\",\n    \"mutation\": \"convert PARTIAL to SUCCESS\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-COMPENSATION\",\n    \"production_control\": \"compensation failure reporting\",\n    \"mutation\": \"hide failed compensation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-RECEIPT-INTEGRITY\",\n    \"production_control\": \"receipt integrity\",\n    \"mutation\": \"accept modified receipt\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-TRACE-CORRELATION\",\n    \"production_control\": \"receipt trace correlation\",\n    \"mutation\": \"break trace identity\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-RECEIPT-REDACTION\",\n    \"production_control\": \"receipt secret minimization\",\n    \"mutation\": \"leak raw secret into receipt\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  }\n]\n"
+    },
+    {
+      "command": [
+        "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+        "scripts/run_phase3_mutations.py"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "ue,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-DO-NOT-ACTIVATE\",\n    \"production_control\": \"unviable economics deny activation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-EVIDENCE-CONFLICT\",\n    \"production_control\": \"conflicting evidence is visible\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PROTOCOL-DRIFT\",\n    \"production_control\": \"breaking protocol drift blocks conformance\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-UNKNOWN-SCENARIO\",\n    \"production_control\": \"scenario registry rejects unknown IDs\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-JOURNEY-CAPABILITY-GATE\",\n    \"production_control\": \"missing journey capability downgrades direct activation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-DECLARED-CAPABILITY\",\n    \"production_control\": \"declared-only capability is not readiness evidence\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-STALE-CONFLICT-EVIDENCE\",\n    \"production_control\": \"evidence state is a visible decision input\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PROTOCOL-HASH\",\n    \"production_control\": \"protocol fixture hash is verified\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-CONFIRMATION-POLICY\",\n    \"production_control\": \"value-changing journeys enforce confirmation policy\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-IDEMPOTENCY-IDENTITY\",\n    \"production_control\": \"idempotency binds material identity\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-ATOMIC-ORDER-COMMIT\",\n    \"production_control\": \"order commit has one durable unit of work\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-INVENTORY-BOUND\",\n    \"production_control\": \"inventory is bounded by an atomic database decrement\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-REFUND-CEILING\",\n    \"production_control\": \"aggregate refunds cannot exceed captured value\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-CONNECTOR-UNKNOWN\",\n    \"production_control\": \"connector outage creates bounded reconciliation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PAYMENT-RESTART\",\n    \"production_control\": \"payment and refund entities have restart loaders\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-DELEGATION-EXPIRY\",\n    \"production_control\": \"delegation expiry is the denial mechanism\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-OUTPUT-REDACTION\",\n    \"production_control\": \"generated output uses synthetic boundary and no secrets\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PROVENANCE-COMMIT\",\n    \"production_control\": \"evidence uses separate source and evidence identities\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-UNKNOWN-RETRY\",\n    \"production_control\": \"lost response replays singular order\",\n    \"expected_test_failure\": true,\n    \"actual_result\": true,\n    \"caught\": true\n  }\n]\n"
+    }
+  ],
+  "completed_at": "2026-09-29T04:18:05.856217Z",
+  "evidence_commit_sha": "PENDING_EVIDENCE_ANCHOR",
+  "package_version": "2.0.0a1",
+  "python_version": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]",
+  "repository": "github.com/revanthpp/agent-native",
+  "results": {
+    "mutations": [
+      {
+        "command": [
+          "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+          "scripts/run_phase2b_mutations.py"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "[\n  {\n    \"mutation_id\": \"M-OWNERSHIP\",\n    \"production_control\": \"owner verification\",\n    \"mutation\": \"bypass owner gate\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-SIGNATURE\",\n    \"production_control\": \"signature verification\",\n    \"mutation\": \"accept invalid signature\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-REPLAY\",\n    \"production_control\": \"replay protection\",\n    \"mutation\": \"accept duplicate nonce\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-GRANT-EXPIRY\",\n    \"production_control\": \"delegation expiry\",\n    \"mutation\": \"accept expired grant\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-REVOCATION\",\n    \"production_control\": \"delegation revocation\",\n    \"mutation\": \"ignore revoked flag\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-PRINCIPAL\",\n    \"production_control\": \"principal binding\",\n    \"mutation\": \"ignore principal\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-AGENT\",\n    \"production_control\": \"agent binding\",\n    \"mutation\": \"ignore agent\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-PROVIDER\",\n    \"production_control\": \"provider binding\",\n    \"mutation\": \"ignore provider\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-AUDIENCE\",\n    \"production_control\": \"audience binding\",\n    \"mutation\": \"ignore audience\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-CAPABILITY\",\n    \"production_control\": \"capability binding\",\n    \"mutation\": \"ignore capability\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-RESOURCE\",\n    \"production_control\": \"resource binding\",\n    \"mutation\": \"ignore resource\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-VALUE\",\n    \"production_control\": \"value ceiling\",\n    \"mutation\": \"ignore value limit\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-DENY\",\n    \"production_control\": \"explicit deny precedence\",\n    \"mutation\": \"allow explicitly denied capability\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-DEFAULT\",\n    \"production_control\": \"state-changing default deny\",\n    \"mutation\": \"default allow\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-VERSION\",\n    \"production_control\": \"policy version\",\n    \"mutation\": \"use stale policy version\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-REDACTION\",\n    \"production_control\": \"secret redaction\",\n    \"mutation\": \"emit raw secret\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-REF-NETWORK\",\n    \"production_control\": \"remote $ref network policy\",\n    \"mutation\": \"fetch unsafe private target\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-ADAPTER-YAML-ERROR\",\n    \"production_control\": \"adapter parser-error normalization\",\n    \"mutation\": \"bypass direct OpenAPI YAML error conversion\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  }\n]\n"
+      },
+      {
+        "command": [
+          "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+          "scripts/run_phase2c_mutations.py"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "nfirmation\",\n    \"mutation\": \"consume confirmation before idempotency replay\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-CONFIRMATION-CROSS-TX-REUSE\",\n    \"production_control\": \"confirmation single-use across transactions\",\n    \"mutation\": \"allow one confirmation for two transactions\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-IDEM-OMIT-PRINCIPAL\",\n    \"production_control\": \"principal is bound to fingerprint\",\n    \"mutation\": \"omit principal from fingerprint\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-IDEM-OMIT-AGENT\",\n    \"production_control\": \"agent is bound to fingerprint\",\n    \"mutation\": \"omit agent from fingerprint\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M-IDEM-OMIT-ENVIRONMENT\",\n    \"production_control\": \"environment is bound to fingerprint\",\n    \"mutation\": \"omit environment from fingerprint\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-QUOTE-EXPIRY\",\n    \"production_control\": \"quote and confirmation expiry\",\n    \"mutation\": \"accept expired quote\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-TOCTOU\",\n    \"production_control\": \"quote resource version\",\n    \"mutation\": \"ignore state change after preview\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-IDEMPOTENCY\",\n    \"production_control\": \"duplicate side-effect suppression\",\n    \"mutation\": \"disable idempotency\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-IDEMPOTENCY-ATOMIC-CLAIM\",\n    \"production_control\": \"atomic idempotency reservation\",\n    \"mutation\": \"claim after execution\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-IDEMPOTENCY-HASH-CONFLICT\",\n    \"production_control\": \"idempotency request-hash binding\",\n    \"mutation\": \"ignore same-key hash conflict\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-DRYRUN-ACTIVE-PREVIEW\",\n    \"production_control\": \"dry-run plan isolation\",\n    \"mutation\": \"route dry-run to active preview\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-RETRY-BOUND\",\n    \"production_control\": \"bounded retries\",\n    \"mutation\": \"permit excessive retry attempts\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-PARTIAL\",\n    \"production_control\": \"partial outcome representation\",\n    \"mutation\": \"convert PARTIAL to SUCCESS\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-COMPENSATION\",\n    \"production_control\": \"compensation failure reporting\",\n    \"mutation\": \"hide failed compensation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-RECEIPT-INTEGRITY\",\n    \"production_control\": \"receipt integrity\",\n    \"mutation\": \"accept modified receipt\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-TRACE-CORRELATION\",\n    \"production_control\": \"receipt trace correlation\",\n    \"mutation\": \"break trace identity\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M2C-RECEIPT-REDACTION\",\n    \"production_control\": \"receipt secret minimization\",\n    \"mutation\": \"leak raw secret into receipt\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  }\n]\n"
+      },
+      {
+        "command": [
+          "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+          "scripts/run_phase3_mutations.py"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "ue,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-DO-NOT-ACTIVATE\",\n    \"production_control\": \"unviable economics deny activation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-EVIDENCE-CONFLICT\",\n    \"production_control\": \"conflicting evidence is visible\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PROTOCOL-DRIFT\",\n    \"production_control\": \"breaking protocol drift blocks conformance\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-UNKNOWN-SCENARIO\",\n    \"production_control\": \"scenario registry rejects unknown IDs\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-JOURNEY-CAPABILITY-GATE\",\n    \"production_control\": \"missing journey capability downgrades direct activation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-DECLARED-CAPABILITY\",\n    \"production_control\": \"declared-only capability is not readiness evidence\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-STALE-CONFLICT-EVIDENCE\",\n    \"production_control\": \"evidence state is a visible decision input\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PROTOCOL-HASH\",\n    \"production_control\": \"protocol fixture hash is verified\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-CONFIRMATION-POLICY\",\n    \"production_control\": \"value-changing journeys enforce confirmation policy\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-IDEMPOTENCY-IDENTITY\",\n    \"production_control\": \"idempotency binds material identity\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-ATOMIC-ORDER-COMMIT\",\n    \"production_control\": \"order commit has one durable unit of work\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-INVENTORY-BOUND\",\n    \"production_control\": \"inventory is bounded by an atomic database decrement\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-REFUND-CEILING\",\n    \"production_control\": \"aggregate refunds cannot exceed captured value\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-CONNECTOR-UNKNOWN\",\n    \"production_control\": \"connector outage creates bounded reconciliation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PAYMENT-RESTART\",\n    \"production_control\": \"payment and refund entities have restart loaders\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-DELEGATION-EXPIRY\",\n    \"production_control\": \"delegation expiry is the denial mechanism\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-OUTPUT-REDACTION\",\n    \"production_control\": \"generated output uses synthetic boundary and no secrets\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PROVENANCE-COMMIT\",\n    \"production_control\": \"evidence uses separate source and evidence identities\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-UNKNOWN-RETRY\",\n    \"production_control\": \"lost response replays singular order\",\n    \"expected_test_failure\": true,\n    \"actual_result\": true,\n    \"caught\": true\n  }\n]\n"
+      }
+    ],
+    "tests": [
+      {
+        "command": [
+          "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/packs",
+          "--import-mode=importlib"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": ".....................                                                    [100%]\n21 passed in 0.41s\n"
+      },
+      {
+        "command": [
+          "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "--import-mode=importlib",
+          "--ignore=audit_v2"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": ".................................. [ 22%]\n................................................. [ 56%]\n................................................... [ 90%]\n..............                                                       [100%]\n148 passed, 158 subtests passed in 4.23s\n"
+      },
+      {
+        "command": [
+          "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/retail/test_closure_remediation.py",
+          "--import-mode=importlib"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "......                                                                   [100%]\n6 passed in 1.09s\n"
+      },
+      {
+        "command": [
+          "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests"
+        ],
+        "returncode": 0,
+        "stderr_tail": ".........................................................................................................\n----------------------------------------------------------------------\nRan 105 tests in 0.934s\n\nOK\n",
+        "stdout_tail": "{\n  \"rule_count\": 1,\n  \"findings\": [\n    \"POL-LINT-001:missing_default\",\n    \"POL-LINT-005:wildcard_privilege:allow\"\n  ]\n}\n"
+      }
+    ]
+  },
+  "run_id": "phase3-rc1-builder-20260929T041727Z",
+  "source_commit_sha": "603b46e6614714f389f73893b884e93946b65d2d",
+  "started_at": "2026-09-29T04:17:27.536362Z",
+  "status": "BUILDER_EVIDENCE_ONLY"
+}

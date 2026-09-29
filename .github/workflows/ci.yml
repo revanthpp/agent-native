@@ -20,6 +20,8 @@ jobs:
         run: python -m build
       - name: Verify package contents
         run: python scripts/verify_package_contents.py dist/agentnative-*.whl
+      - name: Run clean wheel-only Retail workflow outside repository
+        run: python scripts/run_phase3b_wheel_smoke.py dist/agentnative-*.whl
       - name: Install wheel into clean environment
         run: |
           python -m venv .ci-venv

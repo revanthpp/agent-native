@@ -103,11 +103,11 @@ class ReceiptEngine:
     def _integrity(self, payload: dict[str, Any]) -> str:
         return "sha256:" + stable_hash(payload) if self.integrity_enabled else "sha256:disabled"
 
-    def create(self, *, business_id: str, environment: str, agent_id: str, provider_id: str, principal_reference: str, capability_id: str, policy_id: str | None, policy_version: str, decision: str, delegation_reference: str | None, confirmation_reference: str | None, quote_reference: str | None, request_hash: str, result: str, side_effect: str, resource_reference: str, value: Any, currency: str | None, correlation_id: str, trace_id: str, evidence_refs: tuple[str, ...] = ()) -> Receipt:
+    def create(self, *, business_id: str, environment: str, agent_id: str, provider_id: str, principal_reference: str, capability_id: str, policy_id: str | None, policy_version: str, decision: str, delegation_reference: str | None, confirmation_reference: str | None, quote_reference: str | None, request_hash: str, result: str, side_effect: str, resource_reference: str, value: Any, currency: str | None, correlation_id: str, trace_id: str, evidence_refs: tuple[str, ...] = (), receipt_id: str | None = None, timestamp: str | None = None) -> Receipt:
         safe_reference = self._safe_reference
         payload = {
-            "receipt_id": "receipt-" + uuid4().hex[:24],
-            "timestamp": _timestamp(),
+            "receipt_id": receipt_id or "receipt-" + uuid4().hex[:24],
+            "timestamp": timestamp or _timestamp(),
             "business_id": safe_reference(business_id),
             "environment": safe_reference(environment),
             "agent_id": safe_reference(agent_id),

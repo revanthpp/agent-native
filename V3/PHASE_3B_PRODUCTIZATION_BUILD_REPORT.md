@@ -10,6 +10,8 @@ READY_FOR_PHASE_3B_PRODUCT_REVIEW
 
 This status applies only to the synthetic Retail product workflow. It does not declare Phase 2C, Phase 3A, or production Retail readiness.
 
+The subsequent Closure Remediation build supersedes this narrow product-review label with the shared taxonomy `BUILDER_VERIFIED` / `READY_FOR_PHASE_3B_INDEPENDENT_REVIEW` for the synthetic closure scope. See [PHASE_3B_CLOSURE_REMEDIATION_BUILD_REPORT.md](PHASE_3B_CLOSURE_REMEDIATION_BUILD_REPORT.md). This historical report is preserved as the pre-remediation baseline.
+
 ## Delivered workflow
 
 - Portable `project.yaml` workspace with business profile, platform inventory, capability inventory, priority journeys, evidence sources, policy, protocol profiles, and simulation profile.

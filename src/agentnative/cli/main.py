@@ -100,6 +100,7 @@ def build_parser() -> argparse.ArgumentParser:
     retail_init = retail_sub.add_parser("init", help="create a portable Retail workspace")
     retail_init.add_argument("directory", type=Path)
     retail_init.add_argument("--example", choices=("direct", "platform", "human", "unsafe"), default="platform")
+    retail_init.add_argument("--force", action="store_true", help="back up and replace an existing project.yaml")
     for command in ("validate", "assess", "journeys", "recommend"):
         item = retail_sub.add_parser(command)
         item.add_argument("directory", type=Path)
@@ -108,13 +109,17 @@ def build_parser() -> argparse.ArgumentParser:
             item.add_argument("--markdown", action="store_true")
     retail_simulate = retail_sub.add_parser("simulate", help="run a named synthetic Retail scenario")
     retail_simulate.add_argument("directory", type=Path)
-    retail_simulate.add_argument("--scenario", required=True)
+    from agentnative.retail_product import SCENARIO_REGISTRY
+    scenario_help = ", ".join(item.scenario_id for item in SCENARIO_REGISTRY)
+    retail_simulate.add_argument("--scenario", required=True, help=f"scenario ID ({scenario_help})")
     retail_blueprint = retail_sub.add_parser("blueprint", help="generate a Retail Activation Blueprint")
     retail_blueprint.add_argument("directory", type=Path)
     retail_blueprint.add_argument("--output", type=Path, required=True)
+    retail_blueprint.add_argument("--force", action="store_true", help="replace an existing output atomically")
     retail_evidence = retail_sub.add_parser("evidence", help="generate a machine-readable evidence bundle")
     retail_evidence.add_argument("directory", type=Path)
     retail_evidence.add_argument("--output", type=Path, required=True)
+    retail_evidence.add_argument("--force", action="store_true", help="replace an existing output atomically")
 
     subparsers.add_parser("checks", help="list the deterministic check catalog")
     check_parser = subparsers.add_parser("check", help="show one check definition")
@@ -211,10 +216,10 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({"status": "VALID", "attestation_id": attestation.attestation_id, "subject": attestation.subject.to_dict()}, indent=2))
         return 0
     if args.command == "retail":
-        from agentnative.retail_product import RetailProductError, assess_workspace, blueprint, blueprint_markdown, evidence_bundle, init_workspace, journey_report, simulate_workspace, validate_workspace
+        from agentnative.retail_product import RetailProductError, _atomic_write, assess_workspace, blueprint, blueprint_markdown, evidence_bundle, init_workspace, journey_report, simulate_workspace, validate_workspace
         try:
             if args.retail_command == "init":
-                path = init_workspace(args.directory, example=args.example)
+                path = init_workspace(args.directory, example=args.example, force=args.force)
                 print(json.dumps({"status": "CREATED", "directory": str(path.resolve()), "project": str(path / "project.yaml")}, indent=2))
                 return 0
             if args.retail_command == "validate":
@@ -240,18 +245,17 @@ def main(argv: list[str] | None = None) -> int:
             if args.retail_command == "blueprint":
                 result = blueprint(args.directory)
                 output = json.dumps(result, indent=2, sort_keys=True) + "\n" if args.output.suffix.lower() == ".json" else blueprint_markdown(result)
-                args.output.parent.mkdir(parents=True, exist_ok=True)
-                args.output.write_text(output, encoding="utf-8")
+                _atomic_write(args.output, output, force=args.force)
                 print(json.dumps({"status": "CREATED", "output": str(args.output.resolve()), "project_hash": result["project"]["project_hash"]}, indent=2))
                 return 0
             if args.retail_command == "evidence":
                 result = evidence_bundle(args.directory)
-                args.output.parent.mkdir(parents=True, exist_ok=True)
-                args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+                _atomic_write(args.output, json.dumps(result, indent=2, sort_keys=True) + "\n", force=args.force)
                 print(json.dumps({"status": "CREATED", "output": str(args.output.resolve()), "project_hash": result["project_hash"], "blueprint_hash": result["blueprint_hash"]}, indent=2))
                 return 0
         except (OSError, TypeError, ValueError, RetailProductError) as exc:
-            print(json.dumps({"status": "INVALID_PROJECT", "error": str(exc)}, indent=2), file=sys.stderr)
+            payload = exc.to_dict() if hasattr(exc, "to_dict") else {"status": "INVALID_PROJECT", "error_code": "INVALID_PROJECT", "error": str(exc)}
+            print(json.dumps(payload, indent=2), file=sys.stderr)
             return 2
     if args.command == "packs":
         from agentnative.packs import load_builtin_packs

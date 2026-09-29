@@ -89,6 +89,10 @@ class ActivationRecommendation:
     generated_at: str = ""
     override_owner: str | None = None
     override_timestamp: str | None = None
+    reason_codes: tuple[str, ...] = ()
+    satisfied_prerequisites: tuple[str, ...] = ()
+    blocking_prerequisites: tuple[str, ...] = ()
+    applied_policy_rules: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -117,6 +121,10 @@ class ActivationRecommendation:
             "generated_at": self.generated_at,
             "override_owner": self.override_owner,
             "override_timestamp": self.override_timestamp,
+            "reason_codes": list(self.reason_codes),
+            "satisfied_prerequisites": list(self.satisfied_prerequisites),
+            "blocking_prerequisites": list(self.blocking_prerequisites),
+            "applied_policy_rules": list(self.applied_policy_rules),
         }
 
 

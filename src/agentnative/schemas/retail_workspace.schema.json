@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentnative.dev/schemas/retail-workspace-1.1.json",
+  "title": "Agent Native Retail Workspace",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["project_id", "project_version", "business_id", "tenant_id", "name", "sector_pack", "pack_version", "environment", "business_profile", "platform_inventory", "capability_inventory", "protocol_profiles", "priority_journeys", "evidence_sources", "policy_profile", "simulation_profile"],
+  "properties": {
+    "project_id": {"type": "string", "minLength": 1},
+    "project_version": {"enum": ["1.0", "1.1"]},
+    "business_id": {"type": "string", "minLength": 1},
+    "tenant_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "sector_pack": {"const": "sector.retail"},
+    "pack_version": {"type": "string", "minLength": 1},
+    "environment": {"enum": ["SANDBOX", "STAGING", "PRODUCTION_READ_ONLY", "PRODUCTION_ACTIVE"]},
+    "business_profile": {"type": "object"},
+    "platform_inventory": {"type": "array"},
+    "capability_inventory": {"type": "array"},
+    "protocol_profiles": {"type": "array"},
+    "priority_journeys": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "evidence_sources": {"type": "array"},
+    "policy_profile": {"type": "object"},
+    "simulation_profile": {"type": "object"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "extensions": {"type": "object"},
+    "schema_migrations": {"type": "array", "items": {"type": "string"}}
+  }
+}

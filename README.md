@@ -116,7 +116,7 @@ agentnative packs list
 agentnative packs show sector.retail
 ```
 
-The original sector-pack BRD, the authoritative Phase 3 build-requirements BRD, RC1 hardening BRD, Retail productization BRD, builder reports, architecture, threat model, and challenge review live under [`V3/`](V3/). RC1 now includes subject-bound attestations, signed pack/dependency policy, SQLite restart-safe reference state, connector boundaries, and separated Retail payment/return/refund flows. Phase 3B now includes a CLI-first synthetic Retail workspace, recommendation, simulation, blueprint, evidence, and roadmap workflow. Infrastructure builder status remains explicitly `PHASE_3A_NOT_READY` / `PHASE_3B_NOT_READY`; the separate product-review candidate status is documented in `V3/PHASE_3B_PRODUCTIZATION_BUILD_REPORT.md`.
+The original sector-pack BRD, the authoritative Phase 3 build-requirements BRD, RC1 hardening BRD, Retail productization BRD, Closure Remediation BRD, builder reports, architecture, threat model, and challenge review live under [`V3/`](V3/). The current bounded closure build adds strict workspace validation, evidence-bound journey gates, faithful registered scenarios, restart/reconciliation state, atomic output/provenance tooling, concurrency tests, and a clean wheel-only smoke script. The honest builder status is `READY_FOR_PHASE_3B_INDEPENDENT_REVIEW` for the synthetic closure scope only; Phase 2C and Phase 3A remain independently open, and production readiness is not claimed. See `V3/PHASE_3B_CLOSURE_REMEDIATION_BUILD_REPORT.md`.
 
 ### Retail product workflow
 
@@ -124,12 +124,12 @@ The original sector-pack BRD, the authoritative Phase 3 build-requirements BRD, 
 agentnative retail validate examples/retail/direct-ready
 agentnative retail assess examples/retail/direct-ready --json
 agentnative retail recommend examples/retail/direct-ready
-agentnative retail simulate examples/retail/direct-ready --scenario lost-response
+agentnative retail simulate examples/retail/direct-ready --scenario lost_response
 agentnative retail blueprint examples/retail/direct-ready --output blueprint.md
 agentnative retail evidence examples/retail/direct-ready --output evidence.json
 ```
 
-All Retail outputs are synthetic and explicitly state that no production transaction occurred. Reference workspaces are available under [`examples/retail/`](examples/retail/).
+All Retail outputs are synthetic and explicitly state that no production transaction occurred. Unknown scenario IDs fail closed. Reference workspaces are available under [`examples/retail/`](examples/retail/).
 
 ## Quick start
 
@@ -249,7 +249,7 @@ Agent Native is designed to be conservative around active behavior. The default 
 
 Do not put real credentials in examples, fixtures, issues, or pull requests. The adversarial corpus uses intentionally fake values for regression testing. Read [SECURITY.md](SECURITY.md) before reporting a vulnerability and see [docs/security/V2_THREAT_MODEL.md](docs/security/V2_THREAT_MODEL.md) for the active assumptions and residual risks.
 
-The reference idempotency and confirmation stores are process-local. Production deployments need a shared durable store and deployment-specific controls for crash recovery, rate limiting, key management, and external authorization systems.
+The general v2 idempotency and confirmation stores remain process-local. The Retail reference environment additionally exposes a SQLite durability path for restart, inventory, payment, return, refund, receipt, and reconciliation tests; it is still not a production payment or connector backend.
 
 ## Design documents
 

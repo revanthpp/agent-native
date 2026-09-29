@@ -32,6 +32,7 @@ capability_inventory:
   - capability_id: discover
     state: EXECUTABLE_IN_SIMULATION
     source_ref: retail-reference
+    evidence_refs: [evidence:retail-reference]
   - capability_id: submit_order
     state: UNKNOWN
     source_ref: business-profile
@@ -53,6 +54,20 @@ evidence_sources:
     observed_at: '2026-09-29T00:00:00Z'
     confidence: 0.8
     state: KNOWN_TRUE
+    evidence_id: evidence:profile:human-handoff
+    collector: workspace-profile
+    artifact_hash: fixture-profile-human-handoff
+  - evidence_id: evidence:retail-reference
+    field_name: retail_reference
+    value: PASS
+    value_type: result
+    source_type: test_result
+    source_ref: retail-reference
+    observed_at: '2026-09-29T00:00:00Z'
+    confidence: 1.0
+    state: KNOWN_TRUE
+    collector: retail-product
+    artifact_hash: fixture-retail-reference-v1
 policy_profile:
   risk_tolerance: low
   require_confirmation_for: [submit_order, execute_refund]

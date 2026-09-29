@@ -107,7 +107,7 @@
     }
   ],
   "completed_at": "2026-09-29T04:19:39.605170Z",
-  "evidence_commit_sha": "PENDING_EVIDENCE_MANIFEST",
+  "evidence_commit_sha": "10ba5b4c0e0155269f18c7dd655f1f241273a484",
   "package_version": "2.0.0a1",
   "python_version": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]",
   "repository": "github.com/revanthpp/agent-native",

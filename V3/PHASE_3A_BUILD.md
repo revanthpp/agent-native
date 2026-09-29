@@ -1,6 +1,8 @@
 # Agent Native v3 Phase 3A Build Record
 
-Status: `IMPLEMENTED — DESIGN/SEED PACKS`
+Status: `SUPERSEDED BY PHASE_3_BUILD_REPORT.md`
+
+The follow-up Phase 3 Build Requirements BRD reclassifies the original seed SDK as `IMPLEMENTED_UNVERIFIED` and adds hard gates for core guarantees, lifecycle, provenance, typed evidence, protocol drift, adversarial verification, and the Retail reference journey. See [PHASE_3_BUILD_REPORT.md](PHASE_3_BUILD_REPORT.md) for the current builder status.
 
 Phase 3A turns the v3 sector-pack contract into an executable extension point without changing the v2 control plane.
 
@@ -49,4 +51,3 @@ The local checkout used for this build does not currently have the dev dependenc
 python -m pip install -e ".[dev]"
 python -m pytest -q
 ```
-

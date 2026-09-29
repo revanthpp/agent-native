@@ -1,0 +1,7 @@
+{
+  "protocol": "A2A",
+  "version": "0.3.0",
+  "required_features": ["tasks", "authentication"],
+  "required_extensions": ["task-id"],
+  "auth": "oauth2"
+}

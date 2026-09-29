@@ -16,6 +16,14 @@ class EvalScenarioCategory(StrEnum):
     HIGH_RISK = "high-risk"
 
 
+class PackLifecycleState(StrEnum):
+    DRAFT = "draft"
+    PREVIEW = "preview"
+    ACTIVE = "active"
+    DEPRECATED = "deprecated"
+    DISABLED = "disabled"
+
+
 @dataclass(frozen=True)
 class CapabilityProfile:
     """Sector semantics that compile into the canonical v2 Capability."""
@@ -35,10 +43,12 @@ class CapabilityProfile:
     description: str = ""
 
     def to_capability(self, pack_id: str, business_id: str) -> Capability:
+        canonical_id = self.capability_id if self.capability_id.startswith(f"{pack_id}:") else f"{pack_id}:{self.capability_id}"
+        local_id = canonical_id.split(":", 1)[1]
         return Capability(
-            capability_id=f"{pack_id}:{self.capability_id}",
+            capability_id=canonical_id,
             business_id=business_id,
-            name=f"{pack_id}.{self.capability_id}",
+            name=f"{pack_id}.{local_id}",
             description=self.description,
             protocol_sources=[f"pack:{pack_id}"],
             action_class=self.action_class,
@@ -73,6 +83,14 @@ class PackManifest:
     subsectors: tuple[str, ...]
     core_version_requirement: str
     release_status: str
+    pack_schema_version: str = "1.0"
+    lifecycle_state: PackLifecycleState = PackLifecycleState.DRAFT
+    required_core_guarantees: tuple[str, ...] = ()
+    namespace: str = ""
+    provenance: Mapping[str, Any] = field(default_factory=dict)
+    effective_at: str | None = None
+    deprecated_at: str | None = None
+    sunset_at: str | None = None
     protocol_profiles: tuple[dict[str, Any], ...] = ()
     platform_profiles: tuple[dict[str, Any], ...] = ()
     known_limitations: tuple[str, ...] = ()
@@ -92,6 +110,7 @@ class Pack:
     evidence_requirements: Mapping[str, Any]
     report_sections: tuple[str, ...]
     dependencies: Mapping[str, Any]
+    content_hash: str = ""
 
     @property
     def pack_id(self) -> str:
@@ -103,3 +122,6 @@ class Pack:
     def scenario_categories(self) -> set[EvalScenarioCategory]:
         return {scenario.category for scenario in self.evaluation_scenarios}
 
+    @property
+    def lifecycle_state(self) -> PackLifecycleState:
+        return self.manifest.lifecycle_state

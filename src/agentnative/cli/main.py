@@ -160,7 +160,7 @@ def main(argv: list[str] | None = None) -> int:
 
         registry = load_builtin_packs()
         if args.packs_command == "list":
-            print(json.dumps({"packs": [{"pack_id": pack.pack_id, "sector": pack.manifest.sector, "version": pack.manifest.pack_version, "release_status": pack.manifest.release_status} for pack in registry.list()]}, indent=2))
+            print(json.dumps({"packs": [{"pack_id": pack.pack_id, "sector": pack.manifest.sector, "version": pack.manifest.pack_version, "lifecycle_state": pack.lifecycle_state.value, "release_status": pack.manifest.release_status, "content_hash": pack.content_hash} for pack in registry.list()]}, indent=2))
             return 0
         try:
             pack = registry.get(args.pack_id)
@@ -175,6 +175,11 @@ def main(argv: list[str] | None = None) -> int:
                 "subsectors": list(pack.manifest.subsectors),
                 "core_version_requirement": pack.manifest.core_version_requirement,
                 "release_status": pack.manifest.release_status,
+                "lifecycle_state": pack.lifecycle_state.value,
+                "namespace": pack.manifest.namespace,
+                "required_core_guarantees": list(pack.manifest.required_core_guarantees),
+                "content_hash": pack.content_hash,
+                "provenance": dict(pack.manifest.provenance),
             },
             "capabilities": [
                 {"capability_id": item.capability_id, "name": item.name, "group": item.group, "action_class": item.action_class.value, "side_effect": item.side_effect.value}

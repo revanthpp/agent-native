@@ -1,0 +1,7 @@
+{
+  "protocol": "A2A",
+  "version": "1.0.0",
+  "required_features": ["authentication"],
+  "required_extensions": [],
+  "auth": "oauth2"
+}

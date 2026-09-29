@@ -4,7 +4,11 @@ manifest:
   sector: retail
   subsectors: [general_merchandise, apparel, direct_to_consumer, ecommerce, omnichannel]
   core_version_requirement: ">=2.0,<3.0"
+  pack_schema_version: "1.0"
   release_status: design
+  lifecycle_state: draft
+  namespace: sector.retail
+  required_core_guarantees: [identity_binding_v1, delegation_scope_v1, transaction_identity_v1, replay_safe_confirmation_v1, idempotency_atomicity_v1, receipt_integrity_v1]
   protocol_profiles:
     - {id: openapi-commerce, version: "3.1", status: reference}
     - {id: ucp, version: "unlocked-reference", status: profile-only}

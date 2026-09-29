@@ -1,0 +1,33 @@
+git rev-parse HEAD
+# 6ac1113ebf032c60856c4722150481cd5441e1cd
+
+git branch --show-current
+# feature/phase3-sector-packs
+
+python -m pytest -q --import-mode=importlib --ignore=audit_v2
+# FAILED: system python has no pytest
+
+python -m unittest discover -s tests -q
+# FAILED: system python cannot import agentnative / cryptography
+
+.venv/bin/python -m pytest -q --import-mode=importlib --ignore=audit_v2
+# FAILED: .venv site-packages copy lacks Phase 3B SCENARIO_REGISTRY export
+
+PYTHONPATH=src .venv/bin/python -m pytest -q --import-mode=importlib --ignore=audit_v2
+# 148 passed, 158 subtests passed in 4.25s
+
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -q
+# Ran 105 tests in 0.944s, OK
+
+PYTHONPATH=src .venv/bin/python scripts/run_phase3_mutations.py
+# Reported 20/20 caught, with weak/non-mutational cases noted in findings
+
+PYTHONPATH=src .venv/bin/python scripts/verify_phase3b_evidence.py V3/evidence/phase3b_closure_builder_manifest.json
+# EVIDENCE_VALID provenance and artifact digests verified
+
+PYTHONPATH=src .venv/bin/python audit_v3/phase3b_closure/rerun_01/evidence_tamper_matrix.py
+# FAILED as an audit command because all five tamper cases were accepted by the verifier
+
+.venv/bin/python scripts/run_phase3b_wheel_smoke.py dist/agentnative-2.0.0a1-py3-none-any.whl
+# Initial sandbox run failed while pip fetched PyYAML
+# Escalated network run passed: WHEEL_SMOKE_PASS clean wheel-only Retail workflow outside repository

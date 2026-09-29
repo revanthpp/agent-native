@@ -116,7 +116,7 @@ agentnative packs list
 agentnative packs show sector.retail
 ```
 
-The original sector-pack BRD, the authoritative Phase 3 build-requirements BRD, RC1 hardening BRD, Retail productization BRD, Closure Remediation BRD, builder reports, architecture, threat model, and challenge review live under [`V3/`](V3/). The current bounded closure build adds strict workspace validation, evidence-bound journey gates, faithful registered scenarios, restart/reconciliation state, atomic output/provenance tooling, concurrency tests, and a clean wheel-only smoke script. The honest builder status is `READY_FOR_PHASE_3B_INDEPENDENT_REVIEW` for the synthetic closure scope only; Phase 2C and Phase 3A remain independently open, and production readiness is not claimed. See `V3/PHASE_3B_CLOSURE_REMEDIATION_BUILD_REPORT.md`.
+The original sector-pack BRD, the authoritative Phase 3 build-requirements BRD, RC1 hardening BRD, Retail productization BRD, Closure Remediation BRD, Gate 2 proof-remediation BRD, builder reports, architecture, threat model, and challenge review live under [`V3/`](V3/). The current public status is `PHASE_3B_NOT_READY — Gate 2 proof remediation in progress` until the independent audit is rerun. After builder remediation, the only permitted builder status is `READY_FOR_PHASE_3B_GATE2_RERUN`; independent verification remains a separate reviewer claim. See `V3/PHASE_3B_GATE2_PROOF_REMEDIATION_BUILD_REPORT.md` and `V3/INDEPENDENT_REVIEW_HANDOFF_PHASE_3B_GATE2.md`.
 
 ### Retail product workflow
 
@@ -235,10 +235,11 @@ python scripts/verify_package_contents.py dist/agentnative-*.whl
 
 The current local verification record includes:
 
-- 117 pytest tests and 158 subtests;
-- 84 deterministic unittest checks;
+- 149 pytest tests and 158 subtests;
+- 105 deterministic unittest checks;
 - 18/18 Phase 2B mutations caught;
 - 27/27 Phase 2C mutations caught;
+- 20/20 Phase 3 Gate 2 production-source mutants killed in isolated copies, with zero survivors, invalid mutants, timeouts, or exclusions;
 - 59/59 checks in the preserved independent Phase 2C final harness;
 - wheel verification with 78 runtime files; and
 - installed-wheel `pip check`, CLI, receipt, replay, and conflict smoke tests.

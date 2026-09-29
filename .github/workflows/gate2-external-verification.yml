@@ -1,0 +1,53 @@
+name: phase3b-gate2-external-verification
+
+on:
+  workflow_run:
+    workflows: ["ci"]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  verify:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Download builder bundle from the completed run
+        uses: actions/download-artifact@v4
+        with:
+          name: phase3b-gate2-builder-bundle
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          path: .
+      - name: Download finalized manifest from the completed run
+        uses: actions/download-artifact@v4
+        with:
+          name: phase3b-gate2-final-manifest
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          path: /tmp/phase3b-gate2-final
+      - name: Install verifier dependencies
+        run: python -m pip install -e ".[dev]"
+      - name: Replace bundle manifest with finalized manifest
+        run: cp /tmp/phase3b-gate2-final/V3/evidence/gate2/phase3b_gate2_builder_manifest.json V3/evidence/gate2/phase3b_gate2_builder_manifest.json
+      - name: Verify completed run and GitHub artifact externally
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/verify_phase3b_evidence.py V3/evidence/gate2/phase3b_gate2_builder_manifest.json
+      - name: Record external verification result
+        run: |
+          mkdir -p /tmp/phase3b-gate2-result
+          python scripts/verify_phase3b_evidence.py V3/evidence/gate2/phase3b_gate2_builder_manifest.json > /tmp/phase3b-gate2-result/external_verification.json
+      - name: Upload independent-run verification artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase3b-gate2-external-verification
+          path: /tmp/phase3b-gate2-result/external_verification.json

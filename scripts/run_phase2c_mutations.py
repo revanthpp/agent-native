@@ -1,6 +1,7 @@
 """Run Phase 2C production-seam mutations; every critical control must be caught."""
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 import time
@@ -41,6 +42,9 @@ def receipt_values(secret=""):
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=None)
+    args = parser.parse_args()
     cases = []
     def risk_invariant(value, currency, controls):
         return Simulator().run(scenario(value=value, currency=currency, grant_value_limit=1000), controls=controls).status.value == "DENIED"
@@ -184,7 +188,12 @@ def main() -> int:
 
     results = MutationHarness().run(cases)
     payload = [{"mutation_id": item.mutation_id, "production_control": item.control, "mutation": item.mutation, "expected_test_failure": item.expected_test_failure, "actual_result": item.actual_result, "caught": item.caught} for item in results]
-    print(json.dumps(payload, indent=2))
+    rendered = json.dumps({"schema_version": "phase2c-mutation-results-1", "status": "PASS" if all(item["caught"] for item in payload) else "FAIL", "counts": {"total": len(payload), "killed": sum(item["caught"] for item in payload), "survived": sum(not item["caught"] for item in payload)}, "mutants": payload}, indent=2, sort_keys=True)
+    print(rendered)
+    if args.output:
+        output = args.output if args.output.is_absolute() else Path(__file__).resolve().parents[1] / args.output
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(rendered + "\n", encoding="utf-8")
     return 0 if all(item["caught"] for item in payload) else 1
 
 

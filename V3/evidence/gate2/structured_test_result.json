@@ -1,0 +1,10 @@
+{
+  "counts": {
+    "failed": 0,
+    "passed": 307,
+    "skipped": 0,
+    "total": 307
+  },
+  "junit_xml": "V3/evidence/gate2/baseline_tests.xml",
+  "schema_version": "gate2-structured-test-result-1"
+}

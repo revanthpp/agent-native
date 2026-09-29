@@ -1,0 +1,16 @@
+{
+  "reviewed_commit": "6ac1113ebf032c60856c4722150481cd5441e1cd",
+  "branch": "feature/phase3-sector-packs",
+  "review_date_local": "2026-09-29",
+  "os": "macOS 26.6.2 build 25G83",
+  "python": "Python 3.14.3 (main, Feb 3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]",
+  "sqlite": "3.53.3",
+  "pip": "pip 26.0 from .venv/lib/python3.14/site-packages/pip",
+  "source_import": "/Volumes/AI L&D/AI Projects/L&D/Agent Native/src/agentnative/__init__.py",
+  "venv_default_import": "/Volumes/AI L&D/AI Projects/L&D/Agent Native/.venv/lib/python3.14/site-packages/agentnative/__init__.py",
+  "notes": [
+    "Bare system python lacked pytest and could not import agentnative.",
+    ".venv without PYTHONPATH imported an installed site-packages copy that failed Phase 3B test collection.",
+    "Source checkout tests were run with PYTHONPATH=src."
+  ]
+}

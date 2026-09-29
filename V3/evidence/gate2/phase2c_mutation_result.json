@@ -1,0 +1,227 @@
+{
+  "counts": {
+    "killed": 27,
+    "survived": 0,
+    "total": 27
+  },
+  "mutants": [
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "bypass non-finite validation",
+      "mutation_id": "M2C-RISK-FINITE",
+      "production_control": "finite monetary validation"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "allow negative amount",
+      "mutation_id": "M2C-RISK-NEGATIVE",
+      "production_control": "non-negative monetary validation"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore currency mismatch",
+      "mutation_id": "M2C-RISK-CURRENCY",
+      "production_control": "currency matching"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "treat missing currency as valid",
+      "mutation_id": "M2C-RISK-MISSING-CURRENCY",
+      "production_control": "currency presence"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "bypass ceiling comparison",
+      "mutation_id": "M2C-RISK-CEILING",
+      "production_control": "inclusive monetary ceiling"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "bypass ownership",
+      "mutation_id": "M2C-OWNERSHIP",
+      "production_control": "simulator ownership gate"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "allow above environment ceiling",
+      "mutation_id": "M2C-RISK",
+      "production_control": "environment risk ceiling"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "allow without policy",
+      "mutation_id": "M2C-POLICY",
+      "production_control": "state-changing policy gate"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "commit without required confirmation",
+      "mutation_id": "M2C-CONFIRMATION",
+      "production_control": "confirmation gate"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "disable context binding",
+      "mutation_id": "M2C-CONFIRMATION-BINDING",
+      "production_control": "confirmation binding"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "consume confirmation before idempotency replay",
+      "mutation_id": "M-IDEM-CONFIRMATION-ORDER",
+      "production_control": "completed replay resolves before confirmation"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "allow one confirmation for two transactions",
+      "mutation_id": "M-CONFIRMATION-CROSS-TX-REUSE",
+      "production_control": "confirmation single-use across transactions"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "omit principal from fingerprint",
+      "mutation_id": "M-IDEM-OMIT-PRINCIPAL",
+      "production_control": "principal is bound to fingerprint"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "omit agent from fingerprint",
+      "mutation_id": "M-IDEM-OMIT-AGENT",
+      "production_control": "agent is bound to fingerprint"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "omit environment from fingerprint",
+      "mutation_id": "M-IDEM-OMIT-ENVIRONMENT",
+      "production_control": "environment is bound to fingerprint"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "accept expired quote",
+      "mutation_id": "M2C-QUOTE-EXPIRY",
+      "production_control": "quote and confirmation expiry"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore state change after preview",
+      "mutation_id": "M2C-TOCTOU",
+      "production_control": "quote resource version"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "disable idempotency",
+      "mutation_id": "M2C-IDEMPOTENCY",
+      "production_control": "duplicate side-effect suppression"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "claim after execution",
+      "mutation_id": "M2C-IDEMPOTENCY-ATOMIC-CLAIM",
+      "production_control": "atomic idempotency reservation"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore same-key hash conflict",
+      "mutation_id": "M2C-IDEMPOTENCY-HASH-CONFLICT",
+      "production_control": "idempotency request-hash binding"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "route dry-run to active preview",
+      "mutation_id": "M2C-DRYRUN-ACTIVE-PREVIEW",
+      "production_control": "dry-run plan isolation"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "permit excessive retry attempts",
+      "mutation_id": "M2C-RETRY-BOUND",
+      "production_control": "bounded retries"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "convert PARTIAL to SUCCESS",
+      "mutation_id": "M2C-PARTIAL",
+      "production_control": "partial outcome representation"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "hide failed compensation",
+      "mutation_id": "M2C-COMPENSATION",
+      "production_control": "compensation failure reporting"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "accept modified receipt",
+      "mutation_id": "M2C-RECEIPT-INTEGRITY",
+      "production_control": "receipt integrity"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "break trace identity",
+      "mutation_id": "M2C-TRACE-CORRELATION",
+      "production_control": "receipt trace correlation"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "leak raw secret into receipt",
+      "mutation_id": "M2C-RECEIPT-REDACTION",
+      "production_control": "receipt secret minimization"
+    }
+  ],
+  "schema_version": "phase2c-mutation-results-1",
+  "status": "PASS"
+}

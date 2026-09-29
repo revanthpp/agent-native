@@ -2,13 +2,13 @@
 
 Date: 2026-09-29
 
-## Honest status
+## Superseded status
 
 ```text
-READY_FOR_PHASE_3B_INDEPENDENT_REVIEW
+PHASE_3B_NOT_READY — Gate 2 proof remediation in progress
 ```
 
-Scope: synthetic Retail workspace validation, recommendation gating, deterministic reference scenarios, SQLite restart/concurrency controls, CLI artifact safety, and builder evidence. Authority: builder evidence only. This does not promote Phase 2C, Phase 3A, or production readiness.
+This historical closure report is superseded by `V3/PHASE_3B_GATE2_PROOF_REMEDIATION_BUILD_REPORT.md`. The independent audit found that the prior evidence verifier and Phase 3 mutation claims were insufficient. The current builder status and remediation evidence are defined by the Gate 2 report; this document remains as historical context and does not claim readiness.
 
 ## Changes by requirement group
 

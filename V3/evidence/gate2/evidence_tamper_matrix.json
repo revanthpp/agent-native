@@ -1,0 +1,293 @@
+{
+  "cases": [
+    {
+      "accepted": false,
+      "case": "missing_manifest",
+      "error_codes": [
+        "MANIFEST_MISSING"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "invalid_json",
+      "error_codes": [
+        "INVALID_JSON"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "missing_artifacts",
+      "error_codes": [
+        "INVALID_TYPE",
+        "MISSING_FIELD",
+        "UNKNOWN_COMMAND_ARTIFACT_REF"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "empty_artifacts",
+      "error_codes": [
+        "EMPTY_ARTIFACTS",
+        "UNKNOWN_COMMAND_ARTIFACT_REF"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "missing_required_artifact_role",
+      "error_codes": [
+        "MISSING_REQUIRED_ARTIFACT_ROLE"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "nonexistent_artifact_path",
+      "error_codes": [
+        "ARTIFACT_MISSING"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "path_traversal",
+      "error_codes": [
+        "UNSAFE_ARTIFACT_PATH"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "symlink_escape",
+      "error_codes": [
+        "ARTIFACT_PATH_ESCAPE"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "altered_artifact_bytes",
+      "error_codes": [
+        "ARTIFACT_DIGEST_MISMATCH"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "absent_digest",
+      "error_codes": [
+        "INVALID_ARTIFACT_DIGEST",
+        "MISSING_ARTIFACT_FIELD"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "malformed_digest",
+      "error_codes": [
+        "INVALID_ARTIFACT_DIGEST"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "incorrect_byte_size",
+      "error_codes": [
+        "ARTIFACT_SIZE_MISMATCH"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "arbitrary_source_sha",
+      "error_codes": [
+        "COMMIT_ANCESTRY_INVALID",
+        "COMMIT_NOT_FOUND"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "arbitrary_evidence_sha",
+      "error_codes": [
+        "COMMIT_ANCESTRY_INVALID",
+        "COMMIT_NOT_FOUND"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "arbitrary_reviewed_sha",
+      "error_codes": [
+        "CI_HEAD_REVIEWED_MISMATCH",
+        "COMMIT_ANCESTRY_INVALID",
+        "COMMIT_NOT_FOUND"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "equal_source_evidence_sha",
+      "error_codes": [
+        "COMMIT_ANCESTRY_INVALID",
+        "NON_INDEPENDENT_PROVENANCE"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "valid_unrelated_repository_commit",
+      "error_codes": [
+        "COMMIT_ANCESTRY_INVALID",
+        "COMMIT_NOT_FOUND"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "nonexistent_ci_run",
+      "error_codes": [
+        "CI_VERIFICATION_UNAVAILABLE"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "ci_from_another_repository",
+      "error_codes": [
+        "CI_FIELD_MISMATCH"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "ci_for_another_head_sha",
+      "error_codes": [
+        "CI_FIELD_MISMATCH"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "ci_in_progress",
+      "error_codes": [
+        "CI_NOT_COMPLETED"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "ci_failed",
+      "error_codes": [
+        "CI_NOT_SUCCESS"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "fabricated_run_url",
+      "error_codes": [
+        "CI_FIELD_MISMATCH"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "mismatched_workflow",
+      "error_codes": [
+        "CI_FIELD_MISMATCH"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "missing_uploaded_artifact",
+      "error_codes": [
+        "CI_ARTIFACT_MISSING"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "mismatched_github_artifact_digest",
+      "error_codes": [
+        "CI_ARTIFACT_DIGEST_MISMATCH"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "missing_required_command",
+      "error_codes": [
+        "MISSING_REQUIRED_COMMAND"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "nonzero_required_command",
+      "error_codes": [
+        "COMMAND_FAILED"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "inconsistent_test_count",
+      "error_codes": [
+        "RESULT_COUNT_MISMATCH"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    },
+    {
+      "accepted": false,
+      "case": "status_changed",
+      "error_codes": [
+        "STATUS_UNSUPPORTED"
+      ],
+      "returncode": 1,
+      "status": "EVIDENCE_INVALID"
+    }
+  ],
+  "counts": {
+    "accepted": 0,
+    "rejected": 30,
+    "total": 30
+  },
+  "known_good_offline": "OFFLINE_PARTIAL_VERIFICATION",
+  "known_good_online": "EVIDENCE_VALID",
+  "schema_version": "phase3b-evidence-tamper-matrix-1",
+  "status": "PASS"
+}

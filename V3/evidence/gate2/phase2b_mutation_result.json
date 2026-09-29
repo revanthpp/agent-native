@@ -1,0 +1,155 @@
+{
+  "counts": {
+    "killed": 18,
+    "survived": 0,
+    "total": 18
+  },
+  "mutants": [
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "bypass owner gate",
+      "mutation_id": "M-OWNERSHIP",
+      "production_control": "owner verification"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "accept invalid signature",
+      "mutation_id": "M-SIGNATURE",
+      "production_control": "signature verification"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "accept duplicate nonce",
+      "mutation_id": "M-REPLAY",
+      "production_control": "replay protection"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "accept expired grant",
+      "mutation_id": "M-GRANT-EXPIRY",
+      "production_control": "delegation expiry"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore revoked flag",
+      "mutation_id": "M-REVOCATION",
+      "production_control": "delegation revocation"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore principal",
+      "mutation_id": "M-PRINCIPAL",
+      "production_control": "principal binding"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore agent",
+      "mutation_id": "M-AGENT",
+      "production_control": "agent binding"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore provider",
+      "mutation_id": "M-PROVIDER",
+      "production_control": "provider binding"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore audience",
+      "mutation_id": "M-AUDIENCE",
+      "production_control": "audience binding"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore capability",
+      "mutation_id": "M-CAPABILITY",
+      "production_control": "capability binding"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore resource",
+      "mutation_id": "M-RESOURCE",
+      "production_control": "resource binding"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "ignore value limit",
+      "mutation_id": "M-VALUE",
+      "production_control": "value ceiling"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "allow explicitly denied capability",
+      "mutation_id": "M-DENY",
+      "production_control": "explicit deny precedence"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "default allow",
+      "mutation_id": "M-DEFAULT",
+      "production_control": "state-changing default deny"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "use stale policy version",
+      "mutation_id": "M-VERSION",
+      "production_control": "policy version"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "emit raw secret",
+      "mutation_id": "M-REDACTION",
+      "production_control": "secret redaction"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "fetch unsafe private target",
+      "mutation_id": "M-REF-NETWORK",
+      "production_control": "remote $ref network policy"
+    },
+    {
+      "actual_result": false,
+      "caught": true,
+      "expected_test_failure": true,
+      "mutation": "bypass direct OpenAPI YAML error conversion",
+      "mutation_id": "M-ADAPTER-YAML-ERROR",
+      "production_control": "adapter parser-error normalization"
+    }
+  ],
+  "schema_version": "phase2b-mutation-results-1",
+  "status": "PASS"
+}

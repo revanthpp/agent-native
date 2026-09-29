@@ -1,0 +1,32 @@
+[
+  {
+    "id": "P3B-AUDIT-001",
+    "severity": "HIGH",
+    "requirement": "Evidence provenance and artifact verification must reject missing artifacts and fabricated provenance.",
+    "affected_file": "scripts/verify_phase3b_evidence.py",
+    "reproduction": "PYTHONPATH=src .venv/bin/python audit_v3/phase3b_closure/rerun_01/evidence_tamper_matrix.py",
+    "expected": "Verifier rejects missing artifacts, removed artifacts arrays, arbitrary commit SHAs, and fabricated CI metadata.",
+    "actual": "Verifier returned 0 and printed EVIDENCE_VALID for all five tamper cases.",
+    "evidence": "audit_v3/phase3b_closure/rerun_01/evidence_tamper_matrix.py output"
+  },
+  {
+    "id": "P3B-AUDIT-002",
+    "severity": "HIGH",
+    "requirement": "Phase 3 mutation score should demonstrate changed production behavior or injected production controls.",
+    "affected_file": "scripts/run_phase3_mutations.py",
+    "reproduction": "Inspect run_case usages and run PYTHONPATH=src .venv/bin/python scripts/run_phase3_mutations.py",
+    "expected": "Each reported mutation changes production behavior or a production seam and names the failing test.",
+    "actual": "Many cases pass the real check as original and lambda: False as mutated; M3-PROVENANCE-COMMIT compares two string literals. The harness reports 20/20 despite weak mutation evidence.",
+    "evidence": "scripts/run_phase3_mutations.py"
+  },
+  {
+    "id": "P3B-AUDIT-003",
+    "severity": "MEDIUM",
+    "requirement": "Baseline and wheel claims should be reproducible without ambiguous import sources.",
+    "affected_file": ".venv environment / scripts/run_phase3b_wheel_smoke.py",
+    "reproduction": ".venv/bin/python -c \"import agentnative, pathlib; print(pathlib.Path(agentnative.__file__).resolve())\"",
+    "expected": "The test environment clearly targets either the checkout or the built wheel for each claim.",
+    "actual": ".venv default import resolves to site-packages; source pytest requires PYTHONPATH=src. Wheel smoke passes with network access, but the script creates a venv with --system-site-packages and reads example workspaces from the checkout.",
+    "evidence": "environment.json"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "schema_version": "gate2-tamper-fixture-1",
+  "counts": {
+    "failed": 0,
+    "passed": 1,
+    "skipped": 0,
+    "total": 1
+  }
+}

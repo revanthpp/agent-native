@@ -16,6 +16,17 @@
 
 The builder does not mark any independent-audit gate as passed.
 
+## Phase 3B Gate 2 proof remediation
+
+| Gate 2 requirement | Implementation | Verification | Status |
+|---|---|---|---|
+| G2-EVID-001..009 | versioned manifest schema, fail-closed verifier, Git ancestry, GitHub run/artifact binding, structured error contract | `scripts/run_phase3b_evidence_tamper_matrix.py` and verifier | BUILDER VERIFIED / INDEPENDENT RERUN OPEN |
+| G2-TAMPER-001..030 | first-party 30-case tamper matrix; original audit preserved unchanged | 30 rejected; known-good online and offline-partial cases | BUILDER VERIFIED / INDEPENDENT RERUN OPEN |
+| G2-MUT-001..006 | isolated source-to-source mutation runner and named behavioral oracles | 20 killed, 0 survived, 0 invalid, 0 timed out, 0 excluded | BUILDER VERIFIED / INDEPENDENT RERUN OPEN |
+| G2-WHEEL-001..005 | hermetic venv, outside-checkout inputs, import-path assertion, pip check/freeze | `run_phase3b_wheel_smoke.py` | BUILDER VERIFIED / INDEPENDENT RERUN OPEN |
+| G2-CI-001..008 | ordered CI build, artifact upload, separate `workflow_run` verifier | `.github/workflows/ci.yml`, `gate2-external-verification.yml` | IMPLEMENTED / CI RERUN REQUIRED |
+| G2-STATUS / HANDOFF | builder-only status and separate reviewer package | Gate 2 build report and handoff | READY_FOR_PHASE_3B_GATE2_RERUN |
+
 ## RC1 builder snapshot
 
 | RC1 workstream | Implementation | Verification | Status |

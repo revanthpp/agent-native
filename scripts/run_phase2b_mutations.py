@@ -6,6 +6,7 @@ A surviving mutant exits nonzero.
 """
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from dataclasses import replace
@@ -57,6 +58,9 @@ def _engine_for(capability, *, rules=None, version="1"):
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=None)
+    args = parser.parse_args()
     now = datetime.now(timezone.utc)
     identity = AgentIdentity("agent", "provider", "Agent", TrustClass.PARTNER)
     capability = Capability("cap:purchase", "business", "purchase", action_class=ActionClass.PURCHASE)
@@ -126,7 +130,12 @@ def main() -> int:
     cases.append(MutationCase("M-ADAPTER-YAML-ERROR", "adapter parser-error normalization", "bypass direct OpenAPI YAML error conversion", lambda: adapter_error_boundary(True), lambda: adapter_error_boundary(False)))
     results = MutationHarness().run(cases)
     payload = [{"mutation_id": r.mutation_id, "production_control": r.control, "mutation": r.mutation, "expected_test_failure": r.expected_test_failure, "actual_result": r.actual_result, "caught": r.caught} for r in results]
-    print(json.dumps(payload, indent=2))
+    rendered = json.dumps({"schema_version": "phase2b-mutation-results-1", "status": "PASS" if all(item["caught"] for item in payload) else "FAIL", "counts": {"total": len(payload), "killed": sum(item["caught"] for item in payload), "survived": sum(not item["caught"] for item in payload)}, "mutants": payload}, indent=2, sort_keys=True)
+    print(rendered)
+    if args.output:
+        output = args.output if args.output.is_absolute() else Path(__file__).resolve().parents[1] / args.output
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(rendered + "\n", encoding="utf-8")
     return 0 if all(item["caught"] for item in payload) else 1
 
 

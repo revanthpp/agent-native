@@ -33,7 +33,7 @@ jobs:
       - name: Install declared development dependencies
         run: python -m pip install -e ".[dev]"
       - name: Run pytest verification
-        run: pytest --import-mode=importlib -q tests
+        run: PYTHONPATH=.:src python -m pytest --import-mode=importlib -q tests
       - name: Run deterministic tests
         run: PYTHONPATH=src:. python -m unittest discover -s tests -v
       - name: Run Phase 2B mutation controls

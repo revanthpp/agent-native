@@ -85,6 +85,16 @@ def build_parser() -> argparse.ArgumentParser:
     show_pack = packs_sub.add_parser("show", help="show one sector pack manifest and capabilities")
     show_pack.add_argument("pack_id")
 
+    guarantees_parser = subparsers.add_parser("guarantees", help="inspect core guarantee attestations")
+    guarantees_sub = guarantees_parser.add_subparsers(dest="guarantees_command", required=True)
+    for command in ("list", "status"):
+        item = guarantees_sub.add_parser(command)
+        item.add_argument("--attestation", type=Path, help="read an attestation JSON document")
+    verify_guarantee = guarantees_sub.add_parser("verify")
+    verify_guarantee.add_argument("attestation", type=Path)
+    verify_guarantee.add_argument("--public-key", type=Path, required=True, help="PEM Ed25519 public key")
+    verify_guarantee.add_argument("--environment", default="SANDBOX")
+
     subparsers.add_parser("checks", help="list the deterministic check catalog")
     check_parser = subparsers.add_parser("check", help="show one check definition")
     check_parser.add_argument("check_id")
@@ -155,6 +165,30 @@ def main(argv: list[str] | None = None) -> int:
         verification = ReceiptEngine().verify_file(args.receipt)
         print(json.dumps({"status": verification.status, "reason": verification.reason, "receipt_id": verification.receipt_id}, indent=2))
         return {"VALID": 0, "INVALID": 1, "UNSUPPORTED": 2}.get(verification.status, 2)
+    if args.command == "guarantees":
+        from agentnative.packs import CoreGuaranteeAttestation, CoreTrustStore, TrustedAttestationKey
+        required = ("identity_binding_v1", "delegation_scope_v1", "transaction_identity_v1", "replay_safe_confirmation_v1", "idempotency_atomicity_v1", "receipt_integrity_v1")
+        if args.guarantees_command in {"list", "status"}:
+            attestation = None
+            if args.attestation:
+                try:
+                    attestation = CoreGuaranteeAttestation.from_dict(json.loads(args.attestation.read_text(encoding="utf-8")))
+                except (OSError, json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
+                    print(f"Attestation is not valid: {exc}", file=sys.stderr)
+                    return 5
+            print(json.dumps({"status": "UNVERIFIED" if attestation is None else "ATTESTATION_LOADED", "attestation_id": attestation.attestation_id if attestation else None, "guarantees": [{"guarantee_id": item, "status": next((entry.status for entry in attestation.guarantees if entry.guarantee_id == item), "UNKNOWN") if attestation else "UNKNOWN"} for item in required]}, indent=2))
+            return 0
+        try:
+            attestation = CoreGuaranteeAttestation.from_dict(json.loads(args.attestation.read_text(encoding="utf-8")))
+            from cryptography.hazmat.primitives.serialization import load_pem_public_key
+            public_key = load_pem_public_key(args.public_key.read_bytes())
+            trust = CoreTrustStore([TrustedAttestationKey(attestation.key_id, public_key, environment=args.environment)])
+            trust.verify(attestation, required=required, environment=args.environment)
+        except Exception as exc:
+            print(json.dumps({"status": "INVALID", "reason": str(exc)}, indent=2))
+            return 1
+        print(json.dumps({"status": "VALID", "attestation_id": attestation.attestation_id, "subject": attestation.subject.to_dict()}, indent=2))
+        return 0
     if args.command == "packs":
         from agentnative.packs import load_builtin_packs
 

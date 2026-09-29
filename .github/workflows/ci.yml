@@ -50,18 +50,3 @@ jobs:
             V3/REQUIREMENTS_TRACEABILITY.md
             dist/*.whl
           if-no-files-found: error
-      - name: Bind manifest to completed run and uploaded artifact
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          python scripts/finalize_phase3b_gate2_manifest.py \
-            V3/evidence/gate2/phase3b_gate2_builder_manifest.json \
-            --artifact-id "${{ steps.gate2-bundle.outputs.artifact-id }}" \
-            --artifact-digest "${{ steps.gate2-bundle.outputs.artifact-digest }}" \
-            --artifact-url "${{ steps.gate2-bundle.outputs.artifact-url }}"
-      - name: Upload finalized Gate 2 manifest
-        uses: actions/upload-artifact@v4
-        with:
-          name: phase3b-gate2-final-manifest
-          path: V3/evidence/gate2/phase3b_gate2_builder_manifest.json
-          if-no-files-found: error

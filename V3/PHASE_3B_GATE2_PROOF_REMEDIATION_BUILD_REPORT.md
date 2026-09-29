@@ -29,6 +29,8 @@ The result artifact is machine-readable at `V3/evidence/gate2/phase3_mutation_re
 
 The package remains synthetic and builder-authored. It does not prove live connector behavior, payment-network settlement, production credentials, protocol certification, legal compliance, or operational readiness. No builder workflow may change the status to `PHASE_3B_INDEPENDENTLY_VERIFIED`.
 
+The GitHub proof topology is intentionally two-stage: `ci.yml` builds and uploads the builder bundle, then `gate2-external-verification.yml` is triggered by the completed builder run, binds the manifest to that completed run and its artifact digest, and performs the online verification from a separate workflow context. This prevents a workflow from claiming its own still-running status is completed.
+
 The current local regression baseline is `149 passed, 158 subtests passed` under pytest and `105 tests, OK` under the stdlib unittest suite. The generated Gate 2 manifest records the exact run-specific counts; these numbers are builder evidence, not an independent verdict.
 
 ## Reproduction

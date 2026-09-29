@@ -17,6 +17,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -27,17 +28,25 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
           path: .
-      - name: Download finalized manifest from the completed run
-        uses: actions/download-artifact@v4
-        with:
-          name: phase3b-gate2-final-manifest
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ github.token }}
-          path: /tmp/phase3b-gate2-final
       - name: Install verifier dependencies
         run: python -m pip install -e ".[dev]"
-      - name: Replace bundle manifest with finalized manifest
-        run: cp /tmp/phase3b-gate2-final/V3/evidence/gate2/phase3b_gate2_builder_manifest.json V3/evidence/gate2/phase3b_gate2_builder_manifest.json
+      - name: Bind manifest to the completed builder run and artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+        run: |
+          artifact_json="$(gh api "repos/${SOURCE_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}/artifacts" --jq '.artifacts[] | select(.name == "phase3b-gate2-builder-bundle")')"
+          artifact_id="$(printf '%s' "$artifact_json" | python -c 'import json, sys; print(json.load(sys.stdin)["id"])')"
+          artifact_digest="$(printf '%s' "$artifact_json" | python -c 'import json, sys; print(json.load(sys.stdin)["digest"])')"
+          artifact_url="$(printf '%s' "$artifact_json" | python -c 'import json, sys; print(json.load(sys.stdin)["archive_download_url"])')"
+          python scripts/finalize_phase3b_gate2_manifest.py \
+            V3/evidence/gate2/phase3b_gate2_builder_manifest.json \
+            --run-id "$SOURCE_RUN_ID" \
+            --repository "$SOURCE_REPOSITORY" \
+            --artifact-id "$artifact_id" \
+            --artifact-digest "$artifact_digest" \
+            --artifact-url "$artifact_url"
       - name: Verify completed run and GitHub artifact externally
         env:
           GH_TOKEN: ${{ github.token }}
@@ -50,4 +59,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: phase3b-gate2-external-verification
-          path: /tmp/phase3b-gate2-result/external_verification.json
+          path: |
+            /tmp/phase3b-gate2-result/external_verification.json
+            V3/evidence/gate2/phase3b_gate2_builder_manifest.json

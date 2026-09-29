@@ -43,7 +43,7 @@ def main() -> int:
         [sys.executable, "scripts/run_phase2c_mutations.py"],
         [sys.executable, "scripts/run_phase3_mutations.py"],
     ]
-    if wheels:
+    if wheels and os.environ.get("SKIP_LOCAL_WHEEL_SMOKE") != "1":
         commands.append([sys.executable, "scripts/run_phase3b_wheel_smoke.py", str(wheels[-1])])
     results = [_run(root, command) for command in commands]
     completed = datetime.now(timezone.utc)

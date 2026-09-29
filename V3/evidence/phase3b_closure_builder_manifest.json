@@ -11,6 +11,10 @@
     {
       "path": "V3/REQUIREMENTS_TRACEABILITY.md",
       "sha256": "5d2c938a0bef525e9556599c1d7c7c27981ae5f5ac4a58651b12350932c06fd1"
+    },
+    {
+      "path": "dist/agentnative-2.0.0a1-py3-none-any.whl",
+      "sha256": "32e84779dda3a5fdcadef7c6996eb13df9bed2ca24089f8b931e35e64075bfa2"
     }
   ],
   "ci": {
@@ -46,7 +50,7 @@
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": ".................................. [ 22%]\n................................................. [ 56%]\n................................................... [ 90%]\n..............                                                       [100%]\n148 passed, 158 subtests passed in 4.23s\n"
+      "stdout_tail": ".................................. [ 22%]\n................................................. [ 56%]\n................................................... [ 90%]\n..............                                                       [100%]\n148 passed, 158 subtests passed in 4.24s\n"
     },
     {
       "command": [
@@ -59,7 +63,7 @@
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "......                                                                   [100%]\n6 passed in 1.09s\n"
+      "stdout_tail": "......                                                                   [100%]\n6 passed in 1.10s\n"
     },
     {
       "command": [
@@ -71,7 +75,7 @@
         "tests"
       ],
       "returncode": 0,
-      "stderr_tail": ".........................................................................................................\n----------------------------------------------------------------------\nRan 105 tests in 0.934s\n\nOK\n",
+      "stderr_tail": ".........................................................................................................\n----------------------------------------------------------------------\nRan 105 tests in 0.933s\n\nOK\n",
       "stdout_tail": "{\n  \"rule_count\": 1,\n  \"findings\": [\n    \"POL-LINT-001:missing_default\",\n    \"POL-LINT-005:wildcard_privilege:allow\"\n  ]\n}\n"
     },
     {
@@ -102,8 +106,8 @@
       "stdout_tail": "ue,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-DO-NOT-ACTIVATE\",\n    \"production_control\": \"unviable economics deny activation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-EVIDENCE-CONFLICT\",\n    \"production_control\": \"conflicting evidence is visible\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PROTOCOL-DRIFT\",\n    \"production_control\": \"breaking protocol drift blocks conformance\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-UNKNOWN-SCENARIO\",\n    \"production_control\": \"scenario registry rejects unknown IDs\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-JOURNEY-CAPABILITY-GATE\",\n    \"production_control\": \"missing journey capability downgrades direct activation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-DECLARED-CAPABILITY\",\n    \"production_control\": \"declared-only capability is not readiness evidence\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-STALE-CONFLICT-EVIDENCE\",\n    \"production_control\": \"evidence state is a visible decision input\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PROTOCOL-HASH\",\n    \"production_control\": \"protocol fixture hash is verified\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-CONFIRMATION-POLICY\",\n    \"production_control\": \"value-changing journeys enforce confirmation policy\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-IDEMPOTENCY-IDENTITY\",\n    \"production_control\": \"idempotency binds material identity\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-ATOMIC-ORDER-COMMIT\",\n    \"production_control\": \"order commit has one durable unit of work\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-INVENTORY-BOUND\",\n    \"production_control\": \"inventory is bounded by an atomic database decrement\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-REFUND-CEILING\",\n    \"production_control\": \"aggregate refunds cannot exceed captured value\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-CONNECTOR-UNKNOWN\",\n    \"production_control\": \"connector outage creates bounded reconciliation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PAYMENT-RESTART\",\n    \"production_control\": \"payment and refund entities have restart loaders\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-DELEGATION-EXPIRY\",\n    \"production_control\": \"delegation expiry is the denial mechanism\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-OUTPUT-REDACTION\",\n    \"production_control\": \"generated output uses synthetic boundary and no secrets\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PROVENANCE-COMMIT\",\n    \"production_control\": \"evidence uses separate source and evidence identities\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-UNKNOWN-RETRY\",\n    \"production_control\": \"lost response replays singular order\",\n    \"expected_test_failure\": true,\n    \"actual_result\": true,\n    \"caught\": true\n  }\n]\n"
     }
   ],
-  "completed_at": "2026-09-29T04:18:05.856217Z",
-  "evidence_commit_sha": "PENDING_EVIDENCE_ANCHOR",
+  "completed_at": "2026-09-29T04:19:39.605170Z",
+  "evidence_commit_sha": "PENDING_EVIDENCE_MANIFEST",
   "package_version": "2.0.0a1",
   "python_version": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]",
   "repository": "github.com/revanthpp/agent-native",
@@ -162,7 +166,7 @@
         ],
         "returncode": 0,
         "stderr_tail": "",
-        "stdout_tail": ".................................. [ 22%]\n................................................. [ 56%]\n................................................... [ 90%]\n..............                                                       [100%]\n148 passed, 158 subtests passed in 4.23s\n"
+        "stdout_tail": ".................................. [ 22%]\n................................................. [ 56%]\n................................................... [ 90%]\n..............                                                       [100%]\n148 passed, 158 subtests passed in 4.24s\n"
       },
       {
         "command": [
@@ -175,7 +179,7 @@
         ],
         "returncode": 0,
         "stderr_tail": "",
-        "stdout_tail": "......                                                                   [100%]\n6 passed in 1.09s\n"
+        "stdout_tail": "......                                                                   [100%]\n6 passed in 1.10s\n"
       },
       {
         "command": [
@@ -187,13 +191,13 @@
           "tests"
         ],
         "returncode": 0,
-        "stderr_tail": ".........................................................................................................\n----------------------------------------------------------------------\nRan 105 tests in 0.934s\n\nOK\n",
+        "stderr_tail": ".........................................................................................................\n----------------------------------------------------------------------\nRan 105 tests in 0.933s\n\nOK\n",
         "stdout_tail": "{\n  \"rule_count\": 1,\n  \"findings\": [\n    \"POL-LINT-001:missing_default\",\n    \"POL-LINT-005:wildcard_privilege:allow\"\n  ]\n}\n"
       }
     ]
   },
-  "run_id": "phase3-rc1-builder-20260929T041727Z",
-  "source_commit_sha": "603b46e6614714f389f73893b884e93946b65d2d",
-  "started_at": "2026-09-29T04:17:27.536362Z",
+  "run_id": "phase3-rc1-builder-20260929T041901Z",
+  "source_commit_sha": "f61cdb9e8e8402385567ee85a5d44f87c86e3898",
+  "started_at": "2026-09-29T04:19:01.276941Z",
   "status": "BUILDER_EVIDENCE_ONLY"
 }

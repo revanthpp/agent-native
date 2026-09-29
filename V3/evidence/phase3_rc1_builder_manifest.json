@@ -28,7 +28,7 @@
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": ".................................. [ 24%]\n................................................................................................ [ 94%]\n........                                                                 [100%]\n138 passed, 158 subtests passed in 2.08s\n"
+      "stdout_tail": ".................................. [ 23%]\n............................................................................................................                                                             [100%]\n142 passed, 158 subtests passed in 2.90s\n"
     },
     {
       "command": [
@@ -40,7 +40,7 @@
         "tests"
       ],
       "returncode": 0,
-      "stderr_tail": ".........................................................................................................\n----------------------------------------------------------------------\nRan 105 tests in 0.842s\n\nOK\n",
+      "stderr_tail": ".........................................................................................................\n----------------------------------------------------------------------\nRan 105 tests in 0.819s\n\nOK\n",
       "stdout_tail": "{\n  \"rule_count\": 1,\n  \"findings\": [\n    \"POL-LINT-001:missing_default\",\n    \"POL-LINT-005:wildcard_privilege:allow\"\n  ]\n}\n"
     },
     {
@@ -71,8 +71,8 @@
       "stdout_tail": "[\n  {\n    \"mutation_id\": \"M3-CORE-GATE\",\n    \"production_control\": \"transactional pack requires independently verified core\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-DO-NOT-ACTIVATE\",\n    \"production_control\": \"unviable economics deny activation\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-EVIDENCE-CONFLICT\",\n    \"production_control\": \"conflicting evidence is visible\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-PROTOCOL-DRIFT\",\n    \"production_control\": \"breaking protocol drift blocks conformance\",\n    \"expected_test_failure\": true,\n    \"actual_result\": false,\n    \"caught\": true\n  },\n  {\n    \"mutation_id\": \"M3-UNKNOWN-RETRY\",\n    \"production_control\": \"lost response replays singular order\",\n    \"expected_test_failure\": true,\n    \"actual_result\": true,\n    \"caught\": true\n  }\n]\n"
     }
   ],
-  "commit_sha": "fc7a65065c175f3cec2a23c014f78fba560c8cb2",
-  "completed_at": "2026-09-29T02:56:18.646159Z",
+  "commit_sha": "f818f8cad118b30ffea1f491ef12bf93174ebe8d",
+  "completed_at": "2026-09-29T03:32:39.492610Z",
   "package_version": "2.0.0a1",
   "python_version": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]",
   "repository": "github.com/revanthpp/agent-native",
@@ -131,7 +131,7 @@
         ],
         "returncode": 0,
         "stderr_tail": "",
-        "stdout_tail": ".................................. [ 24%]\n................................................................................................ [ 94%]\n........                                                                 [100%]\n138 passed, 158 subtests passed in 2.08s\n"
+        "stdout_tail": ".................................. [ 23%]\n............................................................................................................                                                             [100%]\n142 passed, 158 subtests passed in 2.90s\n"
       },
       {
         "command": [
@@ -143,12 +143,12 @@
           "tests"
         ],
         "returncode": 0,
-        "stderr_tail": ".........................................................................................................\n----------------------------------------------------------------------\nRan 105 tests in 0.842s\n\nOK\n",
+        "stderr_tail": ".........................................................................................................\n----------------------------------------------------------------------\nRan 105 tests in 0.819s\n\nOK\n",
         "stdout_tail": "{\n  \"rule_count\": 1,\n  \"findings\": [\n    \"POL-LINT-001:missing_default\",\n    \"POL-LINT-005:wildcard_privilege:allow\"\n  ]\n}\n"
       }
     ]
   },
-  "run_id": "phase3-rc1-builder-20260929T025544Z",
-  "started_at": "2026-09-29T02:55:44.106650Z",
+  "run_id": "phase3-rc1-builder-20260929T033204Z",
+  "started_at": "2026-09-29T03:32:04.119825Z",
   "status": "BUILDER_EVIDENCE_ONLY"
 }

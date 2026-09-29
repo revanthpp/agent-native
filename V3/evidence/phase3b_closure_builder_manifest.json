@@ -18,12 +18,15 @@
     }
   ],
   "ci": {
-    "event": null,
-    "repository": "local",
-    "run_attempt": null,
-    "run_id": null,
-    "runner_image": "local",
-    "workflow": "local-builder"
+    "completed_at": "2026-09-29T04:24:11Z",
+    "created_at": "2026-09-29T04:22:02Z",
+    "event": "push",
+    "repository": "revanthpp/agent-native",
+    "run_attempt": 1,
+    "run_id": "36521303492",
+    "runner_image": "ubuntu-latest",
+    "url": "https://github.com/revanthpp/agent-native/actions/runs/36521303492",
+    "workflow": "ci"
   },
   "commands": [
     {
@@ -197,6 +200,7 @@
     ]
   },
   "run_id": "phase3-rc1-builder-20260929T042057Z",
+  "reviewed_commit_sha": "d52059a704aaeb408affdce4c2a1e9b7fa0f73bb",
   "source_commit_sha": "128104504926c60c59d53ae8f80ed791399f20e2",
   "started_at": "2026-09-29T04:20:57.135339Z",
   "status": "BUILDER_EVIDENCE_ONLY"

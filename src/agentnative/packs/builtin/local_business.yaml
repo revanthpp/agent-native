@@ -1,0 +1,61 @@
+manifest:
+  pack_id: sector.local_business
+  pack_version: 0.1.0
+  sector: local business
+  subsectors: [restaurant, salon, trades, cleaner, fitness, tutor, repair, professional_service, independent_retail]
+  core_version_requirement: ">=2.0,<3.0"
+  release_status: design
+  protocol_profiles:
+    - {id: openapi, version: "3.1", status: reference}
+  platform_profiles:
+    - {id: generic_scheduling, version: "contract-0.1", status: interface-only}
+    - {id: generic_payments, version: "contract-0.1", status: interface-only}
+  known_limitations:
+    - No commercial platform connector is included in Phase 3A.
+    - Human handoff is a supported activation pattern, not a failed state.
+  external_reference_mappings: []
+capability_taxonomy:
+  - {capability_id: get_business_identity, name: Get business identity, group: DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [business], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_location, name: Get location, group: DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [location], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_hours, name: Get hours, group: DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [hours], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_service_area, name: Get service area, group: DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [service_area], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_services, name: Get services, group: DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [service], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_price_guidance, name: Get price guidance, group: DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [price], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: request_quote, name: Request quote, group: LEAD_QUOTE, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [quote_request], reversibility: reversible, confirmation: none, idempotency: required, data_sensitivity: contextual, human_escalation: true}
+  - {capability_id: submit_job_context, name: Submit job context, group: LEAD_QUOTE, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [job], reversibility: reversible, confirmation: none, idempotency: required, data_sensitivity: contextual}
+  - {capability_id: request_callback, name: Request callback, group: LEAD_QUOTE, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [lead], reversibility: reversible, confirmation: none, idempotency: required, data_sensitivity: personal, human_escalation: true}
+  - {capability_id: get_availability, name: Get availability, group: SCHEDULING, action_class: READ, side_effect: NONE, resource_types: [slot], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: contextual}
+  - {capability_id: reserve_slot, name: Reserve slot, group: SCHEDULING, action_class: RESERVE, side_effect: REVERSIBLE, resource_types: [slot], reversibility: reversible, confirmation: policy, idempotency: required, data_sensitivity: contextual}
+  - {capability_id: schedule, name: Schedule appointment, group: SCHEDULING, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [appointment], reversibility: reversible, confirmation: owner_limit, idempotency: required, data_sensitivity: personal, human_escalation: true}
+  - {capability_id: reschedule, name: Reschedule appointment, group: SCHEDULING, action_class: UPDATE, side_effect: REVERSIBLE, resource_types: [appointment], reversibility: reversible, confirmation: owner_limit, idempotency: required, data_sensitivity: personal, human_escalation: true}
+  - {capability_id: cancel, name: Cancel appointment, group: SCHEDULING, action_class: UPDATE, side_effect: REVERSIBLE, resource_types: [appointment], reversibility: reversible, confirmation: policy, idempotency: required, data_sensitivity: personal}
+  - {capability_id: create_order, name: Create order, group: COMMERCE, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [order], reversibility: reversible, confirmation: owner_limit, idempotency: required, data_sensitivity: personal, human_escalation: true}
+  - {capability_id: pay_deposit, name: Pay deposit, group: COMMERCE, action_class: PURCHASE, side_effect: IRREVERSIBLE, resource_types: [deposit], reversibility: limited, confirmation: explicit, idempotency: required, data_sensitivity: sensitive, human_escalation: true}
+  - {capability_id: pay_invoice, name: Pay invoice, group: COMMERCE, action_class: PURCHASE, side_effect: IRREVERSIBLE, resource_types: [invoice], reversibility: limited, confirmation: explicit, idempotency: required, data_sensitivity: sensitive, human_escalation: true}
+  - {capability_id: get_status, name: Get status, group: SUPPORT, action_class: READ, side_effect: NONE, resource_types: [job], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: personal}
+  - {capability_id: ask_question, name: Ask question, group: SUPPORT, action_class: RECOMMEND, side_effect: NONE, resource_types: [business], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public, human_escalation: true}
+  - {capability_id: request_human, name: Request human, group: SUPPORT, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [support_request], reversibility: reversible, confirmation: none, idempotency: required, data_sensitivity: personal, human_escalation: true}
+risk_model:
+  owner_controls: [value_limit, service_area, hours_exceptions, emergency_stop]
+  price_semantics: [FIXED_PRICE, STARTING_AT, ESTIMATE, QUOTE_REQUIRED]
+  state_change_controls: [booking_idempotency, capacity_race, platform_outage, credential_expiry]
+maturity_model:
+  dimensions: [business_discovery, service_semantics, platform_leverage, scheduling_safety, payment_safety, human_control, recovery, operating_readiness]
+control_profiles:
+  conservative: {state_change: human_handoff, payments: human_confirmation}
+  balanced: {state_change: owner_limit, payments: explicit_confirmation}
+  automation_forward: {state_change: delegated_owner_limit, payments: delegated_budget}
+activation_strategies: [DIRECT, PLATFORM_MEDIATED, AGGREGATOR_MARKETPLACE, HUMAN_HANDOFF]
+human_handoff_rules: [quote_required, outside_service_area, unavailable_platform, expired_credentials, unsupported_service]
+evaluation_scenarios:
+  - {scenario_id: lb-positive-001, requirement_id: V3-LB-006, category: positive, title: Service area is explicit, expected_outcome: PASS, capability_id: get_service_area}
+  - {scenario_id: lb-partial-001, requirement_id: V3-LB-007, category: partial-maturity, title: Holiday exceptions are absent, expected_outcome: WARN, capability_id: get_hours}
+  - {scenario_id: lb-deceptive-001, requirement_id: V3-LB-008, category: deceptive, title: Starting price presented as fixed, expected_outcome: FAIL, capability_id: get_price_guidance}
+  - {scenario_id: lb-malformed-001, requirement_id: V3-LB-010, category: malformed, title: Booking request omits idempotency key, expected_outcome: FAIL, capability_id: schedule}
+  - {scenario_id: lb-risk-001, requirement_id: V3-LB-013, category: high-risk, title: Owner emergency stop during active booking, expected_outcome: STOP_AND_HANDOFF, capability_id: schedule}
+evidence_requirements:
+  activation: [owner_verification, platform_inventory, selected_controls, simulation_result, handoff_channel]
+report_sections: [sector_blueprint, onboarding_summary, platform_inventory, plain_language_controls, activation_plan, residual_risks]
+dependencies:
+  required: [agentnative.core]
+  optional: [generic-scheduling-connector, generic-payment-connector]

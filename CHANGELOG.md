@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Added the v3 Phase 3A sector-pack SDK with validated manifests, capability compilation, activation strategy recommendations, multidimensional maturity, eval isolation, and traceability checks.
+- Added design/seed packs for retail, healthcare administration, and local business/SMB.
+- Added `agentnative packs list` and `agentnative packs show <pack_id>` inspection commands.
+- Added the v3 build record and BRD challenge review, including pack ABI, lifecycle, economics, protocol-version drift, connector-boundary, and incident/dispute gaps.
+
 ## 1.0.0 - 2026-09-19
 
 First public release of Agent Native.

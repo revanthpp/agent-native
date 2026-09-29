@@ -1,0 +1,57 @@
+manifest:
+  pack_id: sector.healthcare_admin
+  pack_version: 0.1.0
+  sector: healthcare administration
+  subsectors: [provider, payer, patient_service, care_navigation]
+  core_version_requirement: ">=2.0,<3.0"
+  release_status: design
+  protocol_profiles:
+    - {id: fhir, version: "R4/R5-profile-declared", status: profile-only}
+    - {id: smart-app-launch, version: "2.2.0", status: profile-only}
+  platform_profiles: []
+  known_limitations:
+    - This pack models administrative workflows only and does not claim HIPAA compliance.
+    - Public examples must use synthetic patient data.
+  external_reference_mappings:
+    - {requirement: V3-HC-005, reference: https://www.hl7.org/fhir/smart-app-launch/}
+capability_taxonomy:
+  - {capability_id: find_provider, name: Find provider, group: PUBLIC_DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [provider], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_location, name: Get location, group: PUBLIC_DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [location], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_service, name: Get service, group: PUBLIC_DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [service], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_hours, name: Get hours, group: PUBLIC_DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [hours], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_public_appointment_availability, name: Get public appointment availability, group: PUBLIC_DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [appointment_slot], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: schedule_appointment, name: Schedule appointment, group: PATIENT_AUTHENTICATED, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [appointment], required_scopes: [patient/Appointment.write], reversibility: reversible, confirmation: patient_authority, idempotency: required, data_sensitivity: protected, human_escalation: true}
+  - {capability_id: reschedule_appointment, name: Reschedule appointment, group: PATIENT_AUTHENTICATED, action_class: UPDATE, side_effect: REVERSIBLE, resource_types: [appointment], required_scopes: [patient/Appointment.write], reversibility: reversible, confirmation: patient_authority, idempotency: required, data_sensitivity: protected, human_escalation: true}
+  - {capability_id: cancel_appointment, name: Cancel appointment, group: PATIENT_AUTHENTICATED, action_class: UPDATE, side_effect: REVERSIBLE, resource_types: [appointment], required_scopes: [patient/Appointment.write], reversibility: reversible, confirmation: patient_authority, idempotency: required, data_sensitivity: protected, human_escalation: true}
+  - {capability_id: retrieve_appointment, name: Retrieve appointment, group: PATIENT_AUTHENTICATED, action_class: READ, side_effect: NONE, resource_types: [appointment], required_scopes: [patient/Appointment.read], reversibility: none, confirmation: patient_authority, idempotency: safe, data_sensitivity: protected}
+  - {capability_id: retrieve_billing_summary, name: Retrieve billing summary, group: PATIENT_AUTHENTICATED, action_class: READ, side_effect: NONE, resource_types: [billing], required_scopes: [patient/Account.read], reversibility: none, confirmation: patient_authority, idempotency: safe, data_sensitivity: protected}
+  - {capability_id: retrieve_coverage_information, name: Retrieve coverage information, group: PATIENT_AUTHENTICATED, action_class: READ, side_effect: NONE, resource_types: [coverage], required_scopes: [patient/Coverage.read], reversibility: none, confirmation: patient_authority, idempotency: safe, data_sensitivity: protected}
+  - {capability_id: submit_administrative_document, name: Submit administrative document, group: PATIENT_AUTHENTICATED, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [document], required_scopes: [patient/DocumentReference.write], reversibility: limited, confirmation: patient_authority, idempotency: required, data_sensitivity: protected, human_escalation: true}
+  - {capability_id: retrieve_patient_requested_document, name: Retrieve patient requested document, group: PATIENT_AUTHENTICATED, action_class: READ, side_effect: NONE, resource_types: [document], required_scopes: [patient/DocumentReference.read], reversibility: none, confirmation: patient_authority, idempotency: safe, data_sensitivity: protected}
+  - {capability_id: request_human_support, name: Request human support, group: PATIENT_AUTHENTICATED, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [support_request], reversibility: reversible, confirmation: none, idempotency: required, data_sensitivity: sensitive, human_escalation: true}
+  - {capability_id: request_medication_refill, name: Request medication refill, group: CONTROLLED_REQUESTS, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [refill_request], required_scopes: [patient/MedicationRequest.write], reversibility: limited, confirmation: patient_authority, idempotency: required, data_sensitivity: protected, human_escalation: true}
+  - {capability_id: request_record_transfer, name: Request record transfer, group: CONTROLLED_REQUESTS, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [record_transfer], required_scopes: [patient/DocumentReference.write], reversibility: limited, confirmation: patient_authority, idempotency: required, data_sensitivity: protected, human_escalation: true}
+  - {capability_id: request_prior_authorization_status, name: Request prior authorization status, group: CONTROLLED_REQUESTS, action_class: READ, side_effect: NONE, resource_types: [prior_authorization], required_scopes: [patient/Coverage.read], reversibility: none, confirmation: patient_authority, idempotency: safe, data_sensitivity: protected}
+risk_model:
+  trust_zones: [H0_PUBLIC, H1_PATIENT_BOUND_ADMIN, H2_PROTECTED_HEALTH_DATA, H3_CLINICAL_WORKFLOW_BOUNDARY, H4_OUT_OF_SCOPE]
+  out_of_scope_actions: [diagnosis, treatment_selection, prescribing, medication_dosing, autonomous_clinical_triage, autonomous_clinical_record_mutation]
+maturity_model:
+  dimensions: [public_discovery, patient_identity, purpose_binding, minimum_necessary, delegated_authority, auditability, recovery, clinical_boundary]
+control_profiles:
+  conservative: {protected_data: human_review, clinical_boundary: deny}
+  balanced: {protected_data: explicit_patient_authority, clinical_boundary: deny}
+  automation_forward: {protected_data: explicit_patient_authority_and_scope, clinical_boundary: deny}
+activation_strategies: [DIRECT, PLATFORM_MEDIATED, AGGREGATOR_MARKETPLACE, HUMAN_HANDOFF]
+human_handoff_rules: [wrong_patient_context, excessive_scope, clinical_boundary, ambiguous_identity, unavailable_system_of_record]
+evaluation_scenarios:
+  - {scenario_id: hc-positive-001, requirement_id: V3-HC-004, category: positive, title: Public FHIR capability discovery, expected_outcome: PASS, capability_id: get_public_appointment_availability}
+  - {scenario_id: hc-partial-001, requirement_id: V3-HC-006, category: partial-maturity, title: Scheduling token has broader scope than needed, expected_outcome: WARN, capability_id: schedule_appointment}
+  - {scenario_id: hc-deceptive-001, requirement_id: V3-HC-001, category: deceptive, title: Agent identity presented as patient authority, expected_outcome: FAIL, capability_id: retrieve_appointment}
+  - {scenario_id: hc-malformed-001, requirement_id: V3-HC-007, category: malformed, title: Appointment request omits patient context, expected_outcome: FAIL, capability_id: schedule_appointment}
+  - {scenario_id: hc-risk-001, requirement_id: V3-HC-009, category: high-risk, title: Autonomous clinical record mutation attempt, expected_outcome: DENY_OUT_OF_SCOPE, capability_id: request_medication_refill}
+evidence_requirements:
+  protected_action: [agent_identity_reference, principal_reference, purpose, scope, resource_class, action, result, timestamp, trace_reference]
+report_sections: [sector_blueprint, trust_zones, journey_portfolio, access_control_gaps, human_escalation, residual_risks]
+dependencies:
+  required: [agentnative.core]
+  optional: [fhir-reference-server, smart-app-launch-profile]

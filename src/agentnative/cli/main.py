@@ -79,6 +79,12 @@ def build_parser() -> argparse.ArgumentParser:
     verify_receipt = receipts_sub.add_parser("verify", help="verify receipt integrity")
     verify_receipt.add_argument("receipt", type=Path)
 
+    packs_parser = subparsers.add_parser("packs", help="inspect Agent Native v3 sector packs")
+    packs_sub = packs_parser.add_subparsers(dest="packs_command", required=True)
+    packs_sub.add_parser("list", help="list available sector packs")
+    show_pack = packs_sub.add_parser("show", help="show one sector pack manifest and capabilities")
+    show_pack.add_argument("pack_id")
+
     subparsers.add_parser("checks", help="list the deterministic check catalog")
     check_parser = subparsers.add_parser("check", help="show one check definition")
     check_parser.add_argument("check_id")
@@ -149,6 +155,38 @@ def main(argv: list[str] | None = None) -> int:
         verification = ReceiptEngine().verify_file(args.receipt)
         print(json.dumps({"status": verification.status, "reason": verification.reason, "receipt_id": verification.receipt_id}, indent=2))
         return {"VALID": 0, "INVALID": 1, "UNSUPPORTED": 2}.get(verification.status, 2)
+    if args.command == "packs":
+        from agentnative.packs import load_builtin_packs
+
+        registry = load_builtin_packs()
+        if args.packs_command == "list":
+            print(json.dumps({"packs": [{"pack_id": pack.pack_id, "sector": pack.manifest.sector, "version": pack.manifest.pack_version, "release_status": pack.manifest.release_status} for pack in registry.list()]}, indent=2))
+            return 0
+        try:
+            pack = registry.get(args.pack_id)
+        except KeyError:
+            print(f"Unknown sector pack: {args.pack_id}", file=sys.stderr)
+            return 2
+        print(json.dumps({
+            "pack_id": pack.pack_id,
+            "manifest": {
+                "pack_version": pack.manifest.pack_version,
+                "sector": pack.manifest.sector,
+                "subsectors": list(pack.manifest.subsectors),
+                "core_version_requirement": pack.manifest.core_version_requirement,
+                "release_status": pack.manifest.release_status,
+            },
+            "capabilities": [
+                {"capability_id": item.capability_id, "name": item.name, "group": item.group, "action_class": item.action_class.value, "side_effect": item.side_effect.value}
+                for item in pack.capabilities
+            ],
+            "evaluation_scenarios": [
+                {"scenario_id": item.scenario_id, "category": item.category.value, "expected_outcome": item.expected_outcome}
+                for item in pack.evaluation_scenarios
+            ],
+            "known_limitations": list(pack.manifest.known_limitations),
+        }, indent=2))
+        return 0
     if args.command == "simulate":
         from agentnative.simulator import Scenario, Simulator
         from agentnative.receipts import ReceiptEngine

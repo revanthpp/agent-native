@@ -105,6 +105,19 @@ Because “exactly once” is a phrase that deserves suspicion, the reference im
 
 The canonical release record is [PHASE_2C_RELEASE_REVIEW.md](PHASE_2C_RELEASE_REVIEW.md). The historical build directives and BRD inputs live under [`V2/`](V2/); active runtime code lives under [`src/agentnative/`](src/agentnative/).
 
+## v3 sector-pack build
+
+The v3 build adds an additive sector-pack SDK on top of the v2 control plane. The current Phase 3A seed packs are intentionally marked `design`: retail, healthcare administration, and local business/SMB. They provide validated manifests, canonical capability extensions, activation-strategy recommendations, multidimensional maturity assessment, and pack-specific eval corpus structure without claiming protocol conformance, legal compliance, or production connector support.
+
+Inspect the available packs with:
+
+```bash
+agentnative packs list
+agentnative packs show sector.retail
+```
+
+The v3 BRD, build record, and challenge review live under [`V3/`](V3/). Phase 3B–3D will only promote a pack after its sector release gates, connector boundaries, adversarial corpus, and evidence requirements are independently satisfied.
+
 ## Quick start
 
 Python 3.11 or newer is supported.

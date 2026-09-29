@@ -1,0 +1,66 @@
+manifest:
+  pack_id: sector.retail
+  pack_version: 0.1.0
+  sector: retail
+  subsectors: [general_merchandise, apparel, direct_to_consumer, ecommerce, omnichannel]
+  core_version_requirement: ">=2.0,<3.0"
+  release_status: design
+  protocol_profiles:
+    - {id: openapi-commerce, version: "3.1", status: reference}
+    - {id: ucp, version: "unlocked-reference", status: profile-only}
+    - {id: acp, version: "unlocked-reference", status: profile-only}
+  platform_profiles: []
+  known_limitations:
+    - Protocol profiles are readiness metadata; they do not implement a commerce connector.
+    - Payment execution is outside Agent Native and remains a future connector boundary.
+  external_reference_mappings:
+    - {requirement: V3-RET-001, reference: https://www.shopify.com/ucp}
+capability_taxonomy:
+  - {capability_id: search_catalog, name: Search catalog, group: DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [product], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_product, name: Get product, group: DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [product], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_variant, name: Get variant, group: DISCOVERY, action_class: READ, side_effect: NONE, resource_types: [product_variant], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: compare_products, name: Compare products, group: DISCOVERY, action_class: RECOMMEND, side_effect: NONE, resource_types: [product], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_availability, name: Get availability, group: COMMERCIAL_CONTEXT, action_class: READ, side_effect: NONE, resource_types: [inventory], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_price, name: Get price, group: COMMERCIAL_CONTEXT, action_class: READ, side_effect: NONE, resource_types: [price], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_promotion, name: Get promotion, group: COMMERCIAL_CONTEXT, action_class: READ, side_effect: NONE, resource_types: [promotion], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: public}
+  - {capability_id: get_tax_estimate, name: Get tax estimate, group: COMMERCIAL_CONTEXT, action_class: PREVIEW, side_effect: NONE, resource_types: [tax], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: contextual}
+  - {capability_id: get_shipping_options, name: Get shipping options, group: COMMERCIAL_CONTEXT, action_class: READ, side_effect: NONE, resource_types: [shipment], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: contextual}
+  - {capability_id: get_delivery_estimate, name: Get delivery estimate, group: COMMERCIAL_CONTEXT, action_class: READ, side_effect: NONE, resource_types: [shipment], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: contextual}
+  - {capability_id: create_cart, name: Create cart, group: CART_CHECKOUT, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [cart], reversibility: reversible, confirmation: none, idempotency: required, data_sensitivity: contextual}
+  - {capability_id: update_cart, name: Update cart, group: CART_CHECKOUT, action_class: UPDATE, side_effect: REVERSIBLE, resource_types: [cart], reversibility: reversible, confirmation: none, idempotency: required, data_sensitivity: contextual}
+  - {capability_id: create_checkout, name: Create checkout, group: CART_CHECKOUT, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [checkout], reversibility: reversible, confirmation: none, idempotency: required, data_sensitivity: sensitive}
+  - {capability_id: update_checkout, name: Update checkout, group: CART_CHECKOUT, action_class: UPDATE, side_effect: REVERSIBLE, resource_types: [checkout], reversibility: reversible, confirmation: none, idempotency: required, data_sensitivity: sensitive}
+  - {capability_id: preview_order, name: Preview order, group: CART_CHECKOUT, action_class: PREVIEW, side_effect: NONE, resource_types: [order], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: sensitive}
+  - {capability_id: submit_order, name: Submit order, group: CART_CHECKOUT, action_class: PURCHASE, side_effect: IRREVERSIBLE, resource_types: [order], reversibility: limited, confirmation: merchant_threshold, idempotency: required, data_sensitivity: sensitive, human_escalation: true}
+  - {capability_id: get_order_status, name: Get order status, group: POST_PURCHASE, action_class: READ, side_effect: NONE, resource_types: [order], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: customer}
+  - {capability_id: change_order, name: Change order, group: POST_PURCHASE, action_class: UPDATE, side_effect: REVERSIBLE, resource_types: [order], reversibility: reversible, confirmation: policy, idempotency: required, data_sensitivity: customer, human_escalation: true}
+  - {capability_id: cancel_order, name: Cancel order, group: POST_PURCHASE, action_class: UPDATE, side_effect: REVERSIBLE, resource_types: [order], reversibility: reversible, confirmation: policy, idempotency: required, data_sensitivity: customer, human_escalation: true}
+  - {capability_id: initiate_return, name: Initiate return, group: POST_PURCHASE, action_class: CREATE, side_effect: REVERSIBLE, resource_types: [return], reversibility: reversible, confirmation: policy, idempotency: required, data_sensitivity: customer, human_escalation: true}
+  - {capability_id: get_return_status, name: Get return status, group: POST_PURCHASE, action_class: READ, side_effect: NONE, resource_types: [return], reversibility: none, confirmation: none, idempotency: safe, data_sensitivity: customer}
+  - {capability_id: request_refund, name: Request refund, group: POST_PURCHASE, action_class: REFUND, side_effect: IRREVERSIBLE, resource_types: [refund], reversibility: limited, confirmation: independent_authority, idempotency: required, data_sensitivity: customer, human_escalation: true}
+  - {capability_id: identify_customer, name: Identify customer, group: CUSTOMER, action_class: READ, side_effect: NONE, resource_types: [customer], required_scopes: [customer:read], reversibility: none, confirmation: authority, idempotency: safe, data_sensitivity: personal}
+  - {capability_id: apply_loyalty, name: Apply loyalty, group: CUSTOMER, action_class: UPDATE, side_effect: REVERSIBLE, resource_types: [loyalty], required_scopes: [loyalty:write], reversibility: reversible, confirmation: policy, idempotency: required, data_sensitivity: personal}
+  - {capability_id: retrieve_entitlements, name: Retrieve entitlements, group: CUSTOMER, action_class: READ, side_effect: NONE, resource_types: [entitlement], required_scopes: [customer:read], reversibility: none, confirmation: authority, idempotency: safe, data_sensitivity: personal}
+risk_model:
+  high_consequence_actions: [submit_order, request_refund]
+  stale_context_controls: [inventory_freshness, quote_expiration, price_reconfirmation]
+maturity_model:
+  dimensions: [discovery, capability_semantics, agent_identity, delegated_authority, transaction_safety, recovery, observability, human_control]
+control_profiles:
+  conservative: {purchase_confirmation: always, refund_confirmation: always}
+  balanced: {purchase_confirmation: merchant_threshold, refund_confirmation: independent_authority}
+  automation_forward: {purchase_confirmation: delegated_budget, refund_confirmation: delegated_budget}
+activation_strategies: [DIRECT, PLATFORM_MEDIATED, AGGREGATOR_MARKETPLACE, HUMAN_HANDOFF]
+human_handoff_rules: [ambiguous_variant, stale_price, inventory_race, fraud_review, return_uncertain]
+evaluation_scenarios:
+  - {scenario_id: retail-positive-001, requirement_id: V3-RET-001, category: positive, title: Stable product identifier, expected_outcome: PASS, capability_id: get_product}
+  - {scenario_id: retail-partial-001, requirement_id: V3-RET-003, category: partial-maturity, title: Availability has no freshness timestamp, expected_outcome: WARN, capability_id: get_availability}
+  - {scenario_id: retail-deceptive-001, requirement_id: V3-RET-004, category: deceptive, title: Price metadata conflicts with checkout, expected_outcome: FAIL, capability_id: submit_order}
+  - {scenario_id: retail-malformed-001, requirement_id: V3-RET-002, category: malformed, title: Variant omits required option, expected_outcome: FAIL, capability_id: get_variant}
+  - {scenario_id: retail-risk-001, requirement_id: V3-RET-008, category: high-risk, title: Order commit response is lost and retried, expected_outcome: REQUIRE_IDEMPOTENCY, capability_id: submit_order}
+evidence_requirements:
+  transaction: [quote_id, quote_timestamp, price, currency, inventory_observed_at, merchant_order_reference]
+report_sections: [sector_blueprint, journey_portfolio, participation_matrix, control_gaps, activation_plan, residual_risks]
+dependencies:
+  required: [agentnative.core]
+  optional: [openapi-commerce, ucp-profile, acp-profile]

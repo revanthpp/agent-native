@@ -84,8 +84,7 @@ def main() -> int:
         value = json.loads(output.read_text(encoding="utf-8")) if output.exists() else {"counts": {}}
         command["result_counts"] = value.get("counts", {})
         commands.append(command)
-    tamper_cmd = _run("evidence_tamper_matrix", [sys.executable, "scripts/run_phase3b_evidence_tamper_matrix.py"], ["tamper_matrix"])
-    tamper.write_text(tamper_cmd["output"]["stdout"] + "\n", encoding="utf-8")
+    tamper_cmd = _run("evidence_tamper_matrix", [sys.executable, "scripts/run_phase3b_evidence_tamper_matrix.py", "--output", str(tamper.relative_to(ROOT))], ["tamper_matrix"])
     tamper_value = json.loads(tamper.read_text(encoding="utf-8"))
     tamper_cmd["result_counts"] = tamper_value.get("counts", {})
     commands.append(tamper_cmd)

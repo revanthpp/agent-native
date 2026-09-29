@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import copy
+import argparse
 import json
 import os
 import subprocess
@@ -89,6 +90,9 @@ def _offline_cli(path: Path) -> tuple[int, dict]:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=None)
+    args = parser.parse_args()
     base = _base_manifest()
     cases: list[tuple[str, dict, FakeGitHub | None, bool]] = []
     def add(name: str, mutate, *, online=False, fake=None):
@@ -167,7 +171,12 @@ def main() -> int:
         online_path.unlink(missing_ok=True)
         offline_path.unlink(missing_ok=True)
     payload = {"schema_version": "phase3b-evidence-tamper-matrix-1", "status": "PASS" if len(results) == 30 and passed == 30 else "FAIL", "counts": {"total": len(results), "rejected": passed, "accepted": len(results) - passed}, "cases": results, "known_good_online": known_good_online, "known_good_offline": known_good_offline}
-    print(json.dumps(payload, indent=2, sort_keys=True))
+    rendered = json.dumps(payload, indent=2, sort_keys=True)
+    print(rendered)
+    if args.output:
+        output = args.output if args.output.is_absolute() else ROOT / args.output
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(rendered + "\n", encoding="utf-8")
     return 0 if payload["status"] == "PASS" else 1
 
 

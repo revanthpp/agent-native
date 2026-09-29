@@ -1,0 +1,34 @@
+[
+  {
+    "id": "P2C-RR-001",
+    "severity": "HIGH",
+    "title": "Idempotency request hash omits principal, agent, and environment",
+    "status": "OPEN",
+    "evidence": "audit_v2/phase2c/rerun_01/results/final_reaudit_checks.json: same_key_changed_principal_conflicts, same_key_changed_agent_conflicts, same_key_changed_environment_conflicts, and request_hash_material_dimensions failed. The second request replayed EXECUTED with the same hash instead of failing closed.",
+    "code_refs": [
+      "src/agentnative/simulator/models.py:72",
+      "src/agentnative/simulator/models.py:74",
+      "src/agentnative/transactions/core.py:326",
+      "src/agentnative/transactions/core.py:328"
+    ],
+    "impact": "A reused idempotency key can silently replay a prior success for a different principal, agent, or environment, misrepresenting an authorization context as successfully executed.",
+    "recommended_fix": "Bind the canonical idempotency request hash to all material authorization and transaction dimensions: business, environment, principal, agent, provider, capability, resource, amount, currency, input payload, and any quote/confirmation identity when present."
+  },
+  {
+    "id": "P2C-RR-002",
+    "severity": "HIGH",
+    "title": "Same-key confirmed retry is rejected before idempotency replay",
+    "status": "OPEN",
+    "evidence": "audit_v2/phase2c/rerun_01/results/final_reaudit_checks.json: idempotency_confirmation_retry_replays_one_effect failed. First confirmed request EXECUTED; same key/same confirmation retry returned FAILED with CONFIRMATION_REPLAY.",
+    "code_refs": [
+      "src/agentnative/simulator/engine.py:247",
+      "src/agentnative/simulator/engine.py:252",
+      "src/agentnative/simulator/engine.py:261",
+      "src/agentnative/simulator/engine.py:266",
+      "src/agentnative/transactions/core.py:375",
+      "src/agentnative/transactions/core.py:377"
+    ],
+    "impact": "A legitimate transport retry of the same confirmed transaction can fail instead of replaying the completed idempotency result. This violates the final re-audit confirmation/idempotency invariant.",
+    "recommended_fix": "Check idempotency for an existing same-hash success before consuming a confirmation replay token, while preserving confirmation binding/replay rejection for new keys or different request hashes."
+  }
+]

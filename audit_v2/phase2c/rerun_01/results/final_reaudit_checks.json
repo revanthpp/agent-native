@@ -1,0 +1,797 @@
+{
+  "failed": [
+    {
+      "findings": [],
+      "first": "EXECUTED",
+      "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+      "name": "same_key_changed_principal_conflicts",
+      "passed": false,
+      "second": "EXECUTED",
+      "second_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+      "side_effect_count": 1
+    },
+    {
+      "findings": [],
+      "first": "EXECUTED",
+      "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+      "name": "same_key_changed_agent_conflicts",
+      "passed": false,
+      "second": "EXECUTED",
+      "second_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+      "side_effect_count": 1
+    },
+    {
+      "findings": [],
+      "first": "EXECUTED",
+      "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+      "name": "same_key_changed_environment_conflicts",
+      "passed": false,
+      "second": "EXECUTED",
+      "second_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+      "side_effect_count": 1
+    },
+    {
+      "base_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+      "covered": {
+        "agent": false,
+        "amount": true,
+        "capability": true,
+        "currency": true,
+        "environment": false,
+        "payload": true,
+        "principal": false,
+        "resource": true
+      },
+      "name": "request_hash_material_dimensions",
+      "passed": false
+    },
+    {
+      "first": "EXECUTED",
+      "name": "idempotency_confirmation_retry_replays_one_effect",
+      "passed": false,
+      "retry": "FAILED",
+      "retry_findings": [
+        "CONFIRMATION_REPLAY"
+      ]
+    }
+  ],
+  "generated_at": "2026-09-28T04:09:30.661600Z",
+  "passed": 54,
+  "sections": {
+    "changed_request_conflicts": [
+      {
+        "findings": [
+          "IDEMPOTENCY_KEY_REUSE"
+        ],
+        "first": "EXECUTED",
+        "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "name": "same_key_changed_amount_conflicts",
+        "passed": true,
+        "second": "FAILED",
+        "second_hash": "baeffc5bfff918333ebb17d42e10f92b3fd38ca8f536c5ea1c985eb8d6f0eba3",
+        "side_effect_count": 1
+      },
+      {
+        "findings": [
+          "RISK_CURRENCY_MISMATCH"
+        ],
+        "first": "EXECUTED",
+        "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "name": "same_key_changed_currency_conflicts",
+        "passed": true,
+        "second": "DENIED",
+        "second_hash": "26d472dabe7b8bfb9d40649c3196f71b96d87311576344946f81e5fcd5446c7d",
+        "side_effect_count": 1
+      },
+      {
+        "findings": [
+          "IDEMPOTENCY_KEY_REUSE"
+        ],
+        "first": "EXECUTED",
+        "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "name": "same_key_changed_resource_conflicts",
+        "passed": true,
+        "second": "FAILED",
+        "second_hash": "5561d083d7b35d22fa41d52f2d5fa1365c85d64a2babe66729ad634bb9610bc1",
+        "side_effect_count": 1
+      },
+      {
+        "findings": [],
+        "first": "EXECUTED",
+        "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "name": "same_key_changed_principal_conflicts",
+        "passed": false,
+        "second": "EXECUTED",
+        "second_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "side_effect_count": 1
+      },
+      {
+        "findings": [],
+        "first": "EXECUTED",
+        "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "name": "same_key_changed_agent_conflicts",
+        "passed": false,
+        "second": "EXECUTED",
+        "second_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "side_effect_count": 1
+      },
+      {
+        "findings": [
+          "IDEMPOTENCY_KEY_REUSE"
+        ],
+        "first": "EXECUTED",
+        "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "name": "same_key_changed_capability_conflicts",
+        "passed": true,
+        "second": "FAILED",
+        "second_hash": "81c9252b0b69ea2ed65353dfcf1e6492ebd9ebea15356ca21ebc21100c69f08c",
+        "side_effect_count": 1
+      },
+      {
+        "findings": [],
+        "first": "EXECUTED",
+        "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "name": "same_key_changed_environment_conflicts",
+        "passed": false,
+        "second": "EXECUTED",
+        "second_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "side_effect_count": 1
+      },
+      {
+        "findings": [
+          "IDEMPOTENCY_KEY_REUSE"
+        ],
+        "first": "EXECUTED",
+        "first_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "name": "same_key_changed_payload_conflicts",
+        "passed": true,
+        "second": "FAILED",
+        "second_hash": "d7713c8cf8f03033eaf6c63618e704e498e2fdd0f338ccd0300ba8f6bffa9401",
+        "side_effect_count": 1
+      }
+    ],
+    "concurrency": [
+      {
+        "failures": [],
+        "name": "concurrency_a_barrier_before_transaction_8w_25r",
+        "passed": true,
+        "rounds": 25,
+        "workers": 8
+      },
+      {
+        "failures": [],
+        "name": "concurrency_a_barrier_before_transaction_32w_10r",
+        "passed": true,
+        "rounds": 10,
+        "workers": 32
+      },
+      {
+        "entered_before_release": 1,
+        "execution_count": 1,
+        "name": "concurrency_b_slow_side_effect_pending_waiters",
+        "passed": true,
+        "side_effect_count": 1,
+        "statuses": [
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED"
+        ]
+      },
+      {
+        "duplicate_examples": [],
+        "duplicate_side_effect_rounds": 0,
+        "name": "concurrency_c_scheduler_pressure_8w_100r",
+        "non_executed_examples": [
+          {
+            "round": 3,
+            "statuses": [
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "FAILED"
+            ]
+          },
+          {
+            "round": 4,
+            "statuses": [
+              "EXECUTED",
+              "EXECUTED",
+              "FAILED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED"
+            ]
+          },
+          {
+            "round": 5,
+            "statuses": [
+              "EXECUTED",
+              "FAILED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED"
+            ]
+          },
+          {
+            "round": 11,
+            "statuses": [
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "FAILED",
+              "EXECUTED",
+              "EXECUTED"
+            ]
+          },
+          {
+            "round": 12,
+            "statuses": [
+              "EXECUTED",
+              "EXECUTED",
+              "FAILED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED",
+              "EXECUTED"
+            ]
+          }
+        ],
+        "non_executed_rounds": 20,
+        "passed": true
+      }
+    ],
+    "cross_control": [
+      {
+        "name": "risk_within_ceiling_still_requires_confirmation",
+        "passed": true,
+        "status": "AWAITING_CONFIRMATION"
+      },
+      {
+        "findings": [
+          "TOCTOU_RESOURCE_CHANGED"
+        ],
+        "name": "risk_quote_toctou_blocks_changed_commit",
+        "passed": true,
+        "status": "FAILED"
+      },
+      {
+        "first": "EXECUTED",
+        "name": "idempotency_confirmation_retry_replays_one_effect",
+        "passed": false,
+        "retry": "FAILED",
+        "retry_findings": [
+          "CONFIRMATION_REPLAY"
+        ]
+      },
+      {
+        "findings": [
+          "CONFIRMATION_REPLAY"
+        ],
+        "name": "old_confirmation_new_key_rejected",
+        "passed": true,
+        "status": "FAILED"
+      },
+      {
+        "findings": [
+          "POLICY_CHANGED_BEFORE_COMMIT"
+        ],
+        "name": "idempotency_claim_does_not_override_policy_recheck",
+        "passed": true,
+        "status": "DENIED"
+      },
+      {
+        "findings": [
+          "POLICY_CHANGED_BEFORE_COMMIT"
+        ],
+        "name": "delegation_revocation_before_commit_fails_closed",
+        "passed": true,
+        "status": "DENIED"
+      }
+    ],
+    "dry_run": [
+      {
+        "after": [
+          "1",
+          "69b53c2ac0745d4730b929dddcc43971715e2306ecbbe463b1871ce84ca063d1"
+        ],
+        "before": [
+          "1",
+          "69b53c2ac0745d4730b929dddcc43971715e2306ecbbe463b1871ce84ca063d1"
+        ],
+        "counts": {
+          "build_plan": 1,
+          "compensate": 0,
+          "constructor": 1,
+          "execute": 0,
+          "prepare": 0,
+          "preview": 0,
+          "verify": 0
+        },
+        "name": "dry_run_invokes_build_plan_only",
+        "passed": true,
+        "quote_terms": {
+          "local_plan": true,
+          "remote_preview": "NOT_EXECUTED_IN_DRY_RUN",
+          "synthetic": true
+        },
+        "state_delta": 0,
+        "status": "WOULD_ALLOW"
+      },
+      {
+        "counts": {
+          "build_plan": 1,
+          "compensate": 0,
+          "constructor": 1,
+          "execute": 0,
+          "prepare": 0,
+          "preview": 0,
+          "verify": 0
+        },
+        "external_state_delta": 1,
+        "findings": [
+          "DRY_RUN_SIDE_EFFECT"
+        ],
+        "name": "dry_run_mutating_build_plan_fails_closed_after_detectable_snapshot_change",
+        "passed": true,
+        "status": "WOULD_DENY"
+      },
+      {
+        "classification": "trust_boundary_observation",
+        "counts": {
+          "build_plan": 1,
+          "compensate": 0,
+          "constructor": 1,
+          "execute": 0,
+          "prepare": 0,
+          "preview": 0,
+          "verify": 0
+        },
+        "external_state_delta": 1,
+        "findings": [],
+        "name": "dry_run_external_only_plan_mutation_not_generically_detected",
+        "passed": true,
+        "status": "WOULD_ALLOW"
+      },
+      {
+        "name": "dry_run_requires_human_honestly",
+        "passed": true,
+        "side_effect": "NONE",
+        "status": "WOULD_REQUIRE_HUMAN"
+      },
+      {
+        "findings": [
+          "RISK_CEILING_EXCEEDED"
+        ],
+        "name": "dry_run_denies_invalid_risk_before_execution",
+        "passed": true,
+        "status": "WOULD_DENY"
+      }
+    ],
+    "failure_recovery": [
+      {
+        "first": "FAILED",
+        "first_findings": [
+          "AUDIT_BEFORE_SIDE_EFFECT"
+        ],
+        "name": "owner_failure_before_side_effect_retryable_recovers",
+        "passed": true,
+        "second": "EXECUTED",
+        "side_effect_count": 1
+      },
+      {
+        "first": "PARTIAL",
+        "first_findings": [
+          "AUDIT_AFTER_SIDE_EFFECT"
+        ],
+        "name": "owner_failure_after_side_effect_unknown_blocks_retry",
+        "passed": true,
+        "second": "FAILED",
+        "second_findings": [
+          "IDEMPOTENCY_UNKNOWN_OUTCOME"
+        ],
+        "side_effect_count": 1
+      },
+      {
+        "execution_count": 1,
+        "name": "idempotency_waiter_timeout_is_bounded",
+        "owner_status": [
+          "EXECUTED"
+        ],
+        "passed": true,
+        "side_effect_count": 1,
+        "waiter": "FAILED",
+        "waiter_findings": [
+          "IDEMPOTENCY_IN_PROGRESS"
+        ]
+      }
+    ],
+    "lost_response": [
+      {
+        "adapter_version": 2,
+        "attempts": 2,
+        "first": "EXECUTED",
+        "name": "lost_response_after_success_one_effect_per_simulator",
+        "passed": true,
+        "second_fresh_simulator": "EXECUTED"
+      }
+    ],
+    "manual_mutations": [
+      {
+        "mutated_status": "EXECUTED",
+        "name": "manual_risk_mutation_tests_are_sensitive",
+        "passed": true
+      },
+      {
+        "name": "manual_idempotency_mutation_tests_are_sensitive",
+        "passed": true,
+        "side_effect_count": 8,
+        "statuses": [
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED",
+          "EXECUTED"
+        ]
+      },
+      {
+        "counts": {
+          "build_plan": 0,
+          "compensate": 0,
+          "constructor": 1,
+          "execute": 0,
+          "prepare": 1,
+          "preview": 1,
+          "verify": 0
+        },
+        "name": "manual_dryrun_mutation_tests_are_sensitive",
+        "passed": true,
+        "status": "WOULD_ALLOW"
+      }
+    ],
+    "money": [
+      {
+        "actual": "EXECUTED",
+        "currency": "'USD'",
+        "execution_count": 1,
+        "expected": "EXECUTED",
+        "findings": [],
+        "name": "money_zero",
+        "passed": true,
+        "value": "Decimal('0')"
+      },
+      {
+        "actual": "EXECUTED",
+        "currency": "'USD'",
+        "execution_count": 1,
+        "expected": "EXECUTED",
+        "findings": [],
+        "name": "money_cent",
+        "passed": true,
+        "value": "Decimal('0.01')"
+      },
+      {
+        "actual": "EXECUTED",
+        "currency": "'USD'",
+        "execution_count": 1,
+        "expected": "EXECUTED",
+        "findings": [],
+        "name": "money_below",
+        "passed": true,
+        "value": "Decimal('99.99')"
+      },
+      {
+        "actual": "EXECUTED",
+        "currency": "'USD'",
+        "execution_count": 1,
+        "expected": "EXECUTED",
+        "findings": [],
+        "name": "money_at",
+        "passed": true,
+        "value": "Decimal('100.00')"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_CEILING_EXCEEDED"
+        ],
+        "name": "money_above",
+        "passed": true,
+        "value": "Decimal('100.01')"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_NEGATIVE"
+        ],
+        "name": "money_negative_cent",
+        "passed": true,
+        "value": "Decimal('-0.01')"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_NEGATIVE"
+        ],
+        "name": "money_negative_one",
+        "passed": true,
+        "value": "Decimal('-1')"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_NON_FINITE"
+        ],
+        "name": "money_nan_float",
+        "passed": true,
+        "value": "nan"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_NON_FINITE"
+        ],
+        "name": "money_inf_float",
+        "passed": true,
+        "value": "inf"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_NON_FINITE"
+        ],
+        "name": "money_neg_inf_float",
+        "passed": true,
+        "value": "-inf"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_REQUIRED"
+        ],
+        "name": "money_none",
+        "passed": true,
+        "value": "None"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_INVALID"
+        ],
+        "name": "money_true_bool",
+        "passed": true,
+        "value": "True"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_INVALID"
+        ],
+        "name": "money_false_bool",
+        "passed": true,
+        "value": "False"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_INVALID"
+        ],
+        "name": "money_string_100",
+        "passed": true,
+        "value": "'100'"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_INVALID"
+        ],
+        "name": "money_string_100_decimal",
+        "passed": true,
+        "value": "'100.00'"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_INVALID"
+        ],
+        "name": "money_string_nan",
+        "passed": true,
+        "value": "'NaN'"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'USD'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_VALUE_OUT_OF_RANGE"
+        ],
+        "name": "money_huge_decimal",
+        "passed": true,
+        "value": "Decimal('1000000000000000.01')"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "None",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_CURRENCY_REQUIRED"
+        ],
+        "name": "money_missing_currency",
+        "passed": true,
+        "value": "Decimal('10')"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'EUR'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_CURRENCY_MISMATCH"
+        ],
+        "name": "money_wrong_currency",
+        "passed": true,
+        "value": "Decimal('10')"
+      },
+      {
+        "actual": "EXECUTED",
+        "currency": "'usd'",
+        "execution_count": 1,
+        "expected": "EXECUTED",
+        "findings": [],
+        "name": "money_lowercase_currency",
+        "passed": true,
+        "value": "Decimal('10')"
+      },
+      {
+        "actual": "EXECUTED",
+        "currency": "' usd '",
+        "execution_count": 1,
+        "expected": "EXECUTED",
+        "findings": [],
+        "name": "money_whitespace_currency",
+        "passed": true,
+        "value": "Decimal('10')"
+      },
+      {
+        "actual": "DENIED",
+        "currency": "'BTC'",
+        "execution_count": 0,
+        "expected": "DENIED",
+        "findings": [
+          "RISK_CURRENCY_UNSUPPORTED"
+        ],
+        "name": "money_unknown_currency",
+        "passed": true,
+        "value": "Decimal('10')"
+      },
+      {
+        "details": {
+          "bool_rejected": true,
+          "lowercase_normalized": true,
+          "no_fx": true,
+          "numeric_string_rejected": true
+        },
+        "name": "money_representation_review",
+        "passed": true
+      }
+    ],
+    "process_local": [
+      {
+        "classification": "documented_reference_limitation",
+        "first": "EXECUTED",
+        "name": "process_local_store_loses_claim_across_simulator_instances",
+        "passed": true,
+        "second": "EXECUTED",
+        "side_effect_count": 2
+      }
+    ],
+    "receipt_trace": [
+      {
+        "name": "receipt_success_valid_and_correlated",
+        "passed": true,
+        "receipt_result": "EXECUTED",
+        "status": "EXECUTED"
+      },
+      {
+        "findings": [
+          "IDEMPOTENCY_KEY_REUSE"
+        ],
+        "name": "receipt_conflict_not_success",
+        "passed": true,
+        "receipt_result": "FAILED",
+        "status": "FAILED"
+      },
+      {
+        "findings": [
+          "RISK_CEILING_EXCEEDED"
+        ],
+        "name": "receipt_denied_malformed_money_not_success",
+        "passed": true,
+        "receipt_result": "DENIED",
+        "status": "DENIED"
+      },
+      {
+        "name": "receipt_dry_run_side_effect_none",
+        "passed": true,
+        "receipt_result": "DRY_RUN",
+        "side_effect": "NONE",
+        "status": "WOULD_ALLOW"
+      }
+    ],
+    "request_hash_audit": [
+      {
+        "base_hash": "442be1a0c8dfcd8f769a9703b822d6cf268179af29dbcea6544bae6e546cc4fa",
+        "covered": {
+          "agent": false,
+          "amount": true,
+          "capability": true,
+          "currency": true,
+          "environment": false,
+          "payload": true,
+          "principal": false,
+          "resource": true
+        },
+        "name": "request_hash_material_dimensions",
+        "passed": false
+      }
+    ]
+  },
+  "total": 59
+}

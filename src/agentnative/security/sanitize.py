@@ -12,10 +12,13 @@ ANSI_ESCAPE = re.compile(r"(?:\x1B\[[0-?]*[ -/]*[@-~]|[\x00-\x08\x0b\x0c\x0e-\x1
 
 
 class Sanitizer:
-    def __init__(self, detector: SecretDetector | None = None) -> None:
+    def __init__(self, detector: SecretDetector | None = None, *, redaction_enabled: bool = True) -> None:
         self.detector = detector or SecretDetector()
+        self.redaction_enabled = redaction_enabled
 
     def text(self, value: str) -> tuple[str, bool]:
+        if not self.redaction_enabled:
+            return value, False
         matches = self.detector.detect_text(value)
         if not matches:
             return value, False

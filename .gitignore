@@ -6,5 +6,9 @@ __pycache__/
 build/
 dist/
 *.egg-info/
+.agentnative-runs/
+audit_v2/wheelhouse/
+audit_v2/rerun_01/wheelhouse/
+audit_v2/**/tmp/
 .DS_Store
 report.json

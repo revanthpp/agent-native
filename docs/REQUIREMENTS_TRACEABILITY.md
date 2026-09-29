@@ -1,35 +1,29 @@
-# Requirements Traceability
+# Agent Native v2 Requirements Traceability — QA remediation baseline
 
-This first implementation maps the authoritative BRD to the smallest v0.1 vertical slice. Deferred requirements remain visible instead of being implied as complete.
+Statuses are grounded in canonical root files only. `VERIFIED` requires a passing root test/eval; `PARTIAL` is intentionally not release-ready.
 
-| BRD requirement | Implementation | Tests / evals | Status |
-|---|---|---|---|
-| FR-DISC-001, FR-DISC-002 | `security.policy`, `acquisition.fetcher`, `discovery.discover` | URL policy and local fixture integration tests | Implemented in passive core |
-| FR-DISC-003 | Local file and directory discovery | local fixture integration tests | Implemented |
-| FR-DISC-004, FR-DISC-005 | Artifact hashes, timestamps, source URIs, normalized evidence | evidence traceability tests | Implemented |
-| FR-CAP-001, FR-CAP-002 | OpenAPI normalization into `Operation` | parser and check tests | Implemented for JSON OpenAPI |
-| FR-CAP-003, FR-CAP-004 | AR-012 through AR-017 deterministic checks | fixture suite | Implemented as passive observations |
-| FR-PROT-001 | JSON OpenAPI structural parser | malformed OpenAPI tests | Implemented |
-| FR-PROT-002, FR-PROT-003 | Adapter seams only; MCP/A2A adapters deferred | deferred eval manifest | Deferred |
-| FR-ID-001 | AR-008 authentication declaration check | API fixture tests | Implemented |
-| FR-ID-003, FR-ID-004, FR-ID-005, FR-ID-006 | passive scope observations only | deferred active evals | Deferred to verified-owner phase |
-| FR-TXN-001 | AR-011 side-effect classification | mutation fixtures | Implemented conservatively |
-| FR-TXN-002, FR-TXN-006 | AR-012, AR-013 passive evidence checks | agent-native and unsafe fixtures | Implemented as observation, no execution |
-| FR-TXN-003, FR-TXN-004, FR-TXN-005 | AR-014 through AR-017 static signals | deferred simulator evals | Partially implemented |
-| FR-REP-001, FR-REP-002 | terminal, Markdown, JSON renderers | report parity tests | Implemented |
-| FR-REP-003, FR-REP-004, FR-REP-005 | scan diff, suggestions, signed bundles | deferred | Deferred |
-| Security: SSRF / redirects / resource bounds | `NetworkPolicy`, manual HTTP client, bounded request loop | security tests | Implemented for v0.1 CLI |
-| Evaluation strategy | `tests/`, `evals/`, catalog, thresholds, fixtures | deterministic unittest suite | Initial suite implemented |
+| Requirement | Mandatory? | Architecture | Production file(s) | Tests | Eval | Status | Evidence |
+|---|---:|---|---|---|---|---|---|
+| V2-PROT-001..004 | MUST | adapter SDK/registry and adapter-level error boundary | `src/agentnative/protocols/{base.py,registry.py,models.py}` | `tests/protocols/test_adapter_contract.py`, `tests/protocols/test_openapi_error_boundary.py` | `evals/phase2a/manifest.json`, production-seam mutation harness | BUILDER_VERIFIED_PENDING_REAUDIT | direct calls, registry isolation, structured errors, and mutation coverage |
+| V2-OAS-001,002,004,005 | MUST | OpenAPI adapter/parser | `src/agentnative/protocols/openapi/{adapter.py,parser.py}` | `tests/protocols/test_openapi_refs.py`, `tests/protocols/test_openapi_error_boundary.py`, `tests/capabilities/test_normalization.py` | phase2a manifest | BUILDER_VERIFIED_PENDING_REAUDIT | JSON/YAML success, hostile-tag normalization, provenance, and direct-vs-registry consistency |
+| V2-OAS-003 | MUST | bounded same-origin resolver backed by acquisition policy | `src/agentnative/protocols/openapi/refs.py`, `src/agentnative/acquisition/fetcher.py` | `tests/protocols/test_openapi_refs.py`, `tests/security/test_network_boundaries.py` | phase2a manifest | VERIFIED | same-origin fetch, safe redirect, private target, bounded acquisition |
+| V2-MCP-001..007 | MUST | passive MCP adapter and full adapter contract | `src/agentnative/protocols/mcp/{adapter.py,models.py}` | `tests/protocols/test_mcp.py`, `tests/protocols/test_adapter_contract.py` | phase2a manifest | VERIFIED | tools/resources/prompts/auth, contradiction, schema limits, contract methods |
+| V2-A2A-001,002,005,006 | MUST | passive A2A adapter | `src/agentnative/protocols/a2a/adapter.py` | `tests/protocols/test_a2a.py` | phase2a manifest | VERIFIED | root suite |
+| V2-A2A-003,004 | MUST/SHOULD | task lifecycle/streaming | not implemented in passive adapter | none | none | PARTIAL | explicitly not ready |
+| V2-CAP-001..004 | MUST | capability graph | `src/agentnative/capabilities/{models.py,graph.py}` | `tests/capabilities/test_normalization.py` | phase2a manifest | VERIFIED | provenance/risk test |
+| V2-OWN-001..005 | MUST | ownership verifier | `src/agentnative/ownership/{models.py,verifier.py}` | `tests/unit/test_v2_canonical.py` | phase2b manifest | VERIFIED | root suite |
+| V2-ID-001..002,005 | MUST | identity model | `src/agentnative/identity/models.py` | `tests/unit/test_v2_canonical.py` | phase2b manifest | VERIFIED | root suite |
+| V2-ID-003..004 | SHOULD/MUST | signatures/replay | `src/agentnative/identity/{signatures.py,replay.py}` | `tests/unit/test_v2_canonical.py` | phase2b manifest | VERIFIED | canonical Ed25519 verification, digest binding, timestamp and nonce replay checks |
+| V2-AUTH-001..008 | MUST/SHOULD | delegation/OAuth | `src/agentnative/delegation/{models.py,oauth.py}` | `tests/unit/test_v2_canonical.py` | phase2b manifest | PARTIAL | DPoP proof covered; full OAuth assessment/runtime matrix pending |
+| V2-POL-001..006,008 | MUST | policy engine/linter/audit | `src/agentnative/policy/{models.py,engine.py,lint.py,audit.py}` | `tests/policy/test_lint.py`, `tests/unit/test_v2_canonical.py` | phase2b manifest | VERIFIED | all ten lint rules tested |
+| V2-POL-007 | MUST | adapter non-bypass | policy authorization seam | `tests/unit/test_v2_canonical.py` | phase2b manifest | PARTIAL | integration edge not present |
+| V2-SIM-001..009 | MUST | verified-owner simulator/state machine | `src/agentnative/simulator/{models.py,state.py,engine.py,adapters.py}` | `tests/simulator/test_phase2c.py` | `evals/phase2c/manifest.json`, `scripts/run_phase2c_mutations.py` | BUILDER_REMEDIATED_PENDING_REAUDIT | ownership, dry-run plan isolation, ceilings, lifecycle, compensation, and failure injection |
+| V2-TXN-001..007 | MUST | protocol-independent transaction safety and logical transaction identity | `src/agentnative/transactions/core.py`, `src/agentnative/simulator/engine.py` | `tests/transactions/test_safety.py`, `tests/simulator/test_phase2c.py` | phase2c manifest, transaction-identity matrix, confirmation/idempotency concurrency, mutation suite, bounded stress | BUILDER_REMEDIATED_PENDING_REAUDIT | exact money validation, canonical material fingerprint, atomic idempotency, replay-safe confirmation binding, recovery, hidden mutation |
+| V2-REC-001..005 | MUST | minimized tamper-evident receipts | `src/agentnative/receipts/core.py` | `tests/receipts/test_receipts.py`, simulator tests | phase2c manifest, receipt verification CLI | BUILDER_COMPLETE_PENDING_AUDIT | schema, minimization, integrity, and correlation |
+| V2-OBS-001..005 | MUST/SHOULD | structured redacted trace observability | `src/agentnative/observability/core.py` | `src/agentnative/observability/core.py`, trace tests | phase2c manifest, Phase 2C mutation suite | BUILDER_COMPLETE_PENDING_AUDIT | events, OpenTelemetry-compatible export, cross-protocol context, redaction |
+| V2-GW-001..006 | MUST | gateway | not in Phase 2B | none | none | DEFERRED_BY_BRD | Phase 2D |
+| V2-REP-001..004 | MUST | reports | not in Phase 2B | none | none | DEFERRED_BY_BRD | Phase 2D |
 
-## Remediation traceability
+## Evidence rules
 
-| QA finding | BRD / control intent | Root-cause change | Regression / evaluation | Release implication |
-|---|---|---|---|---|
-| P0-A public report secret leakage | FR-REP-001, FR-REP-002; public reports must be safe to share | Internal `Artifact` is projected to sanitized `ArtifactSummary`; raw content and headers are not public fields | `tests/security/test_remediation_regressions.py`, `tests/security/test_report_integrity.py`, `ADR-008` | Gate closed for this defect |
-| P0-B `file://` bypass | FR-DISC-001; bounded acquisition and trust-boundary separation | `SafeFetcher` accepts only HTTP(S); `FixtureFetcher` handles explicit local fixtures | `tests/security/test_remediation_regressions.py`, `tests/security/test_network_boundaries.py` | Gate closed for this defect |
-| P0-C incorrect evidence provenance | FR-DISC-004, FR-DISC-005; evidence must identify source artifact | Evidence carries `artifact_id`; validator verifies URI, type, and hash | provenance regression and tamper-rejection tests | Gate closed for this defect |
-| P0-D mutation downgrade | FR-TXN-001, FR-TXN-006; conservative side-effect semantics | Structural method/path classification is monotonic and contradictory declarations warn | mutation regression plus check matrix | Gate closed for this defect |
-| P0-E exit semantics | FR-REP-001; automation must observe blocked/incomplete scans | `ExecutionStatus` maps policy/acquisition/internal failures to nonzero CLI codes | CLI regression | Gate closed for this defect |
-| P1-A malformed artifact invisibility | FR-DISC-004; advertised artifacts and limitations remain observable | Artifact inventory retains `PARSE_ERROR` and bounded error | malformed OpenAPI regression and report-integrity test | Gate closed for this defect |
-| P1-B thin security/eval suite | NFR-SEC and evaluation strategy | deterministic network-boundary cases and a positive/negative/missing-evidence matrix for AR-001..AR-020 | `tests/security/test_network_boundaries.py`, `tests/evals/test_check_matrix.py`, `evals/corpus/check_matrix.json` | Improved; fuzzing and protocol conformance remain open |
-| P2 missing license | Release hygiene / OSS distribution | Added Apache 2.0 license text | repository artifact inspection | Gate closed for this defect |
+Incubation files under `V2/` are historical inputs and do not satisfy implementation rows. Thin compatibility exports are not credited as owning logic. Phase 2C rows are builder-remediated for the controlled synthetic scope, but require the Phase 2C adversarial, mutation, package, and independent release gates before promotion. Phase 2D rows remain deferred by the BRD.

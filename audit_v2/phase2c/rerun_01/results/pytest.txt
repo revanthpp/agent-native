@@ -1,0 +1,32 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Volumes/AI L&D/AI Projects/L&D/Agent Native
+configfile: pyproject.toml
+collected 109 items
+
+tests/capabilities/test_normalization.py .                               [  0%]
+tests/evals/test_check_matrix.py ..                                      [  2%]
+tests/evals/test_phase2a_corpus.py .                                     [  3%]
+tests/evals/test_reference_corpus.py ..                                  [  5%]
+tests/evals/test_semantic_matrix.py .                                    [  6%]
+tests/integration/test_scan.py ...                                       [  9%]
+tests/observability/test_trace.py .                                      [ 10%]
+tests/policy/test_lint.py .....                                          [ 14%]
+tests/protocols/test_a2a.py .                                            [ 15%]
+tests/protocols/test_adapter_contract.py ..                              [ 17%]
+tests/protocols/test_mcp.py ..                                           [ 19%]
+tests/protocols/test_openapi_error_boundary.py .......                   [ 25%]
+tests/protocols/test_openapi_refs.py ........                            [ 33%]
+tests/receipts/test_receipts.py ..                                       [ 34%]
+tests/security/test_network_boundaries.py .......                        [ 41%]
+tests/security/test_remediation_regressions.py .......                   [ 47%]
+tests/security/test_report_integrity.py .....                            [ 52%]
+tests/security/test_secret_invariants.py ..............                  [ 65%]
+tests/security/test_security.py ..                                       [ 66%]
+tests/simulator/test_phase2c.py .................                        [ 82%]
+tests/transactions/test_safety.py .....                                  [ 87%]
+tests/unit/test_core.py .....                                            [ 91%]
+tests/unit/test_qa_identity.py ..                                        [ 93%]
+tests/unit/test_v2_canonical.py .......                                  [100%]
+
+============================= 109 passed in 1.96s ==============================

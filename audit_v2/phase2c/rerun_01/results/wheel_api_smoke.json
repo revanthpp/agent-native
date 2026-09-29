@@ -1,0 +1,9 @@
+{
+  "first": "EXECUTED",
+  "second": "EXECUTED",
+  "conflict": "FAILED",
+  "conflict_findings": [
+    "IDEMPOTENCY_KEY_REUSE"
+  ],
+  "resource_version": 2
+}

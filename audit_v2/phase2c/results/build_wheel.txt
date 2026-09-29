@@ -1,0 +1,316 @@
+running egg_info
+writing src/agentnative.egg-info/PKG-INFO
+writing dependency_links to src/agentnative.egg-info/dependency_links.txt
+writing entry points to src/agentnative.egg-info/entry_points.txt
+writing requirements to src/agentnative.egg-info/requires.txt
+writing top-level names to src/agentnative.egg-info/top_level.txt
+reading manifest file 'src/agentnative.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file 'src/agentnative.egg-info/SOURCES.txt'
+running bdist_wheel
+running build
+running build_py
+creating build/lib/agentnative
+copying src/agentnative/scanner.py -> build/lib/agentnative
+copying src/agentnative/models.py -> build/lib/agentnative
+copying src/agentnative/mutation.py -> build/lib/agentnative
+copying src/agentnative/__init__.py -> build/lib/agentnative
+copying src/agentnative/policy_store.py -> build/lib/agentnative
+copying src/agentnative/request_integrity.py -> build/lib/agentnative
+copying src/agentnative/__main__.py -> build/lib/agentnative
+copying src/agentnative/oauth.py -> build/lib/agentnative
+creating build/lib/agentnative/receipts
+copying src/agentnative/receipts/__init__.py -> build/lib/agentnative/receipts
+copying src/agentnative/receipts/core.py -> build/lib/agentnative/receipts
+creating build/lib/agentnative/reporting
+copying src/agentnative/reporting/safe.py -> build/lib/agentnative/reporting
+copying src/agentnative/reporting/render.py -> build/lib/agentnative/reporting
+copying src/agentnative/reporting/__init__.py -> build/lib/agentnative/reporting
+copying src/agentnative/reporting/output.py -> build/lib/agentnative/reporting
+creating build/lib/agentnative/parsers
+copying src/agentnative/parsers/openapi.py -> build/lib/agentnative/parsers
+copying src/agentnative/parsers/html.py -> build/lib/agentnative/parsers
+copying src/agentnative/parsers/__init__.py -> build/lib/agentnative/parsers
+creating build/lib/agentnative/capabilities
+copying src/agentnative/capabilities/models.py -> build/lib/agentnative/capabilities
+copying src/agentnative/capabilities/graph.py -> build/lib/agentnative/capabilities
+copying src/agentnative/capabilities/__init__.py -> build/lib/agentnative/capabilities
+creating build/lib/agentnative/evidence
+copying src/agentnative/evidence/validator.py -> build/lib/agentnative/evidence
+copying src/agentnative/evidence/__init__.py -> build/lib/agentnative/evidence
+creating build/lib/agentnative/identity
+copying src/agentnative/identity/models.py -> build/lib/agentnative/identity
+copying src/agentnative/identity/dpop.py -> build/lib/agentnative/identity
+copying src/agentnative/identity/__init__.py -> build/lib/agentnative/identity
+copying src/agentnative/identity/replay.py -> build/lib/agentnative/identity
+copying src/agentnative/identity/signatures.py -> build/lib/agentnative/identity
+copying src/agentnative/identity/evidence.py -> build/lib/agentnative/identity
+creating build/lib/agentnative/security
+copying src/agentnative/security/redaction.py -> build/lib/agentnative/security
+copying src/agentnative/security/policy.py -> build/lib/agentnative/security
+copying src/agentnative/security/canonicalize.py -> build/lib/agentnative/security
+copying src/agentnative/security/secrets.py -> build/lib/agentnative/security
+copying src/agentnative/security/sanitize.py -> build/lib/agentnative/security
+creating build/lib/agentnative/acquisition
+copying src/agentnative/acquisition/__init__.py -> build/lib/agentnative/acquisition
+copying src/agentnative/acquisition/fetcher.py -> build/lib/agentnative/acquisition
+creating build/lib/agentnative/checks
+copying src/agentnative/checks/catalog.py -> build/lib/agentnative/checks
+copying src/agentnative/checks/__init__.py -> build/lib/agentnative/checks
+copying src/agentnative/checks/engine.py -> build/lib/agentnative/checks
+creating build/lib/agentnative/discovery
+copying src/agentnative/discovery/discover.py -> build/lib/agentnative/discovery
+copying src/agentnative/discovery/__init__.py -> build/lib/agentnative/discovery
+creating build/lib/agentnative/cli
+copying src/agentnative/cli/__init__.py -> build/lib/agentnative/cli
+copying src/agentnative/cli/main.py -> build/lib/agentnative/cli
+creating build/lib/agentnative/observability
+copying src/agentnative/observability/__init__.py -> build/lib/agentnative/observability
+copying src/agentnative/observability/core.py -> build/lib/agentnative/observability
+creating build/lib/agentnative/delegation
+copying src/agentnative/delegation/models.py -> build/lib/agentnative/delegation
+copying src/agentnative/delegation/__init__.py -> build/lib/agentnative/delegation
+copying src/agentnative/delegation/verifier.py -> build/lib/agentnative/delegation
+copying src/agentnative/delegation/oauth.py -> build/lib/agentnative/delegation
+creating build/lib/agentnative/ownership
+copying src/agentnative/ownership/models.py -> build/lib/agentnative/ownership
+copying src/agentnative/ownership/__init__.py -> build/lib/agentnative/ownership
+copying src/agentnative/ownership/verifier.py -> build/lib/agentnative/ownership
+creating build/lib/agentnative/transactions
+copying src/agentnative/transactions/__init__.py -> build/lib/agentnative/transactions
+copying src/agentnative/transactions/core.py -> build/lib/agentnative/transactions
+creating build/lib/agentnative/simulator
+copying src/agentnative/simulator/models.py -> build/lib/agentnative/simulator
+copying src/agentnative/simulator/__init__.py -> build/lib/agentnative/simulator
+copying src/agentnative/simulator/engine.py -> build/lib/agentnative/simulator
+copying src/agentnative/simulator/state.py -> build/lib/agentnative/simulator
+copying src/agentnative/simulator/adapters.py -> build/lib/agentnative/simulator
+creating build/lib/agentnative/protocols
+copying src/agentnative/protocols/models.py -> build/lib/agentnative/protocols
+copying src/agentnative/protocols/registry.py -> build/lib/agentnative/protocols
+copying src/agentnative/protocols/__init__.py -> build/lib/agentnative/protocols
+copying src/agentnative/protocols/base.py -> build/lib/agentnative/protocols
+creating build/lib/agentnative/policy
+copying src/agentnative/policy/audit.py -> build/lib/agentnative/policy
+copying src/agentnative/policy/models.py -> build/lib/agentnative/policy
+copying src/agentnative/policy/__init__.py -> build/lib/agentnative/policy
+copying src/agentnative/policy/authorization.py -> build/lib/agentnative/policy
+copying src/agentnative/policy/engine.py -> build/lib/agentnative/policy
+copying src/agentnative/policy/lint.py -> build/lib/agentnative/policy
+creating build/lib/agentnative/protocols/a2a
+copying src/agentnative/protocols/a2a/models.py -> build/lib/agentnative/protocols/a2a
+copying src/agentnative/protocols/a2a/adapter.py -> build/lib/agentnative/protocols/a2a
+copying src/agentnative/protocols/a2a/__init__.py -> build/lib/agentnative/protocols/a2a
+creating build/lib/agentnative/protocols/mcp
+copying src/agentnative/protocols/mcp/models.py -> build/lib/agentnative/protocols/mcp
+copying src/agentnative/protocols/mcp/adapter.py -> build/lib/agentnative/protocols/mcp
+copying src/agentnative/protocols/mcp/__init__.py -> build/lib/agentnative/protocols/mcp
+creating build/lib/agentnative/protocols/openapi
+copying src/agentnative/protocols/openapi/adapter.py -> build/lib/agentnative/protocols/openapi
+copying src/agentnative/protocols/openapi/__init__.py -> build/lib/agentnative/protocols/openapi
+copying src/agentnative/protocols/openapi/parser.py -> build/lib/agentnative/protocols/openapi
+copying src/agentnative/protocols/openapi/refs.py -> build/lib/agentnative/protocols/openapi
+running egg_info
+writing src/agentnative.egg-info/PKG-INFO
+writing dependency_links to src/agentnative.egg-info/dependency_links.txt
+writing entry points to src/agentnative.egg-info/entry_points.txt
+writing requirements to src/agentnative.egg-info/requires.txt
+writing top-level names to src/agentnative.egg-info/top_level.txt
+reading manifest file 'src/agentnative.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file 'src/agentnative.egg-info/SOURCES.txt'
+installing to build/bdist.macosx-26.0-arm64/wheel
+running install
+running install_lib
+creating build/bdist.macosx-26.0-arm64/wheel
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/receipts
+copying build/lib/agentnative/receipts/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/receipts
+copying build/lib/agentnative/receipts/core.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/receipts
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/reporting
+copying build/lib/agentnative/reporting/safe.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/reporting
+copying build/lib/agentnative/reporting/render.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/reporting
+copying build/lib/agentnative/reporting/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/reporting
+copying build/lib/agentnative/reporting/output.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/reporting
+copying build/lib/agentnative/scanner.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/parsers
+copying build/lib/agentnative/parsers/openapi.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/parsers
+copying build/lib/agentnative/parsers/html.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/parsers
+copying build/lib/agentnative/parsers/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/parsers
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/capabilities
+copying build/lib/agentnative/capabilities/models.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/capabilities
+copying build/lib/agentnative/capabilities/graph.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/capabilities
+copying build/lib/agentnative/capabilities/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/capabilities
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/evidence
+copying build/lib/agentnative/evidence/validator.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/evidence
+copying build/lib/agentnative/evidence/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/evidence
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/identity
+copying build/lib/agentnative/identity/models.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/identity
+copying build/lib/agentnative/identity/dpop.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/identity
+copying build/lib/agentnative/identity/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/identity
+copying build/lib/agentnative/identity/replay.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/identity
+copying build/lib/agentnative/identity/signatures.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/identity
+copying build/lib/agentnative/identity/evidence.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/identity
+copying build/lib/agentnative/models.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/security
+copying build/lib/agentnative/security/redaction.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/security
+copying build/lib/agentnative/security/policy.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/security
+copying build/lib/agentnative/security/canonicalize.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/security
+copying build/lib/agentnative/security/secrets.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/security
+copying build/lib/agentnative/security/sanitize.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/security
+copying build/lib/agentnative/mutation.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/acquisition
+copying build/lib/agentnative/acquisition/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/acquisition
+copying build/lib/agentnative/acquisition/fetcher.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/acquisition
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/checks
+copying build/lib/agentnative/checks/catalog.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/checks
+copying build/lib/agentnative/checks/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/checks
+copying build/lib/agentnative/checks/engine.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/checks
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/discovery
+copying build/lib/agentnative/discovery/discover.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/discovery
+copying build/lib/agentnative/discovery/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/discovery
+copying build/lib/agentnative/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative
+copying build/lib/agentnative/policy_store.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/cli
+copying build/lib/agentnative/cli/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/cli
+copying build/lib/agentnative/cli/main.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/cli
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/observability
+copying build/lib/agentnative/observability/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/observability
+copying build/lib/agentnative/observability/core.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/observability
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/delegation
+copying build/lib/agentnative/delegation/models.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/delegation
+copying build/lib/agentnative/delegation/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/delegation
+copying build/lib/agentnative/delegation/verifier.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/delegation
+copying build/lib/agentnative/delegation/oauth.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/delegation
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/ownership
+copying build/lib/agentnative/ownership/models.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/ownership
+copying build/lib/agentnative/ownership/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/ownership
+copying build/lib/agentnative/ownership/verifier.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/ownership
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/transactions
+copying build/lib/agentnative/transactions/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/transactions
+copying build/lib/agentnative/transactions/core.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/transactions
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/simulator
+copying build/lib/agentnative/simulator/models.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/simulator
+copying build/lib/agentnative/simulator/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/simulator
+copying build/lib/agentnative/simulator/engine.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/simulator
+copying build/lib/agentnative/simulator/state.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/simulator
+copying build/lib/agentnative/simulator/adapters.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/simulator
+copying build/lib/agentnative/request_integrity.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/protocols
+copying build/lib/agentnative/protocols/models.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols
+copying build/lib/agentnative/protocols/registry.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/protocols/a2a
+copying build/lib/agentnative/protocols/a2a/models.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols/a2a
+copying build/lib/agentnative/protocols/a2a/adapter.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols/a2a
+copying build/lib/agentnative/protocols/a2a/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols/a2a
+copying build/lib/agentnative/protocols/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/protocols/mcp
+copying build/lib/agentnative/protocols/mcp/models.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols/mcp
+copying build/lib/agentnative/protocols/mcp/adapter.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols/mcp
+copying build/lib/agentnative/protocols/mcp/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols/mcp
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/protocols/openapi
+copying build/lib/agentnative/protocols/openapi/adapter.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols/openapi
+copying build/lib/agentnative/protocols/openapi/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols/openapi
+copying build/lib/agentnative/protocols/openapi/parser.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols/openapi
+copying build/lib/agentnative/protocols/openapi/refs.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols/openapi
+copying build/lib/agentnative/protocols/base.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/protocols
+copying build/lib/agentnative/__main__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative
+copying build/lib/agentnative/oauth.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative/policy
+copying build/lib/agentnative/policy/audit.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/policy
+copying build/lib/agentnative/policy/models.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/policy
+copying build/lib/agentnative/policy/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/policy
+copying build/lib/agentnative/policy/authorization.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/policy
+copying build/lib/agentnative/policy/engine.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/policy
+copying build/lib/agentnative/policy/lint.py -> build/bdist.macosx-26.0-arm64/wheel/./agentnative/policy
+running install_egg_info
+Copying src/agentnative.egg-info to build/bdist.macosx-26.0-arm64/wheel/./agentnative-2.0.0a1-py3.14.egg-info
+running install_scripts
+creating build/bdist.macosx-26.0-arm64/wheel/agentnative-2.0.0a1.dist-info/WHEEL
+creating '/Volumes/AI L&D/AI Projects/L&D/Agent Native/dist/.tmp-x3i6tleh/agentnative-2.0.0a1-py3-none-any.whl' and adding 'build/bdist.macosx-26.0-arm64/wheel' to it
+adding 'agentnative/__init__.py'
+adding 'agentnative/__main__.py'
+adding 'agentnative/models.py'
+adding 'agentnative/mutation.py'
+adding 'agentnative/oauth.py'
+adding 'agentnative/policy_store.py'
+adding 'agentnative/request_integrity.py'
+adding 'agentnative/scanner.py'
+adding 'agentnative/acquisition/__init__.py'
+adding 'agentnative/acquisition/fetcher.py'
+adding 'agentnative/capabilities/__init__.py'
+adding 'agentnative/capabilities/graph.py'
+adding 'agentnative/capabilities/models.py'
+adding 'agentnative/checks/__init__.py'
+adding 'agentnative/checks/catalog.py'
+adding 'agentnative/checks/engine.py'
+adding 'agentnative/cli/__init__.py'
+adding 'agentnative/cli/main.py'
+adding 'agentnative/delegation/__init__.py'
+adding 'agentnative/delegation/models.py'
+adding 'agentnative/delegation/oauth.py'
+adding 'agentnative/delegation/verifier.py'
+adding 'agentnative/discovery/__init__.py'
+adding 'agentnative/discovery/discover.py'
+adding 'agentnative/evidence/__init__.py'
+adding 'agentnative/evidence/validator.py'
+adding 'agentnative/identity/__init__.py'
+adding 'agentnative/identity/dpop.py'
+adding 'agentnative/identity/evidence.py'
+adding 'agentnative/identity/models.py'
+adding 'agentnative/identity/replay.py'
+adding 'agentnative/identity/signatures.py'
+adding 'agentnative/observability/__init__.py'
+adding 'agentnative/observability/core.py'
+adding 'agentnative/ownership/__init__.py'
+adding 'agentnative/ownership/models.py'
+adding 'agentnative/ownership/verifier.py'
+adding 'agentnative/parsers/__init__.py'
+adding 'agentnative/parsers/html.py'
+adding 'agentnative/parsers/openapi.py'
+adding 'agentnative/policy/__init__.py'
+adding 'agentnative/policy/audit.py'
+adding 'agentnative/policy/authorization.py'
+adding 'agentnative/policy/engine.py'
+adding 'agentnative/policy/lint.py'
+adding 'agentnative/policy/models.py'
+adding 'agentnative/protocols/__init__.py'
+adding 'agentnative/protocols/base.py'
+adding 'agentnative/protocols/models.py'
+adding 'agentnative/protocols/registry.py'
+adding 'agentnative/protocols/a2a/__init__.py'
+adding 'agentnative/protocols/a2a/adapter.py'
+adding 'agentnative/protocols/a2a/models.py'
+adding 'agentnative/protocols/mcp/__init__.py'
+adding 'agentnative/protocols/mcp/adapter.py'
+adding 'agentnative/protocols/mcp/models.py'
+adding 'agentnative/protocols/openapi/__init__.py'
+adding 'agentnative/protocols/openapi/adapter.py'
+adding 'agentnative/protocols/openapi/parser.py'
+adding 'agentnative/protocols/openapi/refs.py'
+adding 'agentnative/receipts/__init__.py'
+adding 'agentnative/receipts/core.py'
+adding 'agentnative/reporting/__init__.py'
+adding 'agentnative/reporting/output.py'
+adding 'agentnative/reporting/render.py'
+adding 'agentnative/reporting/safe.py'
+adding 'agentnative/security/canonicalize.py'
+adding 'agentnative/security/policy.py'
+adding 'agentnative/security/redaction.py'
+adding 'agentnative/security/sanitize.py'
+adding 'agentnative/security/secrets.py'
+adding 'agentnative/simulator/__init__.py'
+adding 'agentnative/simulator/adapters.py'
+adding 'agentnative/simulator/engine.py'
+adding 'agentnative/simulator/models.py'
+adding 'agentnative/simulator/state.py'
+adding 'agentnative/transactions/__init__.py'
+adding 'agentnative/transactions/core.py'
+adding 'agentnative-2.0.0a1.dist-info/licenses/LICENSE'
+adding 'agentnative-2.0.0a1.dist-info/METADATA'
+adding 'agentnative-2.0.0a1.dist-info/WHEEL'
+adding 'agentnative-2.0.0a1.dist-info/entry_points.txt'
+adding 'agentnative-2.0.0a1.dist-info/top_level.txt'
+adding 'agentnative-2.0.0a1.dist-info/RECORD'
+removing build/bdist.macosx-26.0-arm64/wheel
+Successfully built agentnative-2.0.0a1-py3-none-any.whl

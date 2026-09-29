@@ -4,13 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentnative"
-version = "1.0.0"
-description = "Evidence-backed passive readiness checks for agent-business interoperability."
+version = "2.0.0a1"
+description = "Evidence-backed assessment and controlled agent-access verification."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 authors = [{name = "Agent Native contributors"}]
-dependencies = []
+dependencies = ["PyYAML>=6.0", "cryptography>=43.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
 
 [project.scripts]
 agentnative = "agentnative.cli.main:main"

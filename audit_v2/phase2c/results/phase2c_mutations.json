@@ -1,0 +1,122 @@
+[
+  {
+    "mutation_id": "M2C-OWNERSHIP",
+    "production_control": "simulator ownership gate",
+    "mutation": "bypass ownership",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-RISK",
+    "production_control": "environment risk ceiling",
+    "mutation": "allow above environment ceiling",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-POLICY",
+    "production_control": "state-changing policy gate",
+    "mutation": "allow without policy",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-CONFIRMATION",
+    "production_control": "confirmation gate",
+    "mutation": "commit without required confirmation",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-CONFIRMATION-BINDING",
+    "production_control": "confirmation binding",
+    "mutation": "disable context binding",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-CONFIRMATION-REPLAY",
+    "production_control": "confirmation replay protection",
+    "mutation": "reuse confirmation",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-QUOTE-EXPIRY",
+    "production_control": "quote and confirmation expiry",
+    "mutation": "accept expired quote",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-TOCTOU",
+    "production_control": "quote resource version",
+    "mutation": "ignore state change after preview",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-IDEMPOTENCY",
+    "production_control": "duplicate side-effect suppression",
+    "mutation": "disable idempotency",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-RETRY-BOUND",
+    "production_control": "bounded retries",
+    "mutation": "permit excessive retry attempts",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-PARTIAL",
+    "production_control": "partial outcome representation",
+    "mutation": "convert PARTIAL to SUCCESS",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-COMPENSATION",
+    "production_control": "compensation failure reporting",
+    "mutation": "hide failed compensation",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-RECEIPT-INTEGRITY",
+    "production_control": "receipt integrity",
+    "mutation": "accept modified receipt",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-TRACE-CORRELATION",
+    "production_control": "receipt trace correlation",
+    "mutation": "break trace identity",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  },
+  {
+    "mutation_id": "M2C-RECEIPT-REDACTION",
+    "production_control": "receipt secret minimization",
+    "mutation": "leak raw secret into receipt",
+    "expected_test_failure": true,
+    "actual_result": false,
+    "caught": true
+  }
+]

@@ -1,0 +1,1139 @@
+{
+  "run_id": "run-33332460efb040d2bc3da98f",
+  "scenario_id": "p2c-final-malformed-money",
+  "status": "DENIED",
+  "state": "TERMINAL",
+  "decision": "DENY",
+  "message": "RISK_VALUE_INVALID",
+  "transitions": [
+    {
+      "from": "CREATED",
+      "to": "OWNER_VERIFIED",
+      "timestamp": "2026-09-28T04:08:23.114617Z",
+      "reason": "ownership verification is valid"
+    },
+    {
+      "from": "OWNER_VERIFIED",
+      "to": "AGENT_VERIFIED",
+      "timestamp": "2026-09-28T04:08:23.114631Z",
+      "reason": "agent identity and request integrity are valid"
+    },
+    {
+      "from": "AGENT_VERIFIED",
+      "to": "DELEGATION_VERIFIED",
+      "timestamp": "2026-09-28T04:08:23.114640Z",
+      "reason": "delegation reference is present"
+    },
+    {
+      "from": "DELEGATION_VERIFIED",
+      "to": "CAPABILITY_RESOLVED",
+      "timestamp": "2026-09-28T04:08:23.114646Z",
+      "reason": "capability resolved from scenario"
+    },
+    {
+      "from": "CAPABILITY_RESOLVED",
+      "to": "FAILED",
+      "timestamp": "2026-09-28T04:08:23.114657Z",
+      "reason": "RISK_VALUE_INVALID"
+    },
+    {
+      "from": "FAILED",
+      "to": "RECEIPT_CREATED",
+      "timestamp": "2026-09-28T04:08:23.114663Z",
+      "reason": "simulation evidence finalized"
+    },
+    {
+      "from": "RECEIPT_CREATED",
+      "to": "TERMINAL",
+      "timestamp": "2026-09-28T04:08:23.114763Z",
+      "reason": "receipt created"
+    }
+  ],
+  "findings": [
+    "RISK_VALUE_INVALID"
+  ],
+  "limitations": [],
+  "quote": null,
+  "confirmation_id": null,
+  "receipt": {
+    "receipt_id": "receipt-5d8c8e4894ea474f95a6743a",
+    "timestamp": "2026-09-28T04:08:23.114680Z",
+    "business_id": "business:test",
+    "environment": "SANDBOX",
+    "agent_id": "agent:test",
+    "provider_id": "provider:test",
+    "principal_reference": "principal:test",
+    "capability_id": "cap:synthetic-create",
+    "policy_id": "policy:test-allow",
+    "policy_version": "1",
+    "decision": "DENY",
+    "delegation_reference": "grant:test",
+    "confirmation_reference": null,
+    "quote_reference": null,
+    "request_hash": "c31555bf154be4e958bc343fe25ffd3e9c81bdaf9937d2ff98d3a91b09f31e4c",
+    "result": "DENIED",
+    "side_effect": "NONE",
+    "resource_reference": "resource:synthetic",
+    "value": "NaN",
+    "currency": "USD",
+    "correlation_id": "92abff38b896469b8530fee904006b86",
+    "trace_id": "92abff38b896469b8530fee904006b86",
+    "evidence_refs": [
+      "simulation_started",
+      "state_transition",
+      "ownership_verified",
+      "state_transition",
+      "identity_verified",
+      "state_transition",
+      "delegation_verified",
+      "state_transition",
+      "capability_resolved",
+      "state_transition",
+      "state_transition"
+    ],
+    "integrity": "sha256:cd6d6a32fe8829464410392ecff5a8bc736b26db7e2f08771e70ce7c3601beff"
+  },
+  "trace": {
+    "trace_id": "92abff38b896469b8530fee904006b86",
+    "correlation_id": "92abff38b896469b8530fee904006b86",
+    "events": [
+      {
+        "name": "simulation_started",
+        "timestamp": "2026-09-28T04:08:23.114605Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "60474db7461f43f1",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "run_id": "run-33332460efb040d2bc3da98f",
+          "dry_run": false
+        }
+      },
+      {
+        "name": "state_transition",
+        "timestamp": "2026-09-28T04:08:23.114621Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "48137a5ff1004a37",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "from_state": "CREATED",
+          "to_state": "OWNER_VERIFIED",
+          "reason": "ownership verification is valid"
+        }
+      },
+      {
+        "name": "ownership_verified",
+        "timestamp": "2026-09-28T04:08:23.114626Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "bbad98f739e34901",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "verification_id": "verification:test"
+        }
+      },
+      {
+        "name": "state_transition",
+        "timestamp": "2026-09-28T04:08:23.114634Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "22b6665124b14e91",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "from_state": "OWNER_VERIFIED",
+          "to_state": "AGENT_VERIFIED",
+          "reason": "agent identity and request integrity are valid"
+        }
+      },
+      {
+        "name": "identity_verified",
+        "timestamp": "2026-09-28T04:08:23.114637Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "eb47d9c540b94ecd",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "identity_method": "fixture"
+        }
+      },
+      {
+        "name": "state_transition",
+        "timestamp": "2026-09-28T04:08:23.114641Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "40a62e2635a84017",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "from_state": "AGENT_VERIFIED",
+          "to_state": "DELEGATION_VERIFIED",
+          "reason": "delegation reference is present"
+        }
+      },
+      {
+        "name": "delegation_verified",
+        "timestamp": "2026-09-28T04:08:23.114644Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "6044941a3bef45d8",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "delegation_id": "grant:test"
+        }
+      },
+      {
+        "name": "state_transition",
+        "timestamp": "2026-09-28T04:08:23.114648Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "47f379773c2641e9",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "from_state": "DELEGATION_VERIFIED",
+          "to_state": "CAPABILITY_RESOLVED",
+          "reason": "capability resolved from scenario"
+        }
+      },
+      {
+        "name": "capability_resolved",
+        "timestamp": "2026-09-28T04:08:23.114651Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "d7f2969cc64d479b",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "action_class": "CREATE"
+        }
+      },
+      {
+        "name": "state_transition",
+        "timestamp": "2026-09-28T04:08:23.114659Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "161cc1d4afd24704",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "from_state": "CAPABILITY_RESOLVED",
+          "to_state": "FAILED",
+          "reason": "RISK_VALUE_INVALID"
+        }
+      },
+      {
+        "name": "state_transition",
+        "timestamp": "2026-09-28T04:08:23.114664Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "ec457520cc1f4047",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "from_state": "FAILED",
+          "to_state": "RECEIPT_CREATED",
+          "reason": "simulation evidence finalized"
+        }
+      },
+      {
+        "name": "receipt_created",
+        "timestamp": "2026-09-28T04:08:23.114758Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "e7a325c0bdd04eaf",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "receipt_id": "receipt-5d8c8e4894ea474f95a6743a"
+        }
+      },
+      {
+        "name": "state_transition",
+        "timestamp": "2026-09-28T04:08:23.114765Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "9c89991e7598447b",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "from_state": "RECEIPT_CREATED",
+          "to_state": "TERMINAL",
+          "reason": "receipt created"
+        }
+      },
+      {
+        "name": "simulation_completed",
+        "timestamp": "2026-09-28T04:08:23.114768Z",
+        "trace_id": "92abff38b896469b8530fee904006b86",
+        "span_id": "637a5228a95a4d13",
+        "correlation_id": "92abff38b896469b8530fee904006b86",
+        "attributes": {
+          "scenario_id": "p2c-final-malformed-money",
+          "capability_id": "cap:synthetic-create",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "environment": "SANDBOX",
+          "status": "DENIED",
+          "run_id": "run-33332460efb040d2bc3da98f"
+        }
+      }
+    ],
+    "otel": {
+      "resourceSpans": [
+        {
+          "scopeSpans": [
+            {
+              "spans": [
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "60474db7461f43f1",
+                  "name": "simulation_started",
+                  "startTime": "2026-09-28T04:08:23.114605Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "run_id",
+                      "value": {
+                        "stringValue": "run-33332460efb040d2bc3da98f"
+                      }
+                    },
+                    {
+                      "key": "dry_run",
+                      "value": {
+                        "stringValue": "False"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "simulation_started",
+                      "time": "2026-09-28T04:08:23.114605Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "48137a5ff1004a37",
+                  "name": "state_transition",
+                  "startTime": "2026-09-28T04:08:23.114621Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "CREATED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "OWNER_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "ownership verification is valid"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T04:08:23.114621Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "bbad98f739e34901",
+                  "name": "ownership_verified",
+                  "startTime": "2026-09-28T04:08:23.114626Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "verification_id",
+                      "value": {
+                        "stringValue": "verification:test"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "ownership_verified",
+                      "time": "2026-09-28T04:08:23.114626Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "22b6665124b14e91",
+                  "name": "state_transition",
+                  "startTime": "2026-09-28T04:08:23.114634Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "OWNER_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "AGENT_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "agent identity and request integrity are valid"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T04:08:23.114634Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "eb47d9c540b94ecd",
+                  "name": "identity_verified",
+                  "startTime": "2026-09-28T04:08:23.114637Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "identity_method",
+                      "value": {
+                        "stringValue": "fixture"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "identity_verified",
+                      "time": "2026-09-28T04:08:23.114637Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "40a62e2635a84017",
+                  "name": "state_transition",
+                  "startTime": "2026-09-28T04:08:23.114641Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "AGENT_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "DELEGATION_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "delegation reference is present"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T04:08:23.114641Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "6044941a3bef45d8",
+                  "name": "delegation_verified",
+                  "startTime": "2026-09-28T04:08:23.114644Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "delegation_id",
+                      "value": {
+                        "stringValue": "grant:test"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "delegation_verified",
+                      "time": "2026-09-28T04:08:23.114644Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "47f379773c2641e9",
+                  "name": "state_transition",
+                  "startTime": "2026-09-28T04:08:23.114648Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "DELEGATION_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "CAPABILITY_RESOLVED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "capability resolved from scenario"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T04:08:23.114648Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "d7f2969cc64d479b",
+                  "name": "capability_resolved",
+                  "startTime": "2026-09-28T04:08:23.114651Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "action_class",
+                      "value": {
+                        "stringValue": "CREATE"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "capability_resolved",
+                      "time": "2026-09-28T04:08:23.114651Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "161cc1d4afd24704",
+                  "name": "state_transition",
+                  "startTime": "2026-09-28T04:08:23.114659Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "CAPABILITY_RESOLVED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "FAILED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "RISK_VALUE_INVALID"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T04:08:23.114659Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "ec457520cc1f4047",
+                  "name": "state_transition",
+                  "startTime": "2026-09-28T04:08:23.114664Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "FAILED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "RECEIPT_CREATED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "simulation evidence finalized"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T04:08:23.114664Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "e7a325c0bdd04eaf",
+                  "name": "receipt_created",
+                  "startTime": "2026-09-28T04:08:23.114758Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "receipt_id",
+                      "value": {
+                        "stringValue": "receipt-5d8c8e4894ea474f95a6743a"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "receipt_created",
+                      "time": "2026-09-28T04:08:23.114758Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "9c89991e7598447b",
+                  "name": "state_transition",
+                  "startTime": "2026-09-28T04:08:23.114765Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "RECEIPT_CREATED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "TERMINAL"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "receipt created"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T04:08:23.114765Z"
+                    }
+                  ]
+                },
+                {
+                  "traceId": "92abff38b896469b8530fee904006b86",
+                  "spanId": "637a5228a95a4d13",
+                  "name": "simulation_completed",
+                  "startTime": "2026-09-28T04:08:23.114768Z",
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-final-malformed-money"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "status",
+                      "value": {
+                        "stringValue": "DENIED"
+                      }
+                    },
+                    {
+                      "key": "run_id",
+                      "value": {
+                        "stringValue": "run-33332460efb040d2bc3da98f"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "simulation_completed",
+                      "time": "2026-09-28T04:08:23.114768Z"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "attempts": 0,
+  "idempotency_key": "p2c-final-malformed-money:c31555bf154be4e9",
+  "dry_run": false
+}

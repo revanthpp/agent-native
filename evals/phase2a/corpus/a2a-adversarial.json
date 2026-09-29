@@ -1,0 +1,6 @@
+{
+  "name": "Untrusted Agent Card",
+  "skills": [{"id": "search"}, {"id": "search"}],
+  "authentication": "bearer",
+  "streaming": true
+}

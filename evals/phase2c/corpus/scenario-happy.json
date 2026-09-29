@@ -1,0 +1,64 @@
+{
+  "scenario_id": "p2c-happy-001",
+  "name": "Controlled synthetic create",
+  "description": "A verified test principal performs one bounded reversible action in the sandbox.",
+  "business_id": "business:test",
+  "target_environment": "SANDBOX",
+  "principal": "principal:test",
+  "capability_id": "cap:synthetic-create",
+  "action_class": "CREATE",
+  "value": 10,
+  "currency": "USD",
+  "resource_reference": "resource:synthetic",
+  "confirmation_behavior": "NONE",
+  "agent_identity": {
+    "agent_id": "agent:test",
+    "provider_id": "provider:test",
+    "display_name": "Phase 2C test agent",
+    "trust_class": "CRYPTOGRAPHICALLY_VERIFIED",
+    "identity_method": "fixture"
+  },
+  "integrity": {
+    "valid": true,
+    "reason": "verified",
+    "key_id": "key:test",
+    "agent_id": "agent:test",
+    "nonce": "nonce:test"
+  },
+  "delegation": {
+    "grant_id": "grant:test",
+    "principal_reference": "principal:test",
+    "agent_id": "agent:test",
+    "provider_id": "provider:test",
+    "capability_ids": ["cap:synthetic-create"],
+    "resource_boundary": "resource:synthetic",
+    "value_limit": 50,
+    "currency": "USD",
+    "expires_at": "2099-01-01T00:00:00Z"
+  },
+  "ownership": {
+    "verification_id": "verification:test",
+    "business_id": "business:test",
+    "target": "synthetic",
+    "method": "fixture",
+    "challenge_hash": "fixture",
+    "verified_at": "2026-01-01T00:00:00Z",
+    "expires_at": "2099-01-01T00:00:00Z",
+    "environment": "SANDBOX",
+    "status": "VERIFIED"
+  },
+  "policy": {
+    "version": "1",
+    "rules": [
+      {
+        "policy_id": "policy:test-allow",
+        "trust_class": "CRYPTOGRAPHICALLY_VERIFIED",
+        "capability": "cap:synthetic-create",
+        "environment": "SANDBOX",
+        "decision": "ALLOW",
+        "owner": "phase2c-tests"
+      }
+    ]
+  },
+  "version": "1"
+}

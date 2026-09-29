@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import argparse
+import json
+import re
 import sys
+from dataclasses import fields
+from datetime import datetime
 from pathlib import Path
 
 from agentnative import __version__
@@ -10,6 +14,29 @@ from agentnative.reporting.render import render_json, render_markdown, render_te
 from agentnative.reporting.output import UnsafeReportError
 from agentnative.scanner import scan
 from agentnative.models import ExecutionStatus
+
+
+def _policy_rules(document: object):
+    from agentnative.policy import Decision, PolicyRule
+
+    raw_rules = document if isinstance(document, list) else document.get("rules") if isinstance(document, dict) else None
+    if not isinstance(raw_rules, list):
+        raise ValueError("policy document must be a list or an object with a rules list")
+    allowed = {item.name for item in fields(PolicyRule)}
+    rules = []
+    for raw in raw_rules:
+        if not isinstance(raw, dict):
+            raise ValueError("each policy rule must be an object")
+        values = {key: value for key, value in raw.items() if key in allowed}
+        if "policy_id" not in values:
+            raise ValueError("each policy rule requires policy_id")
+        if "decision" in values:
+            values["decision"] = Decision(str(values["decision"]).upper())
+        for key in ("effective_at", "expires_at"):
+            if isinstance(values.get(key), str):
+                values[key] = datetime.fromisoformat(values[key].replace("Z", "+00:00"))
+        rules.append(PolicyRule(**values))
+    return rules
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -23,6 +50,34 @@ def build_parser() -> argparse.ArgumentParser:
     scan_parser.add_argument("--markdown", action="store_true", help="emit Markdown")
     scan_parser.add_argument("--verbose", action="store_true", help="reserved for additional diagnostic output")
     scan_parser.add_argument("--output", type=Path, help="write the selected report format to a file")
+
+    for name in ("protocols", "capabilities"):
+        protocol_parser = subparsers.add_parser(name, help="analyze a local protocol artifact")
+        protocol_parser.add_argument("document")
+
+    owner_parser = subparsers.add_parser("owner", help="inspect ownership verification workflows")
+    owner_sub = owner_parser.add_subparsers(dest="owner_command")
+    owner_sub.add_parser("status", help="show the status of a verification record")
+    verify_parser = owner_sub.add_parser("verify", help="describe a verification target")
+    verify_parser.add_argument("target")
+    policy_parser = subparsers.add_parser("policy", help="evaluate deterministic participation policies")
+    policy_sub = policy_parser.add_subparsers(dest="policy_command")
+    lint_parser = policy_sub.add_parser("lint", help="lint a policy file")
+    lint_parser.add_argument("policy_file")
+
+    simulate_parser = subparsers.add_parser("simulate", help="run a controlled Phase 2C scenario")
+    simulate_parser.add_argument("target", help="synthetic target label, or 'status'")
+    simulate_parser.add_argument("run_id", nargs="?", help="run identifier for status lookup")
+    simulate_parser.add_argument("--scenario", type=Path, help="scenario JSON file")
+    simulate_parser.add_argument("--dry-run", action="store_true", help="evaluate controls without state-changing execution")
+    simulate_parser.add_argument("--output", type=Path, help="write the sanitized simulation result")
+    simulate_parser.add_argument("--receipt-output", type=Path, help="write the generated receipt")
+    simulate_parser.add_argument("--trace-output", type=Path, help="write the structured trace")
+
+    receipts_parser = subparsers.add_parser("receipts", help="verify simulation receipts")
+    receipts_sub = receipts_parser.add_subparsers(dest="receipts_command", required=True)
+    verify_receipt = receipts_sub.add_parser("verify", help="verify receipt integrity")
+    verify_receipt.add_argument("receipt", type=Path)
 
     subparsers.add_parser("checks", help="list the deterministic check catalog")
     check_parser = subparsers.add_parser("check", help="show one check definition")
@@ -51,6 +106,86 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Description: {check.description}")
         print(f"Remediation: {check.remediation}")
         return 0
+    if args.command in {"protocols", "capabilities"}:
+        from agentnative.protocols import OpenAPIAdapter
+        try:
+            document = Path(args.document).read_text(encoding="utf-8")
+            result = OpenAPIAdapter().parse(document, args.document)
+        except (OSError, ValueError) as exc:
+            print(f"Could not analyze protocol artifact: {exc}", file=sys.stderr)
+            return 5
+        payload = {
+            "protocol_family": result.protocol_family,
+            "protocol_version": result.protocol_version,
+            "status": result.status,
+            "capabilities": [{"name": item.name, "action_class": item.action_class.value, "side_effect": item.side_effect.value} for item in result.capabilities],
+            "limitations": [item.__dict__ for item in result.limitations],
+            "errors": result.errors,
+            "error_details": [item.__dict__ for item in result.error_details],
+        }
+        print(json.dumps(payload, indent=2))
+        return 0 if result.ok else 5
+    if args.command == "owner":
+        if args.owner_command == "verify":
+            print(f"Ownership verification workflow configured for {args.target}; no active request was made.")
+        else:
+            print("No verification record supplied.")
+        return 0
+    if args.command == "policy":
+        if args.policy_command == "lint":
+            try:
+                from agentnative.policy import PolicyLinter
+                rules = _policy_rules(json.loads(Path(args.policy_file).read_text(encoding="utf-8")))
+                findings = PolicyLinter().lint(rules)
+            except (OSError, json.JSONDecodeError, TypeError, ValueError) as exc:
+                print(f"Policy file is not valid for v2 semantic linting: {exc}", file=sys.stderr)
+                return 5
+            print(json.dumps({"rule_count": len(rules), "findings": findings}, indent=2))
+            return 1 if findings else 0
+        return 0
+    if args.command == "receipts":
+        from agentnative.receipts import ReceiptEngine
+
+        verification = ReceiptEngine().verify_file(args.receipt)
+        print(json.dumps({"status": verification.status, "reason": verification.reason, "receipt_id": verification.receipt_id}, indent=2))
+        return {"VALID": 0, "INVALID": 1, "UNSUPPORTED": 2}.get(verification.status, 2)
+    if args.command == "simulate":
+        from agentnative.simulator import Scenario, Simulator
+        from agentnative.receipts import ReceiptEngine
+
+        run_directory = Path(".agentnative-runs")
+        if args.target == "status":
+            if not args.run_id or not re.fullmatch(r"run-[a-f0-9]{24}", args.run_id):
+                print("Simulation run ID is invalid.", file=sys.stderr)
+                return 2
+            try:
+                payload = json.loads((run_directory / f"{args.run_id}.json").read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                print("Simulation run was not found.", file=sys.stderr)
+                return 2
+            print(json.dumps(payload, indent=2))
+            return 0
+        if args.scenario is None:
+            print("--scenario is required for a simulation run.", file=sys.stderr)
+            return 2
+        try:
+            raw_scenario = json.loads(args.scenario.read_text(encoding="utf-8"))
+            scenario = Scenario.from_dict(raw_scenario)
+            result = Simulator().run(scenario, dry_run=args.dry_run)
+            payload = result.to_dict()
+            run_directory.mkdir(parents=True, exist_ok=True)
+            (run_directory / f"{result.run_id}.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+            if args.output:
+                args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+            if args.receipt_output and result.receipt:
+                ReceiptEngine.write(result.receipt, args.receipt_output)
+            if args.trace_output:
+                args.trace_output.write_text(json.dumps(result.trace, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        except (OSError, json.JSONDecodeError, TypeError, ValueError) as exc:
+            print(f"Simulation scenario is not valid: {exc}", file=sys.stderr)
+            return 5
+        print(json.dumps(payload, indent=2))
+        return 0 if result.status.value in {"DRY_RUN", "WOULD_ALLOW", "EXECUTED", "COMPENSATED"} else 3
     report = scan(args.target)
     try:
         if args.json or (args.output and args.output.suffix.lower() == ".json"):

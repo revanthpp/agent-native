@@ -1,0 +1,9 @@
+{
+  "evals": [
+    {"eval_id":"P2A-CONTRACT-001","requirement":"V2-PROT-001..004","protocol":"SDK","fixture":"tests/protocols/test_adapter_contract.py","expected":"all contract methods callable and extension registerable","release_blocking":true,"rationale":"prevents hardcoded adapter architecture"},
+    {"eval_id":"P2A-REF-001","requirement":"V2-OAS-003","protocol":"OPENAPI","fixture":"tests/protocols/test_openapi_refs.py","expected":"same-origin remote ref resolves; unsafe redirect is blocked","release_blocking":true,"rationale":"prevents SSRF and missing required capability"},
+    {"eval_id":"P2A-CORPUS-001","requirement":"V2-OAS-001..005","protocol":"OPENAPI","fixture":"evals/phase2a/corpus/","expected":"valid, invalid, ambiguous, and unsafe-reference surfaces remain explicit","release_blocking":true,"rationale":"prevents evidence drift toward only happy-path fixtures"},
+    {"eval_id":"P2A-MCP-001","requirement":"V2-MCP-002..004","protocol":"MCP","fixture":"evals/phase2a/corpus/mcp-deceptive.json","expected":"inventory, duplicate IDs, instruction-like text, and structural contradiction are explicit","release_blocking":true,"rationale":"metadata cannot downgrade risk"},
+    {"eval_id":"P2A-A2A-001","requirement":"V2-A2A-001..006","protocol":"A2A","fixture":"evals/phase2a/corpus/a2a-adversarial.json","expected":"card/skill/auth defects are explicit and trust remains separate","release_blocking":true,"rationale":"compatibility is not trust"}
+  ]
+}

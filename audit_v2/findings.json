@@ -1,0 +1,26 @@
+{
+  "audit_date": "2026-09-27",
+  "branch": "develop/v2",
+  "overall_verdict": "PHASE_2A_CONDITIONALLY_READY__PHASE_2B_CONDITIONALLY_READY",
+  "blocking_findings": [
+    {
+      "id": "V2-AUDIT-001",
+      "severity": "MEDIUM",
+      "phase": "2A",
+      "title": "Direct OpenAPI adapter calls leak YAML ConstructorError for malicious YAML tags",
+      "file": "src/agentnative/protocols/openapi/parser.py",
+      "evidence": "OpenAPIAdapter.detect() and OpenAPIAdapter.parse() raised yaml.constructor.ConstructorError for \"!!python/object/apply:os.system ['echo nope']\". AdapterRegistry catches it as ADAPTER_FAILURE, but the direct adapter API is not fail-closed.",
+      "status": "OPEN"
+    }
+  ],
+  "positive_evidence": [
+    "Editable clean install succeeded after network approval.",
+    "pip check reported no broken requirements.",
+    "pytest reported 77 passed, 144 subtests passed.",
+    "unittest discovery reported 77 tests OK.",
+    "Mutation script reported 17/17 caught against production seams.",
+    "Wheel built and installed into second clean environment from local wheelhouse.",
+    "CLI smoke for agentnative, scan, protocols, capabilities, owner, and policy passed.",
+    "Wheel contains no v2core or agentnative_v2 package entries."
+  ]
+}

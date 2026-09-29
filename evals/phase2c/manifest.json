@@ -1,0 +1,35 @@
+{
+  "phase": "2C",
+  "scenarios": [
+    {
+      "eval_id": "P2C-HAPPY-001",
+      "fixture": "corpus/scenario-happy.json",
+      "expected": "EXECUTED with a verifiable receipt and correlated trace",
+      "release_blocking": true
+    },
+    {
+      "eval_id": "P2C-ADVERSARIAL-001",
+      "fixture": "tests/simulator/test_phase2c.py",
+      "expected": "all mandatory transaction and simulator controls fail closed",
+      "release_blocking": true
+    },
+    {
+      "eval_id": "P2C-P1-RISK-001",
+      "fixture": "tests/transactions/test_safety.py",
+      "expected": "malformed, negative, non-finite, missing, mismatched, and over-ceiling money is denied",
+      "release_blocking": true
+    },
+    {
+      "eval_id": "P2C-P1-IDEMPOTENCY-001",
+      "fixture": "tests/simulator/test_phase2c.py",
+      "expected": "eight concurrent same-key requests produce one logical side effect and consistent results",
+      "release_blocking": true
+    },
+    {
+      "eval_id": "P2C-P1-DRYRUN-001",
+      "fixture": "tests/simulator/test_phase2c.py",
+      "expected": "dry-run skips active adapter operations and fails closed on a mutating plan",
+      "release_blocking": true
+    }
+  ]
+}

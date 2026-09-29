@@ -1,0 +1,32 @@
+{
+  "audit_date": "2026-09-27",
+  "overall_verdict": {
+    "phase_2a": "PHASE_2A_READY",
+    "phase_2b": "PHASE_2B_READY",
+    "phase_2c": "PHASE_2C_NOT_STARTED"
+  },
+  "prior_findings": [
+    {
+      "id": "V2-AUDIT-001",
+      "status": "CLOSED",
+      "title": "Direct OpenAPI adapter calls leaked PyYAML ConstructorError for hostile YAML tags",
+      "evidence": "Fresh hostile YAML fixtures for python/object/apply, python/object/new, python/name, custom tags, and malformed YAML returned structured INVALID AdapterResult from direct OpenAPIAdapter paths and AdapterRegistry. No ConstructorError escaped."
+    }
+  ],
+  "new_findings": [
+    {
+      "finding_id": "V2-FINAL-LOW-001",
+      "severity": "LOW",
+      "title": "MCP malformed top-level auth field is silently ignored",
+      "phase": "2A",
+      "component": "src/agentnative/protocols/mcp/adapter.py",
+      "reproduction": "MCPAdapter().parse({\"tools\": [{\"name\": \"x\"}], \"auth\": \"bad\"})",
+      "expected": "A deterministic limitation or structured target-input warning for malformed auth declaration.",
+      "actual": "Result status VALID with no limitation or error; malformed auth is ignored.",
+      "evidence": "audit_v2/rerun_01/tools/final_reaudit_checks.py:mcp_a2a_malformed_inputs_structured",
+      "release_gate_impact": "Non-blocking LOW. No exception leak and no unsafe execution; conformance visibility should improve before broader MCP auth claims.",
+      "recommended_remediation": "Emit MCP_INVALID_AUTH when auth/authorization/authentication is present but not an object."
+    }
+  ],
+  "release_blockers": []
+}

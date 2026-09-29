@@ -1,0 +1,7 @@
+{
+  "rule_count": 1,
+  "findings": [
+    "POL-LINT-001:missing_default",
+    "POL-LINT-005:wildcard_privilege:allow"
+  ]
+}

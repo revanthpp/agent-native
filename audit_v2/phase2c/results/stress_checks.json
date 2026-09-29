@@ -1,0 +1,285 @@
+{
+  "checks": [
+    {
+      "actual": "EXECUTED",
+      "currency": "USD",
+      "expected": "EXECUTED",
+      "findings": [],
+      "name": "risk_below_limit",
+      "passed": true,
+      "value_repr": "99.99"
+    },
+    {
+      "actual": "EXECUTED",
+      "currency": "USD",
+      "expected": "EXECUTED",
+      "findings": [],
+      "name": "risk_at_limit",
+      "passed": true,
+      "value_repr": "100.0"
+    },
+    {
+      "actual": "DENIED",
+      "currency": "USD",
+      "expected": "DENIED",
+      "findings": [
+        "RISK_CEILING_EXCEEDED"
+      ],
+      "name": "risk_above_limit",
+      "passed": true,
+      "value_repr": "100.01"
+    },
+    {
+      "actual": "DENIED",
+      "currency": "USD",
+      "expected": "DENIED",
+      "findings": [
+        "POLICY_DENIED"
+      ],
+      "name": "risk_missing_value",
+      "passed": true,
+      "value_repr": "None"
+    },
+    {
+      "actual": "EXECUTED",
+      "currency": "USD",
+      "expected": "DENIED",
+      "findings": [],
+      "name": "risk_nan_value",
+      "passed": false,
+      "value_repr": "nan"
+    },
+    {
+      "actual": "EXECUTED",
+      "currency": "USD",
+      "expected": "DENIED",
+      "findings": [],
+      "name": "risk_negative_value",
+      "passed": false,
+      "value_repr": "-1.0"
+    },
+    {
+      "actual": "EXECUTED",
+      "currency": "EUR",
+      "expected": "DENIED",
+      "findings": [],
+      "name": "risk_wrong_currency",
+      "passed": false,
+      "value_repr": "10.0"
+    },
+    {
+      "actual": "EXECUTED",
+      "currency": null,
+      "expected": "DENIED",
+      "findings": [],
+      "name": "risk_missing_currency",
+      "passed": false,
+      "value_repr": "10.0"
+    },
+    {
+      "actual_snapshot": [
+        "3",
+        "61eccab2b8c2bfa877611369b59bfb7233be9c0ddff73c5b1d2d9fddcd755023"
+      ],
+      "dry_run": true,
+      "expected_snapshot": [
+        "1",
+        "7cd72f96edd465782734ea9aa507f64c9a95e274fa5cb48b6c08f8e4e4ec112c"
+      ],
+      "name": "dry_run_preview_prepare_side_effect_trap",
+      "passed": false,
+      "status": "WOULD_ALLOW"
+    },
+    {
+      "commit_count": 8,
+      "name": "concurrent_same_key_single_side_effect",
+      "passed": false,
+      "resource_version": 9,
+      "statuses": [
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED"
+      ]
+    },
+    {
+      "actual": "AWAITING_CONFIRMATION",
+      "name": "confirmation_required_blocks_commit",
+      "passed": true
+    },
+    {
+      "actual": "FAILED",
+      "findings": [
+        "CONFIRMATION_CONTEXT_MISMATCH"
+      ],
+      "name": "confirmation_wrong_principal_rejected",
+      "passed": true
+    },
+    {
+      "actual": "EXECUTED",
+      "name": "confirmation_valid_executes",
+      "passed": true
+    },
+    {
+      "actual": "FAILED",
+      "findings": [
+        "CONFIRMATION_REPLAY"
+      ],
+      "name": "confirmation_replay_rejected",
+      "passed": true
+    },
+    {
+      "actual": "FAILED",
+      "findings": [
+        "CONFIRMATION_OR_QUOTE_EXPIRED"
+      ],
+      "name": "confirmation_expired_rejected",
+      "passed": true
+    },
+    {
+      "actual": "FAILED",
+      "findings": [
+        "TOCTOU_RESOURCE_CHANGED"
+      ],
+      "name": "stale_quote_detected",
+      "passed": true
+    },
+    {
+      "actual": "PARTIAL",
+      "findings": [],
+      "name": "partial_outcome_not_success",
+      "passed": true
+    },
+    {
+      "actual": "COMPENSATED",
+      "findings": [],
+      "name": "compensation_success_reported",
+      "passed": true
+    },
+    {
+      "actual": "DENIED",
+      "findings": [
+        "POLICY_CHANGED_BEFORE_COMMIT"
+      ],
+      "name": "policy_change_between_preview_commit_denied",
+      "passed": true
+    },
+    {
+      "name": "trace_redacts_secrets",
+      "passed": true,
+      "trace_repr": "{'trace_id': '6247f5f7612c413bbdf86e561d8115fe', 'correlation_id': 'correlation:secret', 'events': [{'name': 'secret_probe', 'timestamp': '2026-09-28T03:25:17.584155Z', 'trace_id': '6247f5f7612c413bbdf86e561d8115fe', 'span_id': '6df4200ac6c24b64', 'correlation_id': 'correlation:secret', 'attributes': {'authorization': 'Bearer [REDACTED]', 'nested': {'api_key': '[REDACTED]'}}}], 'otel': {'resourceSpans': [{'scopeSpans': [{'spans': [{'traceId': '6247f5f7612c413bbdf86e561d8115fe', 'spanId': '6df4200ac6c24b64', 'name': 'secret_probe', 'startTime': '2026-09-28T03:25:17.584155Z', 'attributes': [{'key': 'authorization', 'value': {'stringValue': 'Bearer [REDACTED]'}}, {'key': 'nested', 'value': {'stringValue': \"{'api_key': '[REDACTED]'}\"}}], 'events': [{'name': 'secret_probe', 'time': '2026-09-28T03:25:17.584155Z'}]}]}]}]}}"
+    },
+    {
+      "name": "receipt_redacts_and_verifies",
+      "passed": true,
+      "receipt": {
+        "agent_id": "agent:stress",
+        "business_id": "business:stress",
+        "capability_id": "cap:stress",
+        "confirmation_reference": null,
+        "correlation_id": "correlation",
+        "currency": "USD",
+        "decision": "ALLOW",
+        "delegation_reference": "grant:stress",
+        "environment": "SANDBOX",
+        "evidence_refs": [
+          "policy_decided"
+        ],
+        "integrity": "sha256:6f513eb46b9dd023c18cfbe4b65745074b4adfc3c3f7e3d339c68dc3ce771f54",
+        "policy_id": "policy",
+        "policy_version": "1",
+        "principal_reference": "token=[REDACTED] [REDACTED]",
+        "provider_id": "provider:stress",
+        "quote_reference": "quote",
+        "receipt_id": "receipt-95ea704c427f4e54af56134c",
+        "request_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "resource_reference": "resource:synthetic",
+        "result": "EXECUTED",
+        "side_effect": "REVERSIBLE",
+        "timestamp": "2026-09-28T03:25:17.584193Z",
+        "trace_id": "trace",
+        "value": 10
+      }
+    },
+    {
+      "name": "receipt_tamper_detected",
+      "passed": true,
+      "verification": "INVALID"
+    }
+  ],
+  "failed": [
+    {
+      "actual": "EXECUTED",
+      "currency": "USD",
+      "expected": "DENIED",
+      "findings": [],
+      "name": "risk_nan_value",
+      "passed": false,
+      "value_repr": "nan"
+    },
+    {
+      "actual": "EXECUTED",
+      "currency": "USD",
+      "expected": "DENIED",
+      "findings": [],
+      "name": "risk_negative_value",
+      "passed": false,
+      "value_repr": "-1.0"
+    },
+    {
+      "actual": "EXECUTED",
+      "currency": "EUR",
+      "expected": "DENIED",
+      "findings": [],
+      "name": "risk_wrong_currency",
+      "passed": false,
+      "value_repr": "10.0"
+    },
+    {
+      "actual": "EXECUTED",
+      "currency": null,
+      "expected": "DENIED",
+      "findings": [],
+      "name": "risk_missing_currency",
+      "passed": false,
+      "value_repr": "10.0"
+    },
+    {
+      "actual_snapshot": [
+        "3",
+        "61eccab2b8c2bfa877611369b59bfb7233be9c0ddff73c5b1d2d9fddcd755023"
+      ],
+      "dry_run": true,
+      "expected_snapshot": [
+        "1",
+        "7cd72f96edd465782734ea9aa507f64c9a95e274fa5cb48b6c08f8e4e4ec112c"
+      ],
+      "name": "dry_run_preview_prepare_side_effect_trap",
+      "passed": false,
+      "status": "WOULD_ALLOW"
+    },
+    {
+      "commit_count": 8,
+      "name": "concurrent_same_key_single_side_effect",
+      "passed": false,
+      "resource_version": 9,
+      "statuses": [
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED",
+        "EXECUTED"
+      ]
+    }
+  ],
+  "generated_at": "2026-09-28T03:25:17.584323Z",
+  "passed": 16,
+  "total": 22
+}

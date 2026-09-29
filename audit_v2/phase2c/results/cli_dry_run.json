@@ -1,0 +1,1391 @@
+{
+  "attempts": 0,
+  "confirmation_id": null,
+  "decision": "ALLOW",
+  "dry_run": true,
+  "findings": [],
+  "idempotency_key": "p2c-happy-001:8e52b4f0a1ea758e",
+  "limitations": [],
+  "message": "policy and transaction controls would allow execution",
+  "quote": {
+    "business_id": "business:test",
+    "capability_id": "cap:synthetic-create",
+    "created_at": "2026-09-28T03:27:28.449198+00:00",
+    "currency": "USD",
+    "environment": "SANDBOX",
+    "evidence_refs": [
+      "scenario:p2c-happy-001"
+    ],
+    "expires_at": "2026-09-28T03:32:28.449198+00:00",
+    "principal_reference": "principal:test",
+    "quote_id": "quote-1b20c145dcb80a2687da8c16",
+    "resource_reference": "resource:synthetic",
+    "value": 10.0,
+    "version": "1"
+  },
+  "receipt": {
+    "agent_id": "agent:test",
+    "business_id": "business:test",
+    "capability_id": "cap:synthetic-create",
+    "confirmation_reference": null,
+    "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+    "currency": "USD",
+    "decision": "ALLOW",
+    "delegation_reference": "grant:test",
+    "environment": "SANDBOX",
+    "evidence_refs": [
+      "simulation_started",
+      "state_transition",
+      "ownership_verified",
+      "state_transition",
+      "identity_verified",
+      "state_transition",
+      "delegation_verified",
+      "state_transition",
+      "capability_resolved",
+      "policy_decided",
+      "state_transition",
+      "preview_created",
+      "state_transition",
+      "state_transition"
+    ],
+    "integrity": "sha256:dd650fb301404c93a762d05e19aad59560ecfbb4a7c8a7ee4263ca47041b11ea",
+    "policy_id": "policy:test-allow",
+    "policy_version": "1",
+    "principal_reference": "principal:test",
+    "provider_id": "provider:test",
+    "quote_reference": "quote-1b20c145dcb80a2687da8c16",
+    "receipt_id": "receipt-6e08371f0900455da41b36e0",
+    "request_hash": "8e52b4f0a1ea758e098ce2c2d4880afeec99b8a0787ee0c19ade0ab3ff1e2cac",
+    "resource_reference": "resource:synthetic",
+    "result": "DRY_RUN",
+    "side_effect": "NONE",
+    "timestamp": "2026-09-28T03:27:28.449267Z",
+    "trace_id": "23dd96fe3fdc4864b79dde73bf203228",
+    "value": 10.0
+  },
+  "run_id": "run-0ec62a1babde4ffba758d2d0",
+  "scenario_id": "p2c-happy-001",
+  "state": "TERMINAL",
+  "status": "WOULD_ALLOW",
+  "trace": {
+    "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+    "events": [
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "dry_run": true,
+          "environment": "SANDBOX",
+          "run_id": "run-0ec62a1babde4ffba758d2d0",
+          "scenario_id": "p2c-happy-001"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "simulation_started",
+        "span_id": "207faaf5f54f4718",
+        "timestamp": "2026-09-28T03:27:28.449035Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "from_state": "CREATED",
+          "reason": "ownership verification is valid",
+          "scenario_id": "p2c-happy-001",
+          "to_state": "OWNER_VERIFIED"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "state_transition",
+        "span_id": "d4e9038c30b14b8d",
+        "timestamp": "2026-09-28T03:27:28.449067Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "scenario_id": "p2c-happy-001",
+          "verification_id": "verification:test"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "ownership_verified",
+        "span_id": "81193b21771749a2",
+        "timestamp": "2026-09-28T03:27:28.449077Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "from_state": "OWNER_VERIFIED",
+          "reason": "agent identity and request integrity are valid",
+          "scenario_id": "p2c-happy-001",
+          "to_state": "AGENT_VERIFIED"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "state_transition",
+        "span_id": "d665cf6e29d54b8a",
+        "timestamp": "2026-09-28T03:27:28.449091Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "identity_method": "fixture",
+          "scenario_id": "p2c-happy-001"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "identity_verified",
+        "span_id": "26a6745b4e184e22",
+        "timestamp": "2026-09-28T03:27:28.449097Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "from_state": "AGENT_VERIFIED",
+          "reason": "delegation reference is present",
+          "scenario_id": "p2c-happy-001",
+          "to_state": "DELEGATION_VERIFIED"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "state_transition",
+        "span_id": "8adabab0fa114db1",
+        "timestamp": "2026-09-28T03:27:28.449105Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "delegation_id": "grant:test",
+          "environment": "SANDBOX",
+          "scenario_id": "p2c-happy-001"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "delegation_verified",
+        "span_id": "7a1a6065bcae471c",
+        "timestamp": "2026-09-28T03:27:28.449110Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "from_state": "DELEGATION_VERIFIED",
+          "reason": "capability resolved from scenario",
+          "scenario_id": "p2c-happy-001",
+          "to_state": "CAPABILITY_RESOLVED"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "state_transition",
+        "span_id": "34b2e943c38f42d0",
+        "timestamp": "2026-09-28T03:27:28.449118Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "action_class": "CREATE",
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "scenario_id": "p2c-happy-001"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "capability_resolved",
+        "span_id": "4acfd03b776d45c9",
+        "timestamp": "2026-09-28T03:27:28.449123Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "decision": "ALLOW",
+          "environment": "SANDBOX",
+          "policy_version": "1",
+          "reason": "",
+          "scenario_id": "p2c-happy-001"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "policy_decided",
+        "span_id": "34699158d92d4063",
+        "timestamp": "2026-09-28T03:27:28.449159Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "from_state": "CAPABILITY_RESOLVED",
+          "reason": "",
+          "scenario_id": "p2c-happy-001",
+          "to_state": "POLICY_EVALUATED"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "state_transition",
+        "span_id": "31501174a5fd459e",
+        "timestamp": "2026-09-28T03:27:28.449169Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "quote_id": "quote-1b20c145dcb80a2687da8c16",
+          "quote_version": "1",
+          "scenario_id": "p2c-happy-001"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "preview_created",
+        "span_id": "639751d75bd04d32",
+        "timestamp": "2026-09-28T03:27:28.449223Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "from_state": "POLICY_EVALUATED",
+          "reason": "preview and quote created",
+          "scenario_id": "p2c-happy-001",
+          "to_state": "PREVIEWED"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "state_transition",
+        "span_id": "111c950f3eb14cdb",
+        "timestamp": "2026-09-28T03:27:28.449233Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "from_state": "PREVIEWED",
+          "reason": "simulation evidence finalized",
+          "scenario_id": "p2c-happy-001",
+          "to_state": "RECEIPT_CREATED"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "state_transition",
+        "span_id": "a93ff7b688f64b97",
+        "timestamp": "2026-09-28T03:27:28.449242Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "receipt_id": "receipt-6e08371f0900455da41b36e0",
+          "scenario_id": "p2c-happy-001"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "receipt_created",
+        "span_id": "331c0758fcf749f1",
+        "timestamp": "2026-09-28T03:27:28.449417Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "from_state": "RECEIPT_CREATED",
+          "reason": "receipt created",
+          "scenario_id": "p2c-happy-001",
+          "to_state": "TERMINAL"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "state_transition",
+        "span_id": "3a76eebc416d40a8",
+        "timestamp": "2026-09-28T03:27:28.449428Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      },
+      {
+        "attributes": {
+          "agent_id": "agent:test",
+          "business_id": "business:test",
+          "capability_id": "cap:synthetic-create",
+          "environment": "SANDBOX",
+          "run_id": "run-0ec62a1babde4ffba758d2d0",
+          "scenario_id": "p2c-happy-001",
+          "status": "WOULD_ALLOW"
+        },
+        "correlation_id": "23dd96fe3fdc4864b79dde73bf203228",
+        "name": "simulation_completed",
+        "span_id": "f9ab265fd24d44ea",
+        "timestamp": "2026-09-28T03:27:28.449434Z",
+        "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+      }
+    ],
+    "otel": {
+      "resourceSpans": [
+        {
+          "scopeSpans": [
+            {
+              "spans": [
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "run_id",
+                      "value": {
+                        "stringValue": "run-0ec62a1babde4ffba758d2d0"
+                      }
+                    },
+                    {
+                      "key": "dry_run",
+                      "value": {
+                        "stringValue": "True"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "simulation_started",
+                      "time": "2026-09-28T03:27:28.449035Z"
+                    }
+                  ],
+                  "name": "simulation_started",
+                  "spanId": "207faaf5f54f4718",
+                  "startTime": "2026-09-28T03:27:28.449035Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "CREATED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "OWNER_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "ownership verification is valid"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T03:27:28.449067Z"
+                    }
+                  ],
+                  "name": "state_transition",
+                  "spanId": "d4e9038c30b14b8d",
+                  "startTime": "2026-09-28T03:27:28.449067Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "verification_id",
+                      "value": {
+                        "stringValue": "verification:test"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "ownership_verified",
+                      "time": "2026-09-28T03:27:28.449077Z"
+                    }
+                  ],
+                  "name": "ownership_verified",
+                  "spanId": "81193b21771749a2",
+                  "startTime": "2026-09-28T03:27:28.449077Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "OWNER_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "AGENT_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "agent identity and request integrity are valid"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T03:27:28.449091Z"
+                    }
+                  ],
+                  "name": "state_transition",
+                  "spanId": "d665cf6e29d54b8a",
+                  "startTime": "2026-09-28T03:27:28.449091Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "identity_method",
+                      "value": {
+                        "stringValue": "fixture"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "identity_verified",
+                      "time": "2026-09-28T03:27:28.449097Z"
+                    }
+                  ],
+                  "name": "identity_verified",
+                  "spanId": "26a6745b4e184e22",
+                  "startTime": "2026-09-28T03:27:28.449097Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "AGENT_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "DELEGATION_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "delegation reference is present"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T03:27:28.449105Z"
+                    }
+                  ],
+                  "name": "state_transition",
+                  "spanId": "8adabab0fa114db1",
+                  "startTime": "2026-09-28T03:27:28.449105Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "delegation_id",
+                      "value": {
+                        "stringValue": "grant:test"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "delegation_verified",
+                      "time": "2026-09-28T03:27:28.449110Z"
+                    }
+                  ],
+                  "name": "delegation_verified",
+                  "spanId": "7a1a6065bcae471c",
+                  "startTime": "2026-09-28T03:27:28.449110Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "DELEGATION_VERIFIED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "CAPABILITY_RESOLVED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "capability resolved from scenario"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T03:27:28.449118Z"
+                    }
+                  ],
+                  "name": "state_transition",
+                  "spanId": "34b2e943c38f42d0",
+                  "startTime": "2026-09-28T03:27:28.449118Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "action_class",
+                      "value": {
+                        "stringValue": "CREATE"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "capability_resolved",
+                      "time": "2026-09-28T03:27:28.449123Z"
+                    }
+                  ],
+                  "name": "capability_resolved",
+                  "spanId": "4acfd03b776d45c9",
+                  "startTime": "2026-09-28T03:27:28.449123Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "decision",
+                      "value": {
+                        "stringValue": "ALLOW"
+                      }
+                    },
+                    {
+                      "key": "policy_version",
+                      "value": {
+                        "stringValue": "1"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": ""
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "policy_decided",
+                      "time": "2026-09-28T03:27:28.449159Z"
+                    }
+                  ],
+                  "name": "policy_decided",
+                  "spanId": "34699158d92d4063",
+                  "startTime": "2026-09-28T03:27:28.449159Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "CAPABILITY_RESOLVED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "POLICY_EVALUATED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": ""
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T03:27:28.449169Z"
+                    }
+                  ],
+                  "name": "state_transition",
+                  "spanId": "31501174a5fd459e",
+                  "startTime": "2026-09-28T03:27:28.449169Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "quote_id",
+                      "value": {
+                        "stringValue": "quote-1b20c145dcb80a2687da8c16"
+                      }
+                    },
+                    {
+                      "key": "quote_version",
+                      "value": {
+                        "stringValue": "1"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "preview_created",
+                      "time": "2026-09-28T03:27:28.449223Z"
+                    }
+                  ],
+                  "name": "preview_created",
+                  "spanId": "639751d75bd04d32",
+                  "startTime": "2026-09-28T03:27:28.449223Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "POLICY_EVALUATED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "PREVIEWED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "preview and quote created"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T03:27:28.449233Z"
+                    }
+                  ],
+                  "name": "state_transition",
+                  "spanId": "111c950f3eb14cdb",
+                  "startTime": "2026-09-28T03:27:28.449233Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "PREVIEWED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "RECEIPT_CREATED"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "simulation evidence finalized"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T03:27:28.449242Z"
+                    }
+                  ],
+                  "name": "state_transition",
+                  "spanId": "a93ff7b688f64b97",
+                  "startTime": "2026-09-28T03:27:28.449242Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "receipt_id",
+                      "value": {
+                        "stringValue": "receipt-6e08371f0900455da41b36e0"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "receipt_created",
+                      "time": "2026-09-28T03:27:28.449417Z"
+                    }
+                  ],
+                  "name": "receipt_created",
+                  "spanId": "331c0758fcf749f1",
+                  "startTime": "2026-09-28T03:27:28.449417Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "from_state",
+                      "value": {
+                        "stringValue": "RECEIPT_CREATED"
+                      }
+                    },
+                    {
+                      "key": "to_state",
+                      "value": {
+                        "stringValue": "TERMINAL"
+                      }
+                    },
+                    {
+                      "key": "reason",
+                      "value": {
+                        "stringValue": "receipt created"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "state_transition",
+                      "time": "2026-09-28T03:27:28.449428Z"
+                    }
+                  ],
+                  "name": "state_transition",
+                  "spanId": "3a76eebc416d40a8",
+                  "startTime": "2026-09-28T03:27:28.449428Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                },
+                {
+                  "attributes": [
+                    {
+                      "key": "scenario_id",
+                      "value": {
+                        "stringValue": "p2c-happy-001"
+                      }
+                    },
+                    {
+                      "key": "capability_id",
+                      "value": {
+                        "stringValue": "cap:synthetic-create"
+                      }
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": {
+                        "stringValue": "agent:test"
+                      }
+                    },
+                    {
+                      "key": "business_id",
+                      "value": {
+                        "stringValue": "business:test"
+                      }
+                    },
+                    {
+                      "key": "environment",
+                      "value": {
+                        "stringValue": "SANDBOX"
+                      }
+                    },
+                    {
+                      "key": "status",
+                      "value": {
+                        "stringValue": "WOULD_ALLOW"
+                      }
+                    },
+                    {
+                      "key": "run_id",
+                      "value": {
+                        "stringValue": "run-0ec62a1babde4ffba758d2d0"
+                      }
+                    }
+                  ],
+                  "events": [
+                    {
+                      "name": "simulation_completed",
+                      "time": "2026-09-28T03:27:28.449434Z"
+                    }
+                  ],
+                  "name": "simulation_completed",
+                  "spanId": "f9ab265fd24d44ea",
+                  "startTime": "2026-09-28T03:27:28.449434Z",
+                  "traceId": "23dd96fe3fdc4864b79dde73bf203228"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "trace_id": "23dd96fe3fdc4864b79dde73bf203228"
+  },
+  "transitions": [
+    {
+      "from": "CREATED",
+      "reason": "ownership verification is valid",
+      "timestamp": "2026-09-28T03:27:28.449060Z",
+      "to": "OWNER_VERIFIED"
+    },
+    {
+      "from": "OWNER_VERIFIED",
+      "reason": "agent identity and request integrity are valid",
+      "timestamp": "2026-09-28T03:27:28.449086Z",
+      "to": "AGENT_VERIFIED"
+    },
+    {
+      "from": "AGENT_VERIFIED",
+      "reason": "delegation reference is present",
+      "timestamp": "2026-09-28T03:27:28.449102Z",
+      "to": "DELEGATION_VERIFIED"
+    },
+    {
+      "from": "DELEGATION_VERIFIED",
+      "reason": "capability resolved from scenario",
+      "timestamp": "2026-09-28T03:27:28.449115Z",
+      "to": "CAPABILITY_RESOLVED"
+    },
+    {
+      "from": "CAPABILITY_RESOLVED",
+      "reason": "",
+      "timestamp": "2026-09-28T03:27:28.449166Z",
+      "to": "POLICY_EVALUATED"
+    },
+    {
+      "from": "POLICY_EVALUATED",
+      "reason": "preview and quote created",
+      "timestamp": "2026-09-28T03:27:28.449230Z",
+      "to": "PREVIEWED"
+    },
+    {
+      "from": "PREVIEWED",
+      "reason": "simulation evidence finalized",
+      "timestamp": "2026-09-28T03:27:28.449240Z",
+      "to": "RECEIPT_CREATED"
+    },
+    {
+      "from": "RECEIPT_CREATED",
+      "reason": "receipt created",
+      "timestamp": "2026-09-28T03:27:28.449425Z",
+      "to": "TERMINAL"
+    }
+  ]
+}

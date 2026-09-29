@@ -1,0 +1,48 @@
+[
+  {
+    "id": "P2C-001",
+    "severity": "P1_HIGH",
+    "title": "Malformed values and currency mismatches bypass sandbox risk ceilings",
+    "status": "OPEN",
+    "evidence": "audit_v2/phase2c/results/stress_checks.json: risk_nan_value, risk_negative_value, risk_wrong_currency, and risk_missing_currency all returned EXECUTED instead of DENIED.",
+    "code_refs": [
+      "src/agentnative/transactions/core.py:84",
+      "src/agentnative/transactions/core.py:89",
+      "src/agentnative/simulator/engine.py:169",
+      "src/agentnative/delegation/models.py:42"
+    ],
+    "impact": "A state-changing scenario can execute with NaN, negative, missing/wrong currency, or other malformed economic context while still receiving an ALLOW decision and receipt.",
+    "recommended_fix": "Validate finite non-negative numeric values and expected currency before risk, delegation, quote creation, and policy evaluation. Reject non-finite numbers and require currency when a ceiling or grant currency exists."
+  },
+  {
+    "id": "P2C-002",
+    "severity": "P1_HIGH",
+    "title": "Idempotency claim is non-atomic under concurrent same-key execution",
+    "status": "OPEN",
+    "evidence": "audit_v2/phase2c/results/stress_checks.json: concurrent_same_key_single_side_effect reported commit_count=8 and resource_version=9 for 8 simultaneous runs sharing one idempotency key.",
+    "code_refs": [
+      "src/agentnative/transactions/core.py:247",
+      "src/agentnative/transactions/core.py:253",
+      "src/agentnative/simulator/engine.py:212",
+      "src/agentnative/simulator/engine.py:228",
+      "src/agentnative/simulator/engine.py:240"
+    ],
+    "impact": "Two or more workers can observe no existing record, all call the execution adapter, and produce duplicate side effects before any record is stored.",
+    "recommended_fix": "Reserve the idempotency key atomically before commit, store an in-progress state under a lock or durable compare-and-set, and ensure concurrent duplicates wait/replay rather than invoking the adapter."
+  },
+  {
+    "id": "P2C-003",
+    "severity": "P1_HIGH",
+    "title": "Dry-run path can mutate adapter state during prepare or preview",
+    "status": "OPEN",
+    "evidence": "audit_v2/phase2c/results/stress_checks.json: dry_run_preview_prepare_side_effect_trap returned WOULD_ALLOW while adapter snapshot changed from version 1 to version 3.",
+    "code_refs": [
+      "src/agentnative/simulator/engine.py:184",
+      "src/agentnative/simulator/engine.py:185",
+      "src/agentnative/simulator/engine.py:186",
+      "src/agentnative/simulator/engine.py:192"
+    ],
+    "impact": "A dry-run can be reported as non-executing even though the adapter performed state changes before the dry-run branch returned.",
+    "recommended_fix": "Separate dry-run preview from mutating adapter preparation, require adapters to expose a non-mutating preview contract, and snapshot/fail if dry-run changes adapter-visible state."
+  }
+]

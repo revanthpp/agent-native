@@ -48,6 +48,7 @@ def main() -> int:
     results = [_run(root, command) for command in commands]
     completed = datetime.now(timezone.utc)
     artifact_paths = [root / "V3/PHASE_3_RC1_BUILD_REPORT.md", root / "V3/PHASE_3B_PRODUCTIZATION_BUILD_REPORT.md", root / "V3/REQUIREMENTS_TRACEABILITY.md"]
+    artifact_paths.extend(wheels)
     manifest = {
         "run_id": "phase3-rc1-builder-" + started.strftime("%Y%m%dT%H%M%SZ"),
         "repository": "github.com/revanthpp/agent-native",

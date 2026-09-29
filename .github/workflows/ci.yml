@@ -60,4 +60,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: phase3-rc1-builder-evidence
-          path: V3/evidence/phase3_rc1_builder_manifest.json
+          path: |
+            V3/evidence/phase3_rc1_builder_manifest.json
+            V3/evidence/phase3b_closure_builder_manifest.json
+            dist/*.whl

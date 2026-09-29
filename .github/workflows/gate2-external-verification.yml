@@ -39,7 +39,7 @@ jobs:
           artifact_json="$(gh api "repos/${SOURCE_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}/artifacts" --jq '.artifacts[] | select(.name == "phase3b-gate2-builder-bundle")')"
           artifact_id="$(printf '%s' "$artifact_json" | python -c 'import json, sys; print(json.load(sys.stdin)["id"])')"
           artifact_digest="$(printf '%s' "$artifact_json" | python -c 'import json, sys; print(json.load(sys.stdin)["digest"])')"
-          artifact_url="$(printf '%s' "$artifact_json" | python -c 'import json, sys; print(json.load(sys.stdin)["archive_download_url"])')"
+          artifact_url="https://github.com/${SOURCE_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}/artifacts/${artifact_id}"
           python scripts/finalize_phase3b_gate2_manifest.py \
             V3/evidence/gate2/phase3b_gate2_builder_manifest.json \
             --run-id "$SOURCE_RUN_ID" \

@@ -95,6 +95,27 @@ def build_parser() -> argparse.ArgumentParser:
     verify_guarantee.add_argument("--public-key", type=Path, required=True, help="PEM Ed25519 public key")
     verify_guarantee.add_argument("--environment", default="SANDBOX")
 
+    retail_parser = subparsers.add_parser("retail", help="run the synthetic Retail product workflow")
+    retail_sub = retail_parser.add_subparsers(dest="retail_command", required=True)
+    retail_init = retail_sub.add_parser("init", help="create a portable Retail workspace")
+    retail_init.add_argument("directory", type=Path)
+    retail_init.add_argument("--example", choices=("direct", "platform", "human", "unsafe"), default="platform")
+    for command in ("validate", "assess", "journeys", "recommend"):
+        item = retail_sub.add_parser(command)
+        item.add_argument("directory", type=Path)
+        if command == "assess":
+            item.add_argument("--json", action="store_true")
+            item.add_argument("--markdown", action="store_true")
+    retail_simulate = retail_sub.add_parser("simulate", help="run a named synthetic Retail scenario")
+    retail_simulate.add_argument("directory", type=Path)
+    retail_simulate.add_argument("--scenario", required=True)
+    retail_blueprint = retail_sub.add_parser("blueprint", help="generate a Retail Activation Blueprint")
+    retail_blueprint.add_argument("directory", type=Path)
+    retail_blueprint.add_argument("--output", type=Path, required=True)
+    retail_evidence = retail_sub.add_parser("evidence", help="generate a machine-readable evidence bundle")
+    retail_evidence.add_argument("directory", type=Path)
+    retail_evidence.add_argument("--output", type=Path, required=True)
+
     subparsers.add_parser("checks", help="list the deterministic check catalog")
     check_parser = subparsers.add_parser("check", help="show one check definition")
     check_parser.add_argument("check_id")
@@ -189,6 +210,49 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         print(json.dumps({"status": "VALID", "attestation_id": attestation.attestation_id, "subject": attestation.subject.to_dict()}, indent=2))
         return 0
+    if args.command == "retail":
+        from agentnative.retail_product import RetailProductError, assess_workspace, blueprint, blueprint_markdown, evidence_bundle, init_workspace, journey_report, simulate_workspace, validate_workspace
+        try:
+            if args.retail_command == "init":
+                path = init_workspace(args.directory, example=args.example)
+                print(json.dumps({"status": "CREATED", "directory": str(path.resolve()), "project": str(path / "project.yaml")}, indent=2))
+                return 0
+            if args.retail_command == "validate":
+                print(json.dumps(validate_workspace(args.directory), indent=2))
+                return 0
+            if args.retail_command == "journeys":
+                print(json.dumps(journey_report(args.directory), indent=2))
+                return 0
+            if args.retail_command == "assess":
+                result = assess_workspace(args.directory)
+                if args.markdown:
+                    print(blueprint_markdown(result), end="")
+                else:
+                    print(json.dumps(result, indent=2, sort_keys=True))
+                return 0
+            if args.retail_command == "recommend":
+                result = assess_workspace(args.directory)
+                print(json.dumps({"project_id": result["project_id"], "project_hash": result["project_hash"], "portfolio_summary": result["portfolio_summary"], "recommendations": [{"journey_id": item["journey"]["journey_id"], "recommended_pattern": item["recommendation"]["recommended_pattern"], "rationale": item["recommendation"]["rationale"], "gaps": item["gaps"]} for item in result["recommendations"]]}, indent=2))
+                return 0
+            if args.retail_command == "simulate":
+                print(json.dumps(simulate_workspace(args.directory, args.scenario), indent=2, sort_keys=True))
+                return 0
+            if args.retail_command == "blueprint":
+                result = blueprint(args.directory)
+                output = json.dumps(result, indent=2, sort_keys=True) + "\n" if args.output.suffix.lower() == ".json" else blueprint_markdown(result)
+                args.output.parent.mkdir(parents=True, exist_ok=True)
+                args.output.write_text(output, encoding="utf-8")
+                print(json.dumps({"status": "CREATED", "output": str(args.output.resolve()), "project_hash": result["project"]["project_hash"]}, indent=2))
+                return 0
+            if args.retail_command == "evidence":
+                result = evidence_bundle(args.directory)
+                args.output.parent.mkdir(parents=True, exist_ok=True)
+                args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+                print(json.dumps({"status": "CREATED", "output": str(args.output.resolve()), "project_hash": result["project_hash"], "blueprint_hash": result["blueprint_hash"]}, indent=2))
+                return 0
+        except (OSError, TypeError, ValueError, RetailProductError) as exc:
+            print(json.dumps({"status": "INVALID_PROJECT", "error": str(exc)}, indent=2), file=sys.stderr)
+            return 2
     if args.command == "packs":
         from agentnative.packs import load_builtin_packs
 

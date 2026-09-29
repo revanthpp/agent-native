@@ -42,6 +42,16 @@ jobs:
         run: PYTHONPATH=src python scripts/run_phase2c_mutations.py
       - name: Run Phase 3 mutation controls
         run: PYTHONPATH=src python scripts/run_phase3_mutations.py
+      - name: Run Retail productization tests
+        run: PYTHONPATH=src python -m pytest --import-mode=importlib -q tests/retail
+      - name: Smoke Retail product workflow
+        run: |
+          for project in direct-ready platform-retailer human-handoff-retailer unsafe-retailer; do
+            agentnative retail validate examples/retail/$project
+            agentnative retail recommend examples/retail/$project
+            agentnative retail blueprint examples/retail/$project --output /tmp/$project-blueprint.md
+            agentnative retail evidence examples/retail/$project --output /tmp/$project-evidence.json
+          done
       - name: Generate RC1 builder evidence manifest
         run: PYTHONPATH=src python scripts/run_phase3_rc1_evidence.py --output V3/evidence/phase3_rc1_builder_manifest.json
       - name: Upload RC1 builder evidence

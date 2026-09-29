@@ -9,6 +9,7 @@
 - Added the authoritative Phase 3 build-requirements BRD, Phase 3 builder report, traceability snapshot, architecture/threat-model ADRs, protocol drift fixture, and Retail reference journey.
 - Added fail-closed core guarantee inheritance, pack resource limits/lifecycle/dependency checks, typed evidence conflicts/staleness, `DO_NOT_ACTIVATE`, protocol drift analysis, and Phase 3 mutation controls.
 - Added the RC1 hardening slice: signed core attestations, pack signing/dependency-lock verification, SQLite restart-safe reference state, connector environment policy, synthetic merchant boundary, and separated Retail payment/return/refund state.
+- Added the Phase 3B Retail product workflow: portable workspaces, journey templates, four strategy examples, CLI assessment/recommendation/simulation/blueprint/evidence commands, reproducible synthetic hashes, and adaptive 30/60/90 roadmaps.
 
 ## 1.0.0 - 2026-09-19
 

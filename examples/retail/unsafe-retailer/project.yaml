@@ -1,0 +1,67 @@
+project_id: unsafe-retailer
+project_version: '1.0'
+business_id: merchant:unsafe
+tenant_id: tenant:unsafe
+name: Unsafe Unviable Retailer
+sector_pack: sector.retail
+pack_version: 0.1.0
+environment: SANDBOX
+business_profile:
+  business_model: DTC
+  business_size: small
+  technical_capacity: none
+  api_maturity: early
+  existing_platforms: []
+  data_sensitivity: high
+  regulatory_sensitivity: high
+  reversibility: low
+  customer_identity_requirement: required
+  payment_requirement: authorization
+  real_time_inventory_requirement: true
+  human_staff_availability: none
+  agent_channel_priority: conversion
+  expected_agent_volume: 50
+  margin_per_action: 1.0
+  protocol_platform_fee_per_action: 1.0
+  connector_cost_per_action: 1.0
+  inference_cost_per_action: 1.0
+  human_handoff_cost_per_action: 0.0
+  cost_ceiling_per_action: 2.0
+platform_inventory: []
+capability_inventory:
+  - capability_id: discover
+    state: UNKNOWN
+    source_ref: business-profile
+  - capability_id: submit_order
+    state: UNAVAILABLE
+    source_ref: business-profile
+protocol_profiles:
+  - profile_id: retail.openapi.reference
+    protocol_name: OpenAPI
+    protocol_version: 3.1.0
+    profile_version: retail-reference-1
+    source_url: local://retail-reference
+    source_hash: fixture-retail-openapi
+    compatibility_status: NOT_EVALUATED
+priority_journeys: [controlled_checkout, refund_request]
+evidence_sources:
+  - field_name: api_maturity
+    value: early
+    value_type: enum
+    source_type: business_profile
+    source_ref: profile:unsafe
+    observed_at: '2026-09-29T00:00:00Z'
+    confidence: 0.8
+    state: KNOWN_TRUE
+policy_profile:
+  risk_tolerance: low
+  require_confirmation_for: [submit_order, execute_refund]
+  human_handoff_enabled: false
+simulation_profile:
+  scenario_version: '1.0'
+  seed: 45
+  product_id: prod:unsafe
+  variant_id: variant:default
+  price: 49.99
+  currency: USD
+  inventory: 2

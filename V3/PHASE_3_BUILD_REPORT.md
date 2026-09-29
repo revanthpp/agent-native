@@ -17,7 +17,7 @@ The builder implementation now covers the first hardening slice and a gated Reta
 - Starting commit: `fb4f327`
 - Existing v2 control plane preserved.
 - Existing Phase 3A seed packs were source-only and marked design.
-- Phase 2C remains builder-remediated/pending independent re-audit; transactional Retail activation is blocked by default.
+- Phase 2C is engineering-complete for documented synthetic scope; the independent rerun remains `PHASE_2C_NOT_READY`. Production-capable transactional Retail activation is not claimed, while Phase 3 synthetic product development continues.
 
 ## Implemented in this delivery
 

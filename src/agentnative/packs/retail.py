@@ -201,7 +201,8 @@ class RetailReferenceEnvironment:
         if variant.inventory < quantity:
             raise TransactionSafetyError("INVENTORY_UNAVAILABLE", "requested quantity is not currently available")
         total = round(variant.price * quantity, 2)
-        terms = {"shipping": shipping, "shipping_cost": 0.0 if shipping == "standard" else 12.0, "tax_status": "simulated", "inventory_observed_at": _now(), "quantity": quantity}
+        observed_at = (now or datetime.now(timezone.utc)).isoformat().replace("+00:00", "Z")
+        terms = {"shipping": shipping, "shipping_cost": 0.0 if shipping == "standard" else 12.0, "tax_status": "simulated", "inventory_observed_at": observed_at, "quantity": quantity}
         quote = Quote.create(capability_id="sector.retail:submit_order", resource_reference=f"{product_id}:{variant_id}", value=total, currency=variant.currency, terms=terms, version=variant.version, principal_reference=principal_id, business_id=self.business_id, environment=self.environment, ttl=ttl, now=now, evidence_refs=(f"product:{product_id}", f"variant:{variant_id}"))
         return RetailQuote(quote, RetailJourneyState.QUOTED, product_id, variant_id, terms)
 

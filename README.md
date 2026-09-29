@@ -116,7 +116,20 @@ agentnative packs list
 agentnative packs show sector.retail
 ```
 
-The original sector-pack BRD, the authoritative Phase 3 build-requirements BRD, RC1 hardening BRD, builder reports, architecture, threat model, and challenge review live under [`V3/`](V3/). RC1 now includes subject-bound attestations, signed pack/dependency policy, SQLite restart-safe reference state, connector boundaries, and separated Retail payment/return/refund flows. The current builder status remains explicitly `PHASE_3A_NOT_READY` / `PHASE_3B_NOT_READY` until the independent Phase 2C and Phase 3 gates close.
+The original sector-pack BRD, the authoritative Phase 3 build-requirements BRD, RC1 hardening BRD, Retail productization BRD, builder reports, architecture, threat model, and challenge review live under [`V3/`](V3/). RC1 now includes subject-bound attestations, signed pack/dependency policy, SQLite restart-safe reference state, connector boundaries, and separated Retail payment/return/refund flows. Phase 3B now includes a CLI-first synthetic Retail workspace, recommendation, simulation, blueprint, evidence, and roadmap workflow. Infrastructure builder status remains explicitly `PHASE_3A_NOT_READY` / `PHASE_3B_NOT_READY`; the separate product-review candidate status is documented in `V3/PHASE_3B_PRODUCTIZATION_BUILD_REPORT.md`.
+
+### Retail product workflow
+
+```bash
+agentnative retail validate examples/retail/direct-ready
+agentnative retail assess examples/retail/direct-ready --json
+agentnative retail recommend examples/retail/direct-ready
+agentnative retail simulate examples/retail/direct-ready --scenario lost-response
+agentnative retail blueprint examples/retail/direct-ready --output blueprint.md
+agentnative retail evidence examples/retail/direct-ready --output evidence.json
+```
+
+All Retail outputs are synthetic and explicitly state that no production transaction occurred. Reference workspaces are available under [`examples/retail/`](examples/retail/).
 
 ## Quick start
 

@@ -16,6 +16,9 @@ Pack YAML
   → SQLiteStateStore (idempotency, orders, receipts, reconciliation, audit evidence)
   → ConnectorEnvironmentPolicy / SyntheticMerchantConnector
   → v2 TransactionSafetyEngine + ReceiptEngine + TraceRecorder
+  → RetailWorkspace / journey portfolio / ActivationStrategyEngine
+  → deterministic simulation presets
+  → Activation Blueprint + evidence bundle + 30/60/90 roadmap
 ```
 
 ## Boundaries
@@ -31,6 +34,7 @@ Pack YAML
 | Retail environment | retail pack | deterministic state machine delegates transaction identity and receipts to v2; payment, return, and refund use separate identities |
 | Durable reference state | RC1 reference backend | SQLite constraints and transactions preserve idempotency, order events, receipts, and reconciliation across restart |
 | Connector boundary | shared RC1 service | tenant, environment, endpoint, credential reference, capability, and side-effect mode are explicit |
+| Retail product workflow | Phase 3B product layer | portable inputs produce explainable recommendations, synthetic scenarios, public-safe blueprints, and reproducible evidence |
 
 ## Transactional activation gate
 

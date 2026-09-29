@@ -1,0 +1,1422 @@
+{
+  "assessment": {
+    "business_profile": {
+      "agent_channel_priority": "conversion",
+      "api_maturity": "mature",
+      "business_model": "DTC",
+      "business_size": "medium",
+      "connector_cost_per_action": 1.0,
+      "cost_ceiling_per_action": 5.0,
+      "customer_identity_requirement": "optional",
+      "data_sensitivity": "medium",
+      "existing_platforms": [],
+      "expected_agent_volume": 500,
+      "human_handoff_cost_per_action": 0.0,
+      "human_staff_availability": "medium",
+      "inference_cost_per_action": 0.5,
+      "margin_per_action": 18.0,
+      "payment_requirement": "authorization",
+      "protocol_platform_fee_per_action": 0.5,
+      "real_time_inventory_requirement": true,
+      "regulatory_sensitivity": "low",
+      "reversibility": "medium",
+      "technical_capacity": "high"
+    },
+    "capability_inventory": [
+      {
+        "anti_gaming_note": "declared metadata alone does not count as tested readiness",
+        "capability_id": "discover",
+        "counts_as_tested": true,
+        "source_ref": "retail-reference",
+        "state": "EXECUTABLE_IN_SIMULATION"
+      },
+      {
+        "anti_gaming_note": "declared metadata alone does not count as tested readiness",
+        "capability_id": "submit_order",
+        "counts_as_tested": true,
+        "source_ref": "retail-reference",
+        "state": "EXECUTABLE_IN_SIMULATION"
+      }
+    ],
+    "engine_version": "3b.1",
+    "generated_at": "2026-09-29T03:29:12.001794Z",
+    "pack": {
+      "content_hash": "5c090d3a0ee06ef054347a23cef9374931c2ed6c90c45c1d9cf2f13c273cb262",
+      "pack_id": "sector.retail",
+      "version": "0.1.0"
+    },
+    "platform_inventory": [],
+    "portfolio_summary": {
+      "Activate now": [
+        "product_discovery",
+        "controlled_checkout",
+        "cancellation"
+      ],
+      "Do not activate": [],
+      "Keep human handoff": [],
+      "Pilot with controls": [],
+      "Use platform-mediated path": []
+    },
+    "product": "Agent Native Retail Productization",
+    "project_hash": "f365032d55fb29a469dd0887d4b44573686e9c7b8bc31c6b466b9508125b464f",
+    "project_id": "direct-ready-retailer",
+    "protocol_readiness": [
+      {
+        "language": "profile mapped; certification not claimed",
+        "profile_id": "retail.openapi.reference",
+        "status": "FIXTURE_VALIDATED"
+      }
+    ],
+    "recommendations": [
+      {
+        "gaps": [
+          {
+            "description": "Define the first bounded journey and its deny conditions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Run the journey through synthetic simulation before production exposure.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Publish stable capability identifiers and explicit authorization semantics.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Provide idempotency, recovery, and receipt correlation for state-changing actions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Alternative participation paths remain viable and should be compared.",
+            "field": "participation_model",
+            "type": "STRATEGIC_TRADEOFF"
+          }
+        ],
+        "journey": {
+          "agent_goal": "find relevant products",
+          "business_goal": "qualified discovery",
+          "capabilities": [
+            "discover"
+          ],
+          "evaluation_scenarios": [
+            "positive",
+            "deceptive"
+          ],
+          "human_handoff": false,
+          "journey_id": "product_discovery",
+          "payment": "none",
+          "persona": "shopper",
+          "protocol_profiles": [
+            "openapi"
+          ],
+          "reversibility": "high",
+          "risk": "low"
+        },
+        "recommendation": {
+          "assumptions": [
+            "Existing platforms were reported as: none.",
+            "API maturity was self-described as mature; the engine does not independently verify it.",
+            "The recommendation is a starting hypothesis and must be validated against executable evidence."
+          ],
+          "conflicts": [],
+          "economic_implications": [
+            "Estimated variable cost per action is 2.0000.",
+            "Modeled margin per action is 18.0000.",
+            "The modeled unit economics clear the configured viability boundary; validate with observed pilot data."
+          ],
+          "engine_version": "3b.1",
+          "evidence_refs": [
+            "c444d64ecb47e7293e160372c015e4dfc059ae6972d921b383710e35ea55a98f"
+          ],
+          "first_implementation_milestone": "Expose one bounded, low-risk direct capability with policy, idempotency, trace, and receipt evidence.",
+          "generated_at": "2026-09-29T03:29:12.001640Z",
+          "integration_complexity": "HIGH",
+          "operating_model_implications": [
+            "Own ongoing protocol, policy, and incident operations.",
+            "Provide an owner for activation changes and emergency disablement."
+          ],
+          "overridden": false,
+          "override_owner": null,
+          "override_reason": null,
+          "override_timestamp": null,
+          "pack_hash": "5c090d3a0ee06ef054347a23cef9374931c2ed6c90c45c1d9cf2f13c273cb262",
+          "pack_id": "sector.retail",
+          "pack_version": "0.1.0",
+          "prerequisites": [
+            "Define the first bounded journey and its deny conditions.",
+            "Run the journey through synthetic simulation before production exposure.",
+            "Publish stable capability identifiers and explicit authorization semantics.",
+            "Provide idempotency, recovery, and receipt correlation for state-changing actions."
+          ],
+          "rationale": [
+            "The business has mature interfaces and enough technical capacity to own the agent boundary.",
+            "Direct participation maximizes control when the expected volume or strategic value justifies operating it."
+          ],
+          "recommendation_id": "b51ed2375a954615164c4e6b",
+          "recommended_pattern": "DIRECT",
+          "rejected_patterns": [
+            "PLATFORM_MEDIATED",
+            "AGGREGATOR_MARKETPLACE",
+            "DO_NOT_ACTIVATE"
+          ],
+          "residual_risks": [],
+          "security_implications": [
+            "Keep agent identity, principal authority, and business policy as separate decisions.",
+            "The business owns its public agent boundary, revocation, rate limits, and recovery behavior."
+          ],
+          "unknowns": [],
+          "viable_alternatives": [
+            "HUMAN_HANDOFF"
+          ]
+        }
+      },
+      {
+        "gaps": [
+          {
+            "description": "Define the first bounded journey and its deny conditions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Run the journey through synthetic simulation before production exposure.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Publish stable capability identifiers and explicit authorization semantics.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Provide idempotency, recovery, and receipt correlation for state-changing actions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Require explicit confirmation or stronger authority for consequential actions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Alternative participation paths remain viable and should be compared.",
+            "field": "participation_model",
+            "type": "STRATEGIC_TRADEOFF"
+          }
+        ],
+        "journey": {
+          "agent_goal": "buy a selected item",
+          "business_goal": "complete a safe sale",
+          "capabilities": [
+            "submit_order"
+          ],
+          "evaluation_scenarios": [
+            "positive",
+            "lost_response",
+            "duplicate_retry"
+          ],
+          "human_handoff": false,
+          "journey_id": "controlled_checkout",
+          "payment": "authorization",
+          "persona": "shopper",
+          "protocol_profiles": [
+            "openapi"
+          ],
+          "reversibility": "low",
+          "risk": "high"
+        },
+        "recommendation": {
+          "assumptions": [
+            "Existing platforms were reported as: none.",
+            "API maturity was self-described as mature; the engine does not independently verify it.",
+            "The recommendation is a starting hypothesis and must be validated against executable evidence."
+          ],
+          "conflicts": [],
+          "economic_implications": [
+            "Estimated variable cost per action is 2.0000.",
+            "Modeled margin per action is 18.0000.",
+            "The modeled unit economics clear the configured viability boundary; validate with observed pilot data."
+          ],
+          "engine_version": "3b.1",
+          "evidence_refs": [
+            "c444d64ecb47e7293e160372c015e4dfc059ae6972d921b383710e35ea55a98f"
+          ],
+          "first_implementation_milestone": "Expose one bounded, low-risk direct capability with policy, idempotency, trace, and receipt evidence.",
+          "generated_at": "2026-09-29T03:29:12.001714Z",
+          "integration_complexity": "HIGH",
+          "operating_model_implications": [
+            "Own ongoing protocol, policy, and incident operations.",
+            "Provide an owner for activation changes and emergency disablement."
+          ],
+          "overridden": false,
+          "override_owner": null,
+          "override_reason": null,
+          "override_timestamp": null,
+          "pack_hash": "5c090d3a0ee06ef054347a23cef9374931c2ed6c90c45c1d9cf2f13c273cb262",
+          "pack_id": "sector.retail",
+          "pack_version": "0.1.0",
+          "prerequisites": [
+            "Define the first bounded journey and its deny conditions.",
+            "Run the journey through synthetic simulation before production exposure.",
+            "Publish stable capability identifiers and explicit authorization semantics.",
+            "Provide idempotency, recovery, and receipt correlation for state-changing actions.",
+            "Require explicit confirmation or stronger authority for consequential actions."
+          ],
+          "rationale": [
+            "The business has mature interfaces and enough technical capacity to own the agent boundary.",
+            "Direct participation maximizes control when the expected volume or strategic value justifies operating it."
+          ],
+          "recommendation_id": "a870d2d8d8f3c9b1b632804d",
+          "recommended_pattern": "DIRECT",
+          "rejected_patterns": [
+            "PLATFORM_MEDIATED",
+            "AGGREGATOR_MARKETPLACE",
+            "DO_NOT_ACTIVATE"
+          ],
+          "residual_risks": [],
+          "security_implications": [
+            "Keep agent identity, principal authority, and business policy as separate decisions.",
+            "The business owns its public agent boundary, revocation, rate limits, and recovery behavior."
+          ],
+          "unknowns": [],
+          "viable_alternatives": [
+            "HUMAN_HANDOFF"
+          ]
+        }
+      },
+      {
+        "gaps": [
+          {
+            "description": "Define the first bounded journey and its deny conditions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Run the journey through synthetic simulation before production exposure.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Publish stable capability identifiers and explicit authorization semantics.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Provide idempotency, recovery, and receipt correlation for state-changing actions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Require explicit confirmation or stronger authority for consequential actions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Alternative participation paths remain viable and should be compared.",
+            "field": "participation_model",
+            "type": "STRATEGIC_TRADEOFF"
+          }
+        ],
+        "journey": {
+          "agent_goal": "cancel an eligible order",
+          "business_goal": "retain trust",
+          "capabilities": [
+            "cancel_order"
+          ],
+          "evaluation_scenarios": [
+            "positive",
+            "cancellation_race"
+          ],
+          "human_handoff": false,
+          "journey_id": "cancellation",
+          "payment": "none",
+          "persona": "customer",
+          "protocol_profiles": [
+            "openapi"
+          ],
+          "reversibility": "medium",
+          "risk": "high"
+        },
+        "recommendation": {
+          "assumptions": [
+            "Existing platforms were reported as: none.",
+            "API maturity was self-described as mature; the engine does not independently verify it.",
+            "The recommendation is a starting hypothesis and must be validated against executable evidence."
+          ],
+          "conflicts": [],
+          "economic_implications": [
+            "Estimated variable cost per action is 2.0000.",
+            "Modeled margin per action is 18.0000.",
+            "The modeled unit economics clear the configured viability boundary; validate with observed pilot data."
+          ],
+          "engine_version": "3b.1",
+          "evidence_refs": [
+            "c444d64ecb47e7293e160372c015e4dfc059ae6972d921b383710e35ea55a98f"
+          ],
+          "first_implementation_milestone": "Expose one bounded, low-risk direct capability with policy, idempotency, trace, and receipt evidence.",
+          "generated_at": "2026-09-29T03:29:12.001770Z",
+          "integration_complexity": "HIGH",
+          "operating_model_implications": [
+            "Own ongoing protocol, policy, and incident operations.",
+            "Provide an owner for activation changes and emergency disablement."
+          ],
+          "overridden": false,
+          "override_owner": null,
+          "override_reason": null,
+          "override_timestamp": null,
+          "pack_hash": "5c090d3a0ee06ef054347a23cef9374931c2ed6c90c45c1d9cf2f13c273cb262",
+          "pack_id": "sector.retail",
+          "pack_version": "0.1.0",
+          "prerequisites": [
+            "Define the first bounded journey and its deny conditions.",
+            "Run the journey through synthetic simulation before production exposure.",
+            "Publish stable capability identifiers and explicit authorization semantics.",
+            "Provide idempotency, recovery, and receipt correlation for state-changing actions.",
+            "Require explicit confirmation or stronger authority for consequential actions."
+          ],
+          "rationale": [
+            "The business has mature interfaces and enough technical capacity to own the agent boundary.",
+            "Direct participation maximizes control when the expected volume or strategic value justifies operating it."
+          ],
+          "recommendation_id": "a4e4c27d8391c4b7de96f9e5",
+          "recommended_pattern": "DIRECT",
+          "rejected_patterns": [
+            "PLATFORM_MEDIATED",
+            "AGGREGATOR_MARKETPLACE",
+            "DO_NOT_ACTIVATE"
+          ],
+          "residual_risks": [],
+          "security_implications": [
+            "Keep agent identity, principal authority, and business policy as separate decisions.",
+            "The business owns its public agent boundary, revocation, rate limits, and recovery behavior."
+          ],
+          "unknowns": [],
+          "viable_alternatives": [
+            "HUMAN_HANDOFF"
+          ]
+        }
+      }
+    ],
+    "synthetic_boundary": "SYNTHETIC SIMULATION \u2014 NO PRODUCTION TRANSACTION OCCURRED"
+  },
+  "blueprint": {
+    "activation_recommendations": [
+      {
+        "gaps": [
+          {
+            "description": "Define the first bounded journey and its deny conditions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Run the journey through synthetic simulation before production exposure.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Publish stable capability identifiers and explicit authorization semantics.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Provide idempotency, recovery, and receipt correlation for state-changing actions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Alternative participation paths remain viable and should be compared.",
+            "field": "participation_model",
+            "type": "STRATEGIC_TRADEOFF"
+          }
+        ],
+        "journey": {
+          "agent_goal": "find relevant products",
+          "business_goal": "qualified discovery",
+          "capabilities": [
+            "discover"
+          ],
+          "evaluation_scenarios": [
+            "positive",
+            "deceptive"
+          ],
+          "human_handoff": false,
+          "journey_id": "product_discovery",
+          "payment": "none",
+          "persona": "shopper",
+          "protocol_profiles": [
+            "openapi"
+          ],
+          "reversibility": "high",
+          "risk": "low"
+        },
+        "recommendation": {
+          "assumptions": [
+            "Existing platforms were reported as: none.",
+            "API maturity was self-described as mature; the engine does not independently verify it.",
+            "The recommendation is a starting hypothesis and must be validated against executable evidence."
+          ],
+          "conflicts": [],
+          "economic_implications": [
+            "Estimated variable cost per action is 2.0000.",
+            "Modeled margin per action is 18.0000.",
+            "The modeled unit economics clear the configured viability boundary; validate with observed pilot data."
+          ],
+          "engine_version": "3b.1",
+          "evidence_refs": [
+            "c444d64ecb47e7293e160372c015e4dfc059ae6972d921b383710e35ea55a98f"
+          ],
+          "first_implementation_milestone": "Expose one bounded, low-risk direct capability with policy, idempotency, trace, and receipt evidence.",
+          "generated_at": "2026-09-29T03:29:11.908690Z",
+          "integration_complexity": "HIGH",
+          "operating_model_implications": [
+            "Own ongoing protocol, policy, and incident operations.",
+            "Provide an owner for activation changes and emergency disablement."
+          ],
+          "overridden": false,
+          "override_owner": null,
+          "override_reason": null,
+          "override_timestamp": null,
+          "pack_hash": "5c090d3a0ee06ef054347a23cef9374931c2ed6c90c45c1d9cf2f13c273cb262",
+          "pack_id": "sector.retail",
+          "pack_version": "0.1.0",
+          "prerequisites": [
+            "Define the first bounded journey and its deny conditions.",
+            "Run the journey through synthetic simulation before production exposure.",
+            "Publish stable capability identifiers and explicit authorization semantics.",
+            "Provide idempotency, recovery, and receipt correlation for state-changing actions."
+          ],
+          "rationale": [
+            "The business has mature interfaces and enough technical capacity to own the agent boundary.",
+            "Direct participation maximizes control when the expected volume or strategic value justifies operating it."
+          ],
+          "recommendation_id": "b51ed2375a954615164c4e6b",
+          "recommended_pattern": "DIRECT",
+          "rejected_patterns": [
+            "PLATFORM_MEDIATED",
+            "AGGREGATOR_MARKETPLACE",
+            "DO_NOT_ACTIVATE"
+          ],
+          "residual_risks": [],
+          "security_implications": [
+            "Keep agent identity, principal authority, and business policy as separate decisions.",
+            "The business owns its public agent boundary, revocation, rate limits, and recovery behavior."
+          ],
+          "unknowns": [],
+          "viable_alternatives": [
+            "HUMAN_HANDOFF"
+          ]
+        }
+      },
+      {
+        "gaps": [
+          {
+            "description": "Define the first bounded journey and its deny conditions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Run the journey through synthetic simulation before production exposure.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Publish stable capability identifiers and explicit authorization semantics.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Provide idempotency, recovery, and receipt correlation for state-changing actions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Require explicit confirmation or stronger authority for consequential actions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Alternative participation paths remain viable and should be compared.",
+            "field": "participation_model",
+            "type": "STRATEGIC_TRADEOFF"
+          }
+        ],
+        "journey": {
+          "agent_goal": "buy a selected item",
+          "business_goal": "complete a safe sale",
+          "capabilities": [
+            "submit_order"
+          ],
+          "evaluation_scenarios": [
+            "positive",
+            "lost_response",
+            "duplicate_retry"
+          ],
+          "human_handoff": false,
+          "journey_id": "controlled_checkout",
+          "payment": "authorization",
+          "persona": "shopper",
+          "protocol_profiles": [
+            "openapi"
+          ],
+          "reversibility": "low",
+          "risk": "high"
+        },
+        "recommendation": {
+          "assumptions": [
+            "Existing platforms were reported as: none.",
+            "API maturity was self-described as mature; the engine does not independently verify it.",
+            "The recommendation is a starting hypothesis and must be validated against executable evidence."
+          ],
+          "conflicts": [],
+          "economic_implications": [
+            "Estimated variable cost per action is 2.0000.",
+            "Modeled margin per action is 18.0000.",
+            "The modeled unit economics clear the configured viability boundary; validate with observed pilot data."
+          ],
+          "engine_version": "3b.1",
+          "evidence_refs": [
+            "c444d64ecb47e7293e160372c015e4dfc059ae6972d921b383710e35ea55a98f"
+          ],
+          "first_implementation_milestone": "Expose one bounded, low-risk direct capability with policy, idempotency, trace, and receipt evidence.",
+          "generated_at": "2026-09-29T03:29:11.908787Z",
+          "integration_complexity": "HIGH",
+          "operating_model_implications": [
+            "Own ongoing protocol, policy, and incident operations.",
+            "Provide an owner for activation changes and emergency disablement."
+          ],
+          "overridden": false,
+          "override_owner": null,
+          "override_reason": null,
+          "override_timestamp": null,
+          "pack_hash": "5c090d3a0ee06ef054347a23cef9374931c2ed6c90c45c1d9cf2f13c273cb262",
+          "pack_id": "sector.retail",
+          "pack_version": "0.1.0",
+          "prerequisites": [
+            "Define the first bounded journey and its deny conditions.",
+            "Run the journey through synthetic simulation before production exposure.",
+            "Publish stable capability identifiers and explicit authorization semantics.",
+            "Provide idempotency, recovery, and receipt correlation for state-changing actions.",
+            "Require explicit confirmation or stronger authority for consequential actions."
+          ],
+          "rationale": [
+            "The business has mature interfaces and enough technical capacity to own the agent boundary.",
+            "Direct participation maximizes control when the expected volume or strategic value justifies operating it."
+          ],
+          "recommendation_id": "a870d2d8d8f3c9b1b632804d",
+          "recommended_pattern": "DIRECT",
+          "rejected_patterns": [
+            "PLATFORM_MEDIATED",
+            "AGGREGATOR_MARKETPLACE",
+            "DO_NOT_ACTIVATE"
+          ],
+          "residual_risks": [],
+          "security_implications": [
+            "Keep agent identity, principal authority, and business policy as separate decisions.",
+            "The business owns its public agent boundary, revocation, rate limits, and recovery behavior."
+          ],
+          "unknowns": [],
+          "viable_alternatives": [
+            "HUMAN_HANDOFF"
+          ]
+        }
+      },
+      {
+        "gaps": [
+          {
+            "description": "Define the first bounded journey and its deny conditions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Run the journey through synthetic simulation before production exposure.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Publish stable capability identifiers and explicit authorization semantics.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Provide idempotency, recovery, and receipt correlation for state-changing actions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Require explicit confirmation or stronger authority for consequential actions.",
+            "field": "prerequisite",
+            "type": "REMEDIABLE_CONTROL_GAP"
+          },
+          {
+            "description": "Alternative participation paths remain viable and should be compared.",
+            "field": "participation_model",
+            "type": "STRATEGIC_TRADEOFF"
+          }
+        ],
+        "journey": {
+          "agent_goal": "cancel an eligible order",
+          "business_goal": "retain trust",
+          "capabilities": [
+            "cancel_order"
+          ],
+          "evaluation_scenarios": [
+            "positive",
+            "cancellation_race"
+          ],
+          "human_handoff": false,
+          "journey_id": "cancellation",
+          "payment": "none",
+          "persona": "customer",
+          "protocol_profiles": [
+            "openapi"
+          ],
+          "reversibility": "medium",
+          "risk": "high"
+        },
+        "recommendation": {
+          "assumptions": [
+            "Existing platforms were reported as: none.",
+            "API maturity was self-described as mature; the engine does not independently verify it.",
+            "The recommendation is a starting hypothesis and must be validated against executable evidence."
+          ],
+          "conflicts": [],
+          "economic_implications": [
+            "Estimated variable cost per action is 2.0000.",
+            "Modeled margin per action is 18.0000.",
+            "The modeled unit economics clear the configured viability boundary; validate with observed pilot data."
+          ],
+          "engine_version": "3b.1",
+          "evidence_refs": [
+            "c444d64ecb47e7293e160372c015e4dfc059ae6972d921b383710e35ea55a98f"
+          ],
+          "first_implementation_milestone": "Expose one bounded, low-risk direct capability with policy, idempotency, trace, and receipt evidence.",
+          "generated_at": "2026-09-29T03:29:11.908856Z",
+          "integration_complexity": "HIGH",
+          "operating_model_implications": [
+            "Own ongoing protocol, policy, and incident operations.",
+            "Provide an owner for activation changes and emergency disablement."
+          ],
+          "overridden": false,
+          "override_owner": null,
+          "override_reason": null,
+          "override_timestamp": null,
+          "pack_hash": "5c090d3a0ee06ef054347a23cef9374931c2ed6c90c45c1d9cf2f13c273cb262",
+          "pack_id": "sector.retail",
+          "pack_version": "0.1.0",
+          "prerequisites": [
+            "Define the first bounded journey and its deny conditions.",
+            "Run the journey through synthetic simulation before production exposure.",
+            "Publish stable capability identifiers and explicit authorization semantics.",
+            "Provide idempotency, recovery, and receipt correlation for state-changing actions.",
+            "Require explicit confirmation or stronger authority for consequential actions."
+          ],
+          "rationale": [
+            "The business has mature interfaces and enough technical capacity to own the agent boundary.",
+            "Direct participation maximizes control when the expected volume or strategic value justifies operating it."
+          ],
+          "recommendation_id": "a4e4c27d8391c4b7de96f9e5",
+          "recommended_pattern": "DIRECT",
+          "rejected_patterns": [
+            "PLATFORM_MEDIATED",
+            "AGGREGATOR_MARKETPLACE",
+            "DO_NOT_ACTIVATE"
+          ],
+          "residual_risks": [],
+          "security_implications": [
+            "Keep agent identity, principal authority, and business policy as separate decisions.",
+            "The business owns its public agent boundary, revocation, rate limits, and recovery behavior."
+          ],
+          "unknowns": [],
+          "viable_alternatives": [
+            "HUMAN_HANDOFF"
+          ]
+        }
+      }
+    ],
+    "architecture_options": [
+      "DIRECT",
+      "PLATFORM_MEDIATED",
+      "AGGREGATOR_MARKETPLACE",
+      "HUMAN_HANDOFF"
+    ],
+    "assumptions_and_unknowns": [],
+    "business_context": {
+      "agent_channel_priority": "conversion",
+      "api_maturity": "mature",
+      "business_model": "DTC",
+      "business_size": "medium",
+      "connector_cost_per_action": 1.0,
+      "cost_ceiling_per_action": 5.0,
+      "customer_identity_requirement": "optional",
+      "data_sensitivity": "medium",
+      "existing_platforms": [],
+      "expected_agent_volume": 500,
+      "human_handoff_cost_per_action": 0.0,
+      "human_staff_availability": "medium",
+      "inference_cost_per_action": 0.5,
+      "margin_per_action": 18.0,
+      "payment_requirement": "authorization",
+      "protocol_platform_fee_per_action": 0.5,
+      "real_time_inventory_requirement": true,
+      "regulatory_sensitivity": "low",
+      "reversibility": "medium",
+      "technical_capacity": "high"
+    },
+    "current_readiness": {
+      "capabilities": [
+        {
+          "anti_gaming_note": "declared metadata alone does not count as tested readiness",
+          "capability_id": "discover",
+          "counts_as_tested": true,
+          "source_ref": "retail-reference",
+          "state": "EXECUTABLE_IN_SIMULATION"
+        },
+        {
+          "anti_gaming_note": "declared metadata alone does not count as tested readiness",
+          "capability_id": "submit_order",
+          "counts_as_tested": true,
+          "source_ref": "retail-reference",
+          "state": "EXECUTABLE_IN_SIMULATION"
+        }
+      ],
+      "platforms": []
+    },
+    "evidence_index": [
+      "c444d64ecb47e7293e160372c015e4dfc059ae6972d921b383710e35ea55a98f"
+    ],
+    "executive_summary": {
+      "Activate now": [
+        "product_discovery",
+        "controlled_checkout",
+        "cancellation"
+      ],
+      "Do not activate": [],
+      "Keep human handoff": [],
+      "Pilot with controls": [],
+      "Use platform-mediated path": []
+    },
+    "operating_model": {
+      "human_control": "bounded confirmation and handoff",
+      "owner": "retailer",
+      "production_status": "not evaluated"
+    },
+    "priority_journeys": [
+      {
+        "agent_goal": "find relevant products",
+        "business_goal": "qualified discovery",
+        "capabilities": [
+          "discover"
+        ],
+        "evaluation_scenarios": [
+          "positive",
+          "deceptive"
+        ],
+        "human_handoff": false,
+        "journey_id": "product_discovery",
+        "payment": "none",
+        "persona": "shopper",
+        "protocol_profiles": [
+          "openapi"
+        ],
+        "reversibility": "high",
+        "risk": "low"
+      },
+      {
+        "agent_goal": "buy a selected item",
+        "business_goal": "complete a safe sale",
+        "capabilities": [
+          "submit_order"
+        ],
+        "evaluation_scenarios": [
+          "positive",
+          "lost_response",
+          "duplicate_retry"
+        ],
+        "human_handoff": false,
+        "journey_id": "controlled_checkout",
+        "payment": "authorization",
+        "persona": "shopper",
+        "protocol_profiles": [
+          "openapi"
+        ],
+        "reversibility": "low",
+        "risk": "high"
+      },
+      {
+        "agent_goal": "cancel an eligible order",
+        "business_goal": "retain trust",
+        "capabilities": [
+          "cancel_order"
+        ],
+        "evaluation_scenarios": [
+          "positive",
+          "cancellation_race"
+        ],
+        "human_handoff": false,
+        "journey_id": "cancellation",
+        "payment": "none",
+        "persona": "customer",
+        "protocol_profiles": [
+          "openapi"
+        ],
+        "reversibility": "medium",
+        "risk": "high"
+      }
+    ],
+    "project": {
+      "engine_version": "3b.1",
+      "pack": {
+        "content_hash": "5c090d3a0ee06ef054347a23cef9374931c2ed6c90c45c1d9cf2f13c273cb262",
+        "pack_id": "sector.retail",
+        "version": "0.1.0"
+      },
+      "project_hash": "f365032d55fb29a469dd0887d4b44573686e9c7b8bc31c6b466b9508125b464f",
+      "project_id": "direct-ready-retailer"
+    },
+    "protocol_readiness": [
+      {
+        "language": "profile mapped; certification not claimed",
+        "profile_id": "retail.openapi.reference",
+        "status": "FIXTURE_VALIDATED"
+      }
+    ],
+    "residual_risks": [],
+    "roadmap_30_60_90": {
+      "cancellation": [
+        {
+          "actions": [
+            "Close evidence gaps",
+            "Select one bounded priority journey",
+            "Confirm ownership, policy, and controlled fixtures"
+          ],
+          "window": "days_1_30"
+        },
+        {
+          "actions": [
+            "Validate the DIRECT path in sandbox",
+            "Operationalize monitoring, handoff, and reconciliation",
+            "Run acceptance tests"
+          ],
+          "window": "days_31_60"
+        },
+        {
+          "actions": [
+            "Run a bounded pilot",
+            "Measure outcomes and support burden",
+            "Decide whether to expand, mediate, or stop"
+          ],
+          "window": "days_61_90"
+        }
+      ],
+      "controlled_checkout": [
+        {
+          "actions": [
+            "Close evidence gaps",
+            "Select one bounded priority journey",
+            "Confirm ownership, policy, and controlled fixtures"
+          ],
+          "window": "days_1_30"
+        },
+        {
+          "actions": [
+            "Validate the DIRECT path in sandbox",
+            "Operationalize monitoring, handoff, and reconciliation",
+            "Run acceptance tests"
+          ],
+          "window": "days_31_60"
+        },
+        {
+          "actions": [
+            "Run a bounded pilot",
+            "Measure outcomes and support burden",
+            "Decide whether to expand, mediate, or stop"
+          ],
+          "window": "days_61_90"
+        }
+      ],
+      "product_discovery": [
+        {
+          "actions": [
+            "Close evidence gaps",
+            "Select one bounded priority journey",
+            "Confirm ownership, policy, and controlled fixtures"
+          ],
+          "window": "days_1_30"
+        },
+        {
+          "actions": [
+            "Validate the DIRECT path in sandbox",
+            "Operationalize monitoring, handoff, and reconciliation",
+            "Run acceptance tests"
+          ],
+          "window": "days_31_60"
+        },
+        {
+          "actions": [
+            "Run a bounded pilot",
+            "Measure outcomes and support burden",
+            "Decide whether to expand, mediate, or stop"
+          ],
+          "window": "days_61_90"
+        }
+      ]
+    },
+    "simulation_results": [
+      {
+        "input_hash": "a978a776c1eed793d1db7824b884adcbc2466d832fd42b9a3734e9f8cdb118dc",
+        "result": {
+          "findings": [],
+          "message": "order accepted",
+          "order": {
+            "amount": 49.99,
+            "currency": "USD",
+            "order_id": "order-1e757dfdadea7885e71ad00d",
+            "principal_id": "principal:demo",
+            "product_id": "prod:direct",
+            "quantity": 1,
+            "state": "ORDER_ACCEPTED",
+            "trace_id": "144a2300bb1248c1a9aec2a8bf3d6ea0",
+            "variant_id": "variant:default"
+          },
+          "receipt": {
+            "agent_id": "agent:demo",
+            "business_id": "merchant:direct-ready",
+            "capability_id": "sector.retail:submit_order",
+            "confirmation_reference": "confirmation-57ae138772460887db2bd679",
+            "correlation_id": "retail:sim-happy",
+            "currency": "USD",
+            "decision": "ALLOW",
+            "delegation_reference": "retail-reference-delegation",
+            "environment": "SANDBOX",
+            "evidence_refs": [
+              "order:order-1e757dfdadea7885e71ad00d",
+              "quote:quote-da093dd8a9ce4391dbb63708"
+            ],
+            "integrity": "sha256:2ec540f07648d11a43789018470522d5943722f16b306cf14525d086f553ab93",
+            "policy_id": "retail-reference-policy",
+            "policy_version": "retail-0.1",
+            "principal_reference": "principal:demo",
+            "provider_id": "provider:demo",
+            "quote_reference": "quote-da093dd8a9ce4391dbb63708",
+            "receipt_id": "receipt-ba38d3c3b0444720a149a9e1",
+            "request_hash": "6a14269445e431a5d010055d185c75c94be8a7b25a8ed50c973e9d91dc7530cf",
+            "resource_reference": "prod:direct:variant:default",
+            "result": "ORDER_ACCEPTED",
+            "side_effect": "IRREVERSIBLE",
+            "timestamp": "2026-09-29T03:29:11.911708Z",
+            "trace_id": "144a2300bb1248c1a9aec2a8bf3d6ea0",
+            "value": 49.99
+          },
+          "replayed": false,
+          "state": "ORDER_ACCEPTED",
+          "status": "ORDER_ACCEPTED",
+          "trace": {
+            "correlation_id": "retail:sim-happy",
+            "events": [
+              {
+                "attributes": {
+                  "confirmation_id": "confirmation-57ae138772460887db2bd679"
+                },
+                "correlation_id": "retail:sim-happy",
+                "name": "confirmation_received",
+                "span_id": "b587c09a230f40da",
+                "timestamp": "2026-09-29T03:29:11.911667Z",
+                "trace_id": "144a2300bb1248c1a9aec2a8bf3d6ea0"
+              },
+              {
+                "attributes": {
+                  "logical_transaction_id": "txn-ec608d4d5c09f9b464097ce4",
+                  "quote_id": "quote-da093dd8a9ce4391dbb63708"
+                },
+                "correlation_id": "retail:sim-happy",
+                "name": "checkout_submitted",
+                "span_id": "96165b0518c6404a",
+                "timestamp": "2026-09-29T03:29:11.911678Z",
+                "trace_id": "144a2300bb1248c1a9aec2a8bf3d6ea0"
+              },
+              {
+                "attributes": {
+                  "order_id": "order-1e757dfdadea7885e71ad00d"
+                },
+                "correlation_id": "retail:sim-happy",
+                "name": "order_accepted",
+                "span_id": "4b1cbf7c83ba48d9",
+                "timestamp": "2026-09-29T03:29:11.911811Z",
+                "trace_id": "144a2300bb1248c1a9aec2a8bf3d6ea0"
+              }
+            ],
+            "otel": {
+              "resourceSpans": [
+                {
+                  "scopeSpans": [
+                    {
+                      "spans": [
+                        {
+                          "attributes": [
+                            {
+                              "key": "confirmation_id",
+                              "value": {
+                                "stringValue": "confirmation-57ae138772460887db2bd679"
+                              }
+                            }
+                          ],
+                          "events": [
+                            {
+                              "name": "confirmation_received",
+                              "time": "2026-09-29T03:29:11.911667Z"
+                            }
+                          ],
+                          "name": "confirmation_received",
+                          "spanId": "b587c09a230f40da",
+                          "startTime": "2026-09-29T03:29:11.911667Z",
+                          "traceId": "144a2300bb1248c1a9aec2a8bf3d6ea0"
+                        },
+                        {
+                          "attributes": [
+                            {
+                              "key": "logical_transaction_id",
+                              "value": {
+                                "stringValue": "txn-ec608d4d5c09f9b464097ce4"
+                              }
+                            },
+                            {
+                              "key": "quote_id",
+                              "value": {
+                                "stringValue": "quote-da093dd8a9ce4391dbb63708"
+                              }
+                            }
+                          ],
+                          "events": [
+                            {
+                              "name": "checkout_submitted",
+                              "time": "2026-09-29T03:29:11.911678Z"
+                            }
+                          ],
+                          "name": "checkout_submitted",
+                          "spanId": "96165b0518c6404a",
+                          "startTime": "2026-09-29T03:29:11.911678Z",
+                          "traceId": "144a2300bb1248c1a9aec2a8bf3d6ea0"
+                        },
+                        {
+                          "attributes": [
+                            {
+                              "key": "order_id",
+                              "value": {
+                                "stringValue": "order-1e757dfdadea7885e71ad00d"
+                              }
+                            }
+                          ],
+                          "events": [
+                            {
+                              "name": "order_accepted",
+                              "time": "2026-09-29T03:29:11.911811Z"
+                            }
+                          ],
+                          "name": "order_accepted",
+                          "spanId": "4b1cbf7c83ba48d9",
+                          "startTime": "2026-09-29T03:29:11.911811Z",
+                          "traceId": "144a2300bb1248c1a9aec2a8bf3d6ea0"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "trace_id": "144a2300bb1248c1a9aec2a8bf3d6ea0"
+          }
+        },
+        "result_hash": "1b56091cb8f3efc749f50cfa2c74d468e7813232aa69c551dfafb0d010dfc363",
+        "scenario": "happy-path",
+        "scenario_version": "1.0",
+        "seed": 42,
+        "synthetic_boundary": "SYNTHETIC SIMULATION \u2014 NO PRODUCTION TRANSACTION OCCURRED"
+      },
+      {
+        "input_hash": "856f0355f9fdb0fbba56047e84f044e601afc49542d3759574e03727b74f9e5d",
+        "result": {
+          "first": {
+            "findings": [
+              "UNKNOWN_OUTCOME"
+            ],
+            "message": "downstream order succeeded but response was lost",
+            "order": {
+              "amount": 49.99,
+              "currency": "USD",
+              "order_id": "order-6058ef75c7d95e7a465be524",
+              "principal_id": "principal:demo",
+              "product_id": "prod:direct",
+              "quantity": 1,
+              "state": "UNKNOWN_OUTCOME",
+              "trace_id": "5e0776ba5da449c58ba510382de1aa5d",
+              "variant_id": "variant:default"
+            },
+            "receipt": {
+              "agent_id": "agent:demo",
+              "business_id": "merchant:direct-ready",
+              "capability_id": "sector.retail:submit_order",
+              "confirmation_reference": "confirmation-57ae138772460887db2bd679",
+              "correlation_id": "retail:sim-retry",
+              "currency": "USD",
+              "decision": "ALLOW",
+              "delegation_reference": "retail-reference-delegation",
+              "environment": "SANDBOX",
+              "evidence_refs": [
+                "order:order-6058ef75c7d95e7a465be524",
+                "quote:quote-da093dd8a9ce4391dbb63708"
+              ],
+              "integrity": "sha256:28bc3622f32710422740ec9444ee7ff1dc02958ea329d92f645af3ccb5ee8c95",
+              "policy_id": "retail-reference-policy",
+              "policy_version": "retail-0.1",
+              "principal_reference": "principal:demo",
+              "provider_id": "provider:demo",
+              "quote_reference": "quote-da093dd8a9ce4391dbb63708",
+              "receipt_id": "receipt-cae844e80cf04017889428d3",
+              "request_hash": "6a14269445e431a5d010055d185c75c94be8a7b25a8ed50c973e9d91dc7530cf",
+              "resource_reference": "prod:direct:variant:default",
+              "result": "ORDER_ACCEPTED",
+              "side_effect": "IRREVERSIBLE",
+              "timestamp": "2026-09-29T03:29:11.914862Z",
+              "trace_id": "5e0776ba5da449c58ba510382de1aa5d",
+              "value": 49.99
+            },
+            "replayed": false,
+            "state": "UNKNOWN_OUTCOME",
+            "status": "UNKNOWN_OUTCOME",
+            "trace": {
+              "correlation_id": "retail:sim-retry",
+              "events": [
+                {
+                  "attributes": {
+                    "confirmation_id": "confirmation-57ae138772460887db2bd679"
+                  },
+                  "correlation_id": "retail:sim-retry",
+                  "name": "confirmation_received",
+                  "span_id": "23003ffd27884de6",
+                  "timestamp": "2026-09-29T03:29:11.914829Z",
+                  "trace_id": "5e0776ba5da449c58ba510382de1aa5d"
+                },
+                {
+                  "attributes": {
+                    "logical_transaction_id": "txn-58667592ba89a80950c41926",
+                    "quote_id": "quote-da093dd8a9ce4391dbb63708"
+                  },
+                  "correlation_id": "retail:sim-retry",
+                  "name": "checkout_submitted",
+                  "span_id": "7eaa91744f0a4143",
+                  "timestamp": "2026-09-29T03:29:11.914836Z",
+                  "trace_id": "5e0776ba5da449c58ba510382de1aa5d"
+                },
+                {
+                  "attributes": {
+                    "order_id": "order-6058ef75c7d95e7a465be524"
+                  },
+                  "correlation_id": "retail:sim-retry",
+                  "name": "order_accepted",
+                  "span_id": "e5cf7c40dc9544f3",
+                  "timestamp": "2026-09-29T03:29:11.914956Z",
+                  "trace_id": "5e0776ba5da449c58ba510382de1aa5d"
+                },
+                {
+                  "attributes": {
+                    "order_id": "order-6058ef75c7d95e7a465be524"
+                  },
+                  "correlation_id": "retail:sim-retry",
+                  "name": "unknown_outcome",
+                  "span_id": "8275216390344425",
+                  "timestamp": "2026-09-29T03:29:11.914964Z",
+                  "trace_id": "5e0776ba5da449c58ba510382de1aa5d"
+                }
+              ],
+              "otel": {
+                "resourceSpans": [
+                  {
+                    "scopeSpans": [
+                      {
+                        "spans": [
+                          {
+                            "attributes": [
+                              {
+                                "key": "confirmation_id",
+                                "value": {
+                                  "stringValue": "confirmation-57ae138772460887db2bd679"
+                                }
+                              }
+                            ],
+                            "events": [
+                              {
+                                "name": "confirmation_received",
+                                "time": "2026-09-29T03:29:11.914829Z"
+                              }
+                            ],
+                            "name": "confirmation_received",
+                            "spanId": "23003ffd27884de6",
+                            "startTime": "2026-09-29T03:29:11.914829Z",
+                            "traceId": "5e0776ba5da449c58ba510382de1aa5d"
+                          },
+                          {
+                            "attributes": [
+                              {
+                                "key": "logical_transaction_id",
+                                "value": {
+                                  "stringValue": "txn-58667592ba89a80950c41926"
+                                }
+                              },
+                              {
+                                "key": "quote_id",
+                                "value": {
+                                  "stringValue": "quote-da093dd8a9ce4391dbb63708"
+                                }
+                              }
+                            ],
+                            "events": [
+                              {
+                                "name": "checkout_submitted",
+                                "time": "2026-09-29T03:29:11.914836Z"
+                              }
+                            ],
+                            "name": "checkout_submitted",
+                            "spanId": "7eaa91744f0a4143",
+                            "startTime": "2026-09-29T03:29:11.914836Z",
+                            "traceId": "5e0776ba5da449c58ba510382de1aa5d"
+                          },
+                          {
+                            "attributes": [
+                              {
+                                "key": "order_id",
+                                "value": {
+                                  "stringValue": "order-6058ef75c7d95e7a465be524"
+                                }
+                              }
+                            ],
+                            "events": [
+                              {
+                                "name": "order_accepted",
+                                "time": "2026-09-29T03:29:11.914956Z"
+                              }
+                            ],
+                            "name": "order_accepted",
+                            "spanId": "e5cf7c40dc9544f3",
+                            "startTime": "2026-09-29T03:29:11.914956Z",
+                            "traceId": "5e0776ba5da449c58ba510382de1aa5d"
+                          },
+                          {
+                            "attributes": [
+                              {
+                                "key": "order_id",
+                                "value": {
+                                  "stringValue": "order-6058ef75c7d95e7a465be524"
+                                }
+                              }
+                            ],
+                            "events": [
+                              {
+                                "name": "unknown_outcome",
+                                "time": "2026-09-29T03:29:11.914964Z"
+                              }
+                            ],
+                            "name": "unknown_outcome",
+                            "spanId": "8275216390344425",
+                            "startTime": "2026-09-29T03:29:11.914964Z",
+                            "traceId": "5e0776ba5da449c58ba510382de1aa5d"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "trace_id": "5e0776ba5da449c58ba510382de1aa5d"
+            }
+          }
+        },
+        "result_hash": "32a1236c8fae7adf53a0b729e171f42524f3203004e219eb184fc761d147762f",
+        "scenario": "lost-response",
+        "scenario_version": "1.0",
+        "seed": 42,
+        "synthetic_boundary": "SYNTHETIC SIMULATION \u2014 NO PRODUCTION TRANSACTION OCCURRED"
+      },
+      {
+        "input_hash": "13ee7ef3b2db66d660c4edd806d1bd470ce34aa79e87b2f01ebe665ee3bcdf11",
+        "result": {
+          "findings": [
+            "UNKNOWN_AGENT_PURCHASE"
+          ],
+          "message": "unknown agent cannot purchase",
+          "replayed": false,
+          "state": "ORDER_REJECTED",
+          "status": "DENIED",
+          "trace": {
+            "correlation_id": "retail:sim-denied",
+            "events": [
+              {
+                "attributes": {
+                  "reason": "unknown_agent"
+                },
+                "correlation_id": "retail:sim-denied",
+                "name": "retail_order_denied",
+                "span_id": "f6b7eef9b09147b3",
+                "timestamp": "2026-09-29T03:29:11.917806Z",
+                "trace_id": "044dd839e004470da508437349d270c6"
+              }
+            ],
+            "otel": {
+              "resourceSpans": [
+                {
+                  "scopeSpans": [
+                    {
+                      "spans": [
+                        {
+                          "attributes": [
+                            {
+                              "key": "reason",
+                              "value": {
+                                "stringValue": "unknown_agent"
+                              }
+                            }
+                          ],
+                          "events": [
+                            {
+                              "name": "retail_order_denied",
+                              "time": "2026-09-29T03:29:11.917806Z"
+                            }
+                          ],
+                          "name": "retail_order_denied",
+                          "spanId": "f6b7eef9b09147b3",
+                          "startTime": "2026-09-29T03:29:11.917806Z",
+                          "traceId": "044dd839e004470da508437349d270c6"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "trace_id": "044dd839e004470da508437349d270c6"
+          }
+        },
+        "result_hash": "31abe80de02471970fd08cf1fc099d88408df27d4df864224df6833a307743d2",
+        "scenario": "unknown-agent",
+        "scenario_version": "1.0",
+        "seed": 42,
+        "synthetic_boundary": "SYNTHETIC SIMULATION \u2014 NO PRODUCTION TRANSACTION OCCURRED"
+      }
+    ],
+    "synthetic_boundary": "SYNTHETIC SIMULATION \u2014 NO PRODUCTION TRANSACTION OCCURRED",
+    "title": "Retail Activation Blueprint"
+  },
+  "blueprint_hash": "ebe2d9a37b104dc58b7ff4985b4e3b5ee4a7879b308a20e2728976722074f44d",
+  "bundle_version": "1.0",
+  "engine_version": "3b.1",
+  "generated_at": "2026-09-29T03:29:11.917921Z",
+  "project_hash": "f365032d55fb29a469dd0887d4b44573686e9c7b8bc31c6b466b9508125b464f",
+  "reproduction": [
+    "agentnative retail validate PROJECT",
+    "agentnative retail assess PROJECT --json",
+    "agentnative retail blueprint PROJECT --output blueprint.md"
+  ],
+  "synthetic_boundary": "SYNTHETIC SIMULATION \u2014 NO PRODUCTION TRANSACTION OCCURRED"
+}

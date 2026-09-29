@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import sys
 import tempfile
 import unittest
 from concurrent.futures import ThreadPoolExecutor
@@ -94,7 +95,7 @@ class ClosureRemediationTests(unittest.TestCase):
 
     def test_clean_cli_unknown_scenario_is_structured_and_nonzero(self) -> None:
         environment = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
-        completed = subprocess.run([str(ROOT / ".venv/bin/python"), "-m", "agentnative", "retail", "simulate", str(ROOT / "examples/retail/direct-ready"), "--scenario", "bogus"], cwd=ROOT, env=environment, capture_output=True, text=True)
+        completed = subprocess.run([sys.executable, "-m", "agentnative", "retail", "simulate", str(ROOT / "examples/retail/direct-ready"), "--scenario", "bogus"], cwd=ROOT, env=environment, capture_output=True, text=True)
         self.assertNotEqual(completed.returncode, 0)
         self.assertEqual(json.loads(completed.stderr)["error_code"], "UNKNOWN_SCENARIO")
 
